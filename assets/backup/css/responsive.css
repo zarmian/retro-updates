@@ -1,0 +1,195 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+@media screen and (max-width:480px){
+body{
+		overflow-x:hidden;
+}
+.img-responsive {
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+}
+.topWrapper .col-xs-12 {
+		margin-bottom:10px;
+}
+.orang-mudim{
+	    margin: 22px 0;
+	}
+.blue-mudim{
+	    margin: 22px 0;
+	}
+.nav>li>a{
+	    padding: 10px 8px;
+	}
+}
+@media only screen and (min-width:481px) and (max-width:767px) {
+body{
+		overflow-x:hidden;
+}
+.img-responsive {
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+}
+.topWrapper .col-xs-12 {
+		margin-bottom:10px;
+}
+.orang-mudim{
+	    margin: 22px 0;
+	}
+.blue-mudim{
+	    margin: 22px 0;
+	}
+.nav>li>a{
+	    padding: 10px 8px;
+	}
+}
+@media (min-width:768px) and (max-width:991px) {
+	body{
+			overflow-x:hidden;
+	}
+#particles {
+    width: 100%;
+    height: 100%;
+    min-height: 600px !important;
+}
+.main-banner-text {
+    text-align: center;
+    padding: 60px 0 0;
+    font-size: 55px;
+    font-weight: 300;
+	line-height:50px;
+}
+.main-banner-text span {
+    font-size: 22px;
+    font-weight: 400;
+    width: 65%;
+    display: inline-block;
+    line-height: 20px;
+    margin: 25px 0;
+    color: #000000;
+	}
+	.img-responsive {
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+}
+.navbar-default .navbar-nav>li>a {
+    font-weight: 600;
+    color: #535353;
+    font-size: 15px;
+    padding: 10px 15px;
+    line-height: 30px;
+}
+ul.nav.navbar-nav{
+		margin:10px 0;
+}
+.mybtn{
+		text-align:center;
+}
+.text {
+    text-align: center;
+    color: #535353;
+    font-size: 15px;
+    font-weight: 400;
+    margin: 30px 0 50px;
+    line-height: 22px;
+}
+.main-services ul li {
+    display: inline-block;
+    width: 33%;
+    text-align: center;
+    padding: 20px;
+    transition: all 0.5s ease;
+}
+
+section.video img {
+    min-height: auto;
+	width: 100%;
+}
+.blog .blog-icon {
+    position: absolute;
+    right: 0;
+    top: 4%;
+}
+.blog .blog-icon i {
+    font-size: 14px;
+    width: 24px;
+    height: 24px;
+    text-decoration: none;
+}
+.blog .blog-icon i.fa.fa-facebook {
+    background: #40527a;
+    color: #fff;
+    border-radius: 100%;
+    padding: 6px 8px;
+    text-decoration: none;
+}
+.blog .blog-icon i.fa.fa-twitter {
+    background: #39abdf;
+    color: #fff;
+    border-radius: 100%;
+    padding: 6px 6px;
+    text-decoration: none;
+}
+.blog .blog-icon i.fa.fa-linkedin {
+    background: #135275;
+    color: #fff;
+    border-radius: 100%;
+    padding: 5px 7px;
+    text-decoration: none;
+}
+.blog .date b {
+    font-size: 30px;
+    display: inline-block;
+    line-height: 20px;
+}
+.blog .date {
+    background: #ff5858;
+    width: 60px;
+    height: auto;
+    color: #fff;
+    padding: 5px 15px 5px 0;
+    font-size: 15px;
+    position: absolute;
+    right: 35px;
+    top: 22%;
+    text-align: right;
+}
+footer {
+    position: inherit !important;
+    top: auto;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: inherit !important;
+    z-index: -1;
+}
+.my{
+		padding-bottom:0px;
+}
+.main-ptrn {
+    background: url(../images/main-ptrn.jpg) no-repeat center 20px;
+    padding: 125px 0;
+}
+.profile {
+    width: 750px;
+    margin: 0 auto;
+}
+.profile .margin-top {
+    margin: 60px 0;
+}
+#tabs ul {
+    top: 30%;
+}
+}
+@media (min-width:992px) and (max-width:1199px) {
+body{
+			overflow-x:hidden;
+	}
+}
+@media (min-width:1200px) {
+}
+

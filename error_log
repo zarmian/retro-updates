@@ -1,0 +1,182 @@
+[04-Jan-2018 00:14:46 America/Chicago] PHP Parse error:  syntax error, unexpected '.', expecting '&' or variable (T_VARIABLE) in /home/weblook/public_html/demo/mxapp/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 444
+[04-Jan-2018 00:14:56 America/Chicago] PHP Parse error:  syntax error, unexpected '.', expecting '&' or variable (T_VARIABLE) in /home/weblook/public_html/demo/mxapp/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 444
+[04-Jan-2018 00:14:58 America/Chicago] PHP Parse error:  syntax error, unexpected '.', expecting '&' or variable (T_VARIABLE) in /home/weblook/public_html/demo/mxapp/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 444
+[06-Jan-2018 07:53:40 America/Chicago] PHP Warning:  require(/home/fit2gears/public_html/demo/vendor/composer/../symfony/polyfill-mbstring/bootstrap.php): failed to open stream: No such file or directory in /home/fit2gears/public_html/demo/vendor/composer/autoload_real.php on line 66
+[06-Jan-2018 07:53:40 America/Chicago] PHP Fatal error:  require(): Failed opening required '/home/fit2gears/public_html/demo/vendor/composer/../symfony/polyfill-mbstring/bootstrap.php' (include_path='.:/opt/php71/lib/php') in /home/fit2gears/public_html/demo/vendor/composer/autoload_real.php on line 66
+[10-Jan-2018 12:18:57 Asia/Karachi] PHP Fatal error:  Uncaught ErrorException: Undefined variable: e in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php:48
+Stack trace:
+#0 /home/fit2gears/public_html/demo/app/Exceptions/Handler.php(48): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/fit2gears...', 48, Array)
+#1 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(112): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(ErrorException))
+#2 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(89): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(ErrorException))
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(ErrorException))
+#4 {main}
+  thrown in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php on line 48
+[10-Jan-2018 12:18:57 Asia/Karachi] PHP Fatal error:  Uncaught ErrorException: Undefined variable: e in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php:48
+Stack trace:
+#0 /home/fit2gears/public_html/demo/app/Exceptions/Handler.php(48): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/fit2gears...', 48, Array)
+#1 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(112): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(Symfony\Component\Debug\Exception\FatalErrorException))
+#2 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(89): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(Symfony\Component\Debug\Exception\FatalErrorException))
+#3 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(123): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Symfony in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php on line 48
+[10-Jan-2018 12:19:38 Asia/Karachi] PHP Fatal error:  Uncaught ErrorException: Undefined variable: e in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php:48
+Stack trace:
+#0 /home/fit2gears/public_html/demo/app/Exceptions/Handler.php(48): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/fit2gears...', 48, Array)
+#1 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(112): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(ErrorException))
+#2 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(89): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(ErrorException))
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(ErrorException))
+#4 {main}
+  thrown in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php on line 48
+[10-Jan-2018 12:19:38 Asia/Karachi] PHP Fatal error:  Uncaught ErrorException: Undefined variable: e in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php:48
+Stack trace:
+#0 /home/fit2gears/public_html/demo/app/Exceptions/Handler.php(48): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/fit2gears...', 48, Array)
+#1 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(112): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(Symfony\Component\Debug\Exception\FatalErrorException))
+#2 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(89): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(Symfony\Component\Debug\Exception\FatalErrorException))
+#3 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(123): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Symfony in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php on line 48
+[10-Jan-2018 12:19:41 Asia/Karachi] PHP Fatal error:  Uncaught ErrorException: Undefined variable: e in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php:48
+Stack trace:
+#0 /home/fit2gears/public_html/demo/app/Exceptions/Handler.php(48): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/fit2gears...', 48, Array)
+#1 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(112): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(ErrorException))
+#2 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(89): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(ErrorException))
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(ErrorException))
+#4 {main}
+  thrown in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php on line 48
+[10-Jan-2018 12:19:41 Asia/Karachi] PHP Fatal error:  Uncaught ErrorException: Undefined variable: e in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php:48
+Stack trace:
+#0 /home/fit2gears/public_html/demo/app/Exceptions/Handler.php(48): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/fit2gears...', 48, Array)
+#1 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(112): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(Symfony\Component\Debug\Exception\FatalErrorException))
+#2 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(89): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(Symfony\Component\Debug\Exception\FatalErrorException))
+#3 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(123): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Symfony in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php on line 48
+[10-Jan-2018 12:20:58 Asia/Karachi] PHP Fatal error:  Uncaught ErrorException: Undefined variable: e in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php:48
+Stack trace:
+#0 /home/fit2gears/public_html/demo/app/Exceptions/Handler.php(48): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/fit2gears...', 48, Array)
+#1 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(112): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(ErrorException))
+#2 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(89): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(ErrorException))
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(ErrorException))
+#4 {main}
+  thrown in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php on line 48
+[10-Jan-2018 12:20:58 Asia/Karachi] PHP Fatal error:  Uncaught ErrorException: Undefined variable: e in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php:48
+Stack trace:
+#0 /home/fit2gears/public_html/demo/app/Exceptions/Handler.php(48): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/fit2gears...', 48, Array)
+#1 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(112): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(Symfony\Component\Debug\Exception\FatalErrorException))
+#2 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(89): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(Symfony\Component\Debug\Exception\FatalErrorException))
+#3 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(123): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Symfony in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php on line 48
+[10-Jan-2018 12:22:10 Asia/Karachi] PHP Fatal error:  Uncaught ErrorException: Undefined variable: e in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php:48
+Stack trace:
+#0 /home/fit2gears/public_html/demo/app/Exceptions/Handler.php(48): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/fit2gears...', 48, Array)
+#1 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(112): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(ErrorException))
+#2 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(89): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(ErrorException))
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(ErrorException))
+#4 {main}
+  thrown in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php on line 48
+[10-Jan-2018 12:22:10 Asia/Karachi] PHP Fatal error:  Uncaught ErrorException: Undefined variable: e in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php:48
+Stack trace:
+#0 /home/fit2gears/public_html/demo/app/Exceptions/Handler.php(48): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/fit2gears...', 48, Array)
+#1 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(112): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(Symfony\Component\Debug\Exception\FatalErrorException))
+#2 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(89): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(Symfony\Component\Debug\Exception\FatalErrorException))
+#3 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(123): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Symfony in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php on line 48
+[10-Jan-2018 12:22:12 Asia/Karachi] PHP Fatal error:  Uncaught ErrorException: Undefined variable: e in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php:48
+Stack trace:
+#0 /home/fit2gears/public_html/demo/app/Exceptions/Handler.php(48): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/fit2gears...', 48, Array)
+#1 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(112): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(ErrorException))
+#2 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(89): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(ErrorException))
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(ErrorException))
+#4 {main}
+  thrown in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php on line 48
+[10-Jan-2018 12:22:12 Asia/Karachi] PHP Fatal error:  Uncaught ErrorException: Undefined variable: e in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php:48
+Stack trace:
+#0 /home/fit2gears/public_html/demo/app/Exceptions/Handler.php(48): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/fit2gears...', 48, Array)
+#1 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(112): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(Symfony\Component\Debug\Exception\FatalErrorException))
+#2 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(89): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(Symfony\Component\Debug\Exception\FatalErrorException))
+#3 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(123): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Symfony in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php on line 48
+[10-Jan-2018 12:22:16 Asia/Karachi] PHP Fatal error:  Uncaught ErrorException: Undefined variable: e in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php:48
+Stack trace:
+#0 /home/fit2gears/public_html/demo/app/Exceptions/Handler.php(48): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/fit2gears...', 48, Array)
+#1 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(112): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(ErrorException))
+#2 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(89): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(ErrorException))
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(ErrorException))
+#4 {main}
+  thrown in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php on line 48
+[10-Jan-2018 12:22:16 Asia/Karachi] PHP Fatal error:  Uncaught ErrorException: Undefined variable: e in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php:48
+Stack trace:
+#0 /home/fit2gears/public_html/demo/app/Exceptions/Handler.php(48): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/fit2gears...', 48, Array)
+#1 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(112): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(Symfony\Component\Debug\Exception\FatalErrorException))
+#2 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(89): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(Symfony\Component\Debug\Exception\FatalErrorException))
+#3 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(123): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Symfony in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php on line 48
+[10-Jan-2018 12:22:25 Asia/Karachi] PHP Fatal error:  Uncaught ErrorException: Undefined variable: e in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php:48
+Stack trace:
+#0 /home/fit2gears/public_html/demo/app/Exceptions/Handler.php(48): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/fit2gears...', 48, Array)
+#1 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(112): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(ErrorException))
+#2 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(89): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(ErrorException))
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(ErrorException))
+#4 {main}
+  thrown in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php on line 48
+[10-Jan-2018 12:22:25 Asia/Karachi] PHP Fatal error:  Uncaught ErrorException: Undefined variable: e in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php:48
+Stack trace:
+#0 /home/fit2gears/public_html/demo/app/Exceptions/Handler.php(48): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/fit2gears...', 48, Array)
+#1 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(112): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(Symfony\Component\Debug\Exception\FatalErrorException))
+#2 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(89): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(Symfony\Component\Debug\Exception\FatalErrorException))
+#3 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(123): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Symfony in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php on line 48
+[10-Jan-2018 12:22:27 Asia/Karachi] PHP Fatal error:  Uncaught ErrorException: Undefined variable: e in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php:48
+Stack trace:
+#0 /home/fit2gears/public_html/demo/app/Exceptions/Handler.php(48): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/fit2gears...', 48, Array)
+#1 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(112): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(ErrorException))
+#2 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(89): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(ErrorException))
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(ErrorException))
+#4 {main}
+  thrown in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php on line 48
+[10-Jan-2018 12:22:27 Asia/Karachi] PHP Fatal error:  Uncaught ErrorException: Undefined variable: e in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php:48
+Stack trace:
+#0 /home/fit2gears/public_html/demo/app/Exceptions/Handler.php(48): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/fit2gears...', 48, Array)
+#1 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(112): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(Symfony\Component\Debug\Exception\FatalErrorException))
+#2 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(89): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(Symfony\Component\Debug\Exception\FatalErrorException))
+#3 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(123): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Symfony in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php on line 48
+[10-Jan-2018 12:23:54 Asia/Karachi] PHP Fatal error:  Uncaught ErrorException: Undefined variable: e in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php:48
+Stack trace:
+#0 /home/fit2gears/public_html/demo/app/Exceptions/Handler.php(48): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/fit2gears...', 48, Array)
+#1 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(112): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(ErrorException))
+#2 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(89): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(ErrorException))
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(ErrorException))
+#4 {main}
+  thrown in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php on line 48
+[10-Jan-2018 12:23:54 Asia/Karachi] PHP Fatal error:  Uncaught ErrorException: Undefined variable: e in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php:48
+Stack trace:
+#0 /home/fit2gears/public_html/demo/app/Exceptions/Handler.php(48): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/fit2gears...', 48, Array)
+#1 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(112): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(Symfony\Component\Debug\Exception\FatalErrorException))
+#2 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(89): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(Symfony\Component\Debug\Exception\FatalErrorException))
+#3 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(123): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Symfony in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php on line 48
+[10-Jan-2018 12:32:24 Asia/Karachi] PHP Fatal error:  Uncaught ErrorException: Undefined variable: e in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php:48
+Stack trace:
+#0 /home/fit2gears/public_html/demo/app/Exceptions/Handler.php(48): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/fit2gears...', 48, Array)
+#1 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(112): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(ErrorException))
+#2 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(89): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(ErrorException))
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(ErrorException))
+#4 {main}
+  thrown in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php on line 48
+[10-Jan-2018 12:32:24 Asia/Karachi] PHP Fatal error:  Uncaught ErrorException: Undefined variable: e in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php:48
+Stack trace:
+#0 /home/fit2gears/public_html/demo/app/Exceptions/Handler.php(48): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/fit2gears...', 48, Array)
+#1 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(112): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(Symfony\Component\Debug\Exception\FatalErrorException))
+#2 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(89): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(Symfony\Component\Debug\Exception\FatalErrorException))
+#3 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(123): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Symfony in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php on line 48
+[10-Jan-2018 12:33:22 Asia/Karachi] PHP Fatal error:  Uncaught ErrorException: Undefined variable: e in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php:48
+Stack trace:
+#0 /home/fit2gears/public_html/demo/app/Exceptions/Handler.php(48): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/fit2gears...', 48, Array)
+#1 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(112): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(ErrorException))
+#2 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(89): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(ErrorException))
+#3 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(ErrorException))
+#4 {main}
+  thrown in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php on line 48
+[10-Jan-2018 12:33:22 Asia/Karachi] PHP Fatal error:  Uncaught ErrorException: Undefined variable: e in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php:48
+Stack trace:
+#0 /home/fit2gears/public_html/demo/app/Exceptions/Handler.php(48): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/fit2gears...', 48, Array)
+#1 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(112): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(Symfony\Component\Debug\Exception\FatalErrorException))
+#2 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(89): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(Symfony\Component\Debug\Exception\FatalErrorException))
+#3 /home/fit2gears/public_html/demo/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(123): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Symfony in /home/fit2gears/public_html/demo/app/Exceptions/Handler.php on line 48
+[23-Jan-2018 21:50:03 Asia/Karachi] PHP Warning:  Unterminated comment starting line 466 in /home/weblook/public_html/demo/maxer/app/Http/Controllers/Accounts/AccountsController.php on line 466
+[18-Apr-2019 12:19:15 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Admin\EmployeesLeavesRequest' not found in /home1/max501/public_html/demo/app/Http/Controllers/Admin/EmployeesSalaryController.php on line 554
+[18-Apr-2019 12:19:27 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Admin\EmployeesLeavesRequest' not found in /home1/max501/public_html/demo/app/Http/Controllers/Admin/EmployeesSalaryController.php on line 554
+[18-Apr-2019 13:18:45 UTC] PHP Parse error:  syntax error, unexpected ')' in /home1/max501/public_html/demo/app/Http/Controllers/Admin/EmployeesSalaryController.php on line 465
+[18-Apr-2019 13:20:16 UTC] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR) in /home1/max501/public_html/demo/app/Http/Controllers/Admin/EmployeesSalaryController.php on line 485
+[18-Apr-2019 13:20:22 UTC] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR) in /home1/max501/public_html/demo/app/Http/Controllers/Admin/EmployeesSalaryController.php on line 485
+[18-Apr-2019 13:23:41 UTC] PHP Parse error:  syntax error, unexpected ')' in /home1/max501/public_html/demo/app/Http/Controllers/Admin/EmployeesSalaryController.php on line 503
+[18-Apr-2019 13:23:43 UTC] PHP Parse error:  syntax error, unexpected ')' in /home1/max501/public_html/demo/app/Http/Controllers/Admin/EmployeesSalaryController.php on line 503
+[25-Apr-2019 09:57:08 UTC] PHP Fatal error:  Class 'App\Http\Controllers\Admin\Users' not found in /home1/max501/public_html/demo/app/Http/Controllers/Admin/UserController.php on line 293

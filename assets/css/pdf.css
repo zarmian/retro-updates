@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+
+  .setting-detail p{
+    font-family: "Times New Roman", Times, serif;
+  }
+
+table.td-dark-gray{
+  background: #efefef !important;
+  border-color:#FFF !important; 
+  
+
+}
+
+table.td-light-gray{
+  background: #f5f5f5 !important;
+  border-color:#FFF !important;
+}
+
+.text-center{
+  text-align: center;
+  font-weight: normal;
+}
+
+.color-red{
+  color:red;
+}
+
+.setting-detail{
+  line-height: 50px;
+}
+
+.invoice-top-space{
+  margin-top: 50px;
+  display: block;
+}

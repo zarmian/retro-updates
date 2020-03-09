@@ -1,0 +1,445 @@
+To: johnjohn@gmail.co
+Subject: Leave Approval Status
+Message-ID: <2a75e4ee672628c9db19af00b30fdcc1@swift.generated>
+Date: Mon, 12 Feb 2018 13:43:20 +0000
+From: Sales <sales@fit2gears.com>
+MIME-Version: 1.0
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html>
+<html lang=3D"en">
+<head>
+=09<meta charset=3D"UTF-8">
+=09<title></title>
+</head>
+<body>
+=09<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF-8"=
+>
+<meta name=3D"viewport" content=3D"width=3Ddevice-width; initial-scale=3D1.=
+0; maximum-scale=3D1.0;">
+<title>Notification Maxer Erp</title>
+
+<style type=3D"text/css">
+
+div, p, a, li, td { -webkit-text-size-adjust:none; }
+
+*{
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+
+..ReadMsgBody
+{width: 100%; background-color: #ffffff;}
+..ExternalClass
+{width: 100%; background-color: #ffffff;}
+body{width: 100%; height: 100%; background-color: #ffffff; margin:0; paddin=
+g:0; -webkit-font-smoothing: antialiased;}
+html{width: 100%; background-color: #ffffff;}
+
+@font-face {font-family: 'proxima_novalight';src: url('http://rocketway.net=
+/themebuilder/products/font/proximanova-light-webfont.eot');src: url('http:=
+//rocketway.net/themebuilder/products/font/proximanova-light-webfont.eot?#i=
+efix') format('embedded-opentype'),url('http://rocketway.net/themebuilder/p=
+roducts/font/proximanova-light-webfont.woff') format('woff'),url('http://ro=
+cketway.net/themebuilder/products/font/proximanova-light-webfont.ttf') form=
+at('truetype');font-weight: normal;font-style: normal;}
+
+@font-face {font-family: 'proxima_nova_rgregular'; src: url('http://rocketw=
+ay.net/themebuilder/products/font/proximanova-regular-webfont.eot');src: ur=
+l('http://rocketway.net/themebuilder/products/font/proximanova-regular-webf=
+ont.eot?#iefix') format('embedded-opentype'),url('http://rocketway.net/them=
+ebuilder/products/font/proximanova-regular-webfont.woff') format('woff'),ur=
+l('http://rocketway.net/themebuilder/products/font/proximanova-regular-webf=
+ont.ttf') format('truetype');font-weight: normal;font-style: normal;}
+
+@font-face {font-family: 'proxima_novasemibold';src: url('http://rocketway.=
+net/themebuilder/products/font/proximanova-semibold-webfont.eot');src: url(=
+'http://rocketway.net/themebuilder/products/font/proximanova-semibold-webfo=
+nt.eot?#iefix') format('embedded-opentype'),url('http://rocketway.net/theme=
+builder/products/font/proximanova-semibold-webfont.woff') format('woff'),ur=
+l('http://rocketway.net/themebuilder/products/font/proximanova-semibold-web=
+font.ttf') format('truetype');font-weight: normal;font-style: normal;}
+   =20
+@font-face {font-family: 'proxima_nova_rgbold';src: url('http://rocketway.n=
+et/themebuilder/products/font/proximanova-bold-webfont.eot');src: url('http=
+://rocketway.net/themebuilder/products/font/proximanova-bold-webfont.eot?#i=
+efix') format('embedded-opentype'),url('http://rocketway.net/themebuilder/p=
+roducts/font/proximanova-bold-webfont.woff') format('woff'),url('http://roc=
+ketway.net/themebuilder/products/font/proximanova-bold-webfont.ttf') format=
+('truetype');font-weight: normal;font-style: normal;}
+=09
+@font-face {font-family: 'proxima_novathin';src: url('http://rocketway.net/=
+themebuilder/products/font/proximanova-thin-webfont.eot');src: url('http://=
+rocketway.net/themebuilder/products/font/proximanova-thin-webfont.eot?#iefi=
+x') format('embedded-opentype'),url('http://rocketway.net/themebuilder/prod=
+ucts/font/proximanova-thin-webfont.woff') format('woff'),url('http://rocket=
+way.net/themebuilder/products/font/proximanova-thin-webfont.ttf') format('t=
+ruetype');font-weight: normal;font-style: normal;}
+  =20
+@font-face {font-family: 'proxima_novaextrabold';src: url('http://rocketway=
+..net/themebuilder/products/font/proximanova-extrabold-webfont.eot');src: ur=
+l('http://rocketway.net/themebuilder/products/font/proximanova-extrabold-we=
+bfont.eot?#iefix') format('embedded-opentype'),url('http://rocketway.net/th=
+emebuilder/products/font/proximanova-extrabold-webfont.woff2') format('woff=
+2'),url('http://rocketway.net/themebuilder/products/font/proximanova-extrab=
+old-webfont.woff') format('woff'),url('http://rocketway.net/themebuilder/pr=
+oducts/font/proximanova-extrabold-webfont.ttf') format('truetype');font-wei=
+ght: normal;font-style: normal;} =20
+
+
+p {padding: 0!important; margin-top: 0!important; margin-right: 0!important=
+; margin-bottom: 0!important; margin-left: 0!important; }
+
+..hover:hover {opacity:0.85;filter:alpha(opacity=3D85);}
+
+..image73 img {width: 73px; height: auto;}
+..image42 img {width: 42px; height: auto;}
+..image400 img {width: 400px; height: auto;}
+..icon49 img {width: 49px; height: auto;}
+..image113 img {width: 113px; height: auto;}
+..image70 img {width: 70px; height: auto;}
+..image67 img {width: 67px; height: auto;}
+..image80 img {width: 80px; height: auto;}
+..image35 img {width: 35px; height: auto;}
+..icon49 img {width: 49px; height: auto;}
+
+</style>
+
+
+
+<style type=3D"text/css">=20
+@media only screen and (max-width: 479px){
+=09=09body{width:auto!important;}
+=09=09table[class=3Dfull] {width: 100%!important; clear: both; }
+=09=09table[class=3Dmobile] {width: 100%!important; padding-left: 30px; pad=
+ding-right: 30px; clear: both; }
+=09=09table[class=3DfullCenter] {width: 100%!important; text-align: center!=
+important; clear: both; }
+=09=09td[class=3DfullCenter] {width: 100%!important; text-align: center!imp=
+ortant; clear: both; }
+=09=09*[class=3Derase] {display: none;}
+=09=09*[class=3DbuttonScale] {float: none!important; text-align: center!imp=
+ortant; display: inline-block!important; clear: both;}
+=09=09.image400 img {width: 100%!important; height: auto;}
+=09=09}
+} .style1 {color: #FFFFFF}
+..style2 {
+=09color: #FFFFFF;
+=09font-style: italic;
+=09font-size: 12px;
+=09font-family: Arial, Helvetica, sans-serif;
+}
+..style3 {font-family: Arial, Helvetica, sans-serif}
+</style>=20
+
+
+
+
+
+<div class=3D"ui-sortable" id=3D"sort_them">=20
+<!-- Notification 1  -->
+<div style=3D"display: none" id=3D"element_09096541656181216"></div><!-- En=
+d Notification 1 -->
+
+<!-- Notification 2  -->
+<div style=3D"display: none" id=3D"element_04402456688694656"></div><!-- En=
+d Notification 2 -->
+
+<!-- Notification 3  -->
+<div style=3D"display: none" id=3D"element_017186715477146208"></div><!-- E=
+nd Notification 3 -->
+
+<!-- Notification 4  -->
+<div style=3D"display: none" id=3D"element_039082081406377256"></div><!-- E=
+nd Notification 4 -->
+
+<!-- Notification 5  -->
+<div style=3D"display: none" id=3D"element_04479592915158719"></div><!-- En=
+d Notification 5 -->
+
+<!-- Notification 6  -->
+<table width=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" alig=
+n=3D"center" class=3D"full" bgcolor=3D"#d4d4d4" style=3D"background-color: =
+rgb(242, 244, 249);">
+=09<tbody><tr>
+=09=09<td align=3D"center" style=3D"background-image: url('images/not6_bg_i=
+mage.jpg'); -webkit-background-size: cover; background-size: cover; backgro=
+und-color: rgb(242, 244, 249); background-position: center center; backgrou=
+nd-repeat: no-repeat;" id=3D"not6ChangeBG">
+=09=09
+=09=09=09
+=09=09=09<!-- Mobile Wrapper -->
+=09=09=09<table width=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" align=3D"center" class=3D"mobile">
+=09=09=09=09<tbody><tr>
+=09=09=09=09=09<td width=3D"100%" height=3D"100" align=3D"center">
+=09=09=09=09=09
+=09=09=09=09=09=09<!-- SORTABLE -->
+=09=09=09=09=09=09<div class=3D"sortable_inner ui-sortable">
+=09=09=09=09=09=09=09=09=09=09=09=09
+=09=09=09=09=09=09<!-- Space -->
+=09=09=09=09=09=09<table width=3D"400" border=3D"0" cellpadding=3D"0" cells=
+pacing=3D"0" align=3D"center" class=3D"full" object=3D"drag-module-small">
+=09=09=09=09=09=09=09<tbody><tr>
+=09=09=09=09=09=09=09=09<td width=3D"100%" height=3D"50"></td>
+=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09</tbody></table><!-- End Space -->
+=09=09=09=09=09=09
+=09=09=09=09=09=09<!-- Space -->
+=09=09=09=09=09=09<table width=3D"400" border=3D"0" cellpadding=3D"0" cells=
+pacing=3D"0" align=3D"center" class=3D"full" object=3D"drag-module-small">
+=09=09=09=09=09=09=09<tbody><tr>
+=09=09=09=09=09=09=09=09<td width=3D"100%" height=3D"50"></td>
+=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09</tbody></table><!-- End Space -->
+=09=09=09=09=09=09
+=09=09=09=09=09=09<!-- Main -->
+=09=09=09=09=09=09<table width=3D"400" border=3D"0" cellpadding=3D"0" cells=
+pacing=3D"0" align=3D"center" class=3D"full" style=3D"-webkit-border-radius=
+: 6px; -moz-border-radius: 6px; border-radius: 6px;">
+=09=09=09=09=09=09=09<tbody><tr>
+=09=09=09=09=09=09=09=09<td width=3D"100%" style=3D"border-top-left-radius:=
+ 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px; border=
+-bottom-left-radius: 6px; background-color: rgb(40, 40, 40);" bgcolor=3D"#2=
+82828">
+=09=09=09=09=09=09
+=09=09=09=09=09=09=09=09=09<table width=3D"400" border=3D"0" cellpadding=3D=
+"0" cellspacing=3D"0" align=3D"center" class=3D"mobile" bgcolor=3D"#282828"=
+ object=3D"drag-module-small" style=3D"border-top-right-radius: 6px; border=
+-top-left-radius: 6px; background-color: rgb(40, 40, 40);">
+=09=09=09=09=09=09=09=09=09=09<tbody><tr>
+=09=09=09=09=09=09=09=09=09=09  <td width=3D"100%" valign=3D"middle" align=
+=3D"center">&nbsp;</td>
+=09=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09</tbody></table>
+=09=09=09=09=09=09=09=09=09
+=09=09=09=09=09=09=09=09=09<table width=3D"400" border=3D"0" cellpadding=3D=
+"0" cellspacing=3D"0" align=3D"center" class=3D"mobile" bgcolor=3D"#282828"=
+ object=3D"drag-module-small" style=3D"background-color: rgb(40, 40, 40);">
+=09=09=09=09=09=09=09=09=09=09<tbody><tr>
+=09=09=09=09=09=09=09=09=09=09=09<td width=3D"100%" valign=3D"middle" align=
+=3D"center">
+=09=09=09=09=09=09=09=09=09=09=09
+=09=09=09=09=09=09=09=09=09=09=09=09<table width=3D"340" border=3D"0" cellp=
+adding=3D"0" cellspacing=3D"0" align=3D"center" style=3D"text-align: center=
+; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" cl=
+ass=3D"full">
+=09=09=09=09=09=09=09=09=09=09=09=09=09<tbody><tr>
+=09=09=09=09=09=09=09=09=09=09=09=09=09=09<td width=3D"100%" height=3D"20" =
+style=3D"font-size: 1px; line-height: 1px;">&nbsp;</td>
+=09=09=09=09=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09=09=09=09=09<tr>
+=09=09=09=09=09=09=09=09=09=09=09=09=09=09<td valign=3D"middle" width=3D"10=
+0%" style=3D"text-align: center; font-family: 'Open Sans', Helvetica, Arial=
+, sans-serif; font-size: 30px; color: rgb(255, 255, 255); line-height: 36px=
+; font-weight: 400;" class=3D"fullCenter">Leave Application Status</td>
+=09=09=09=09=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09=09=09=09</tbody></table>
+=09=09=09=09=09=09=09=09=09=09=09=09
+=09=09=09=09=09=09=09=09=09=09=09</td>
+=09=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09</tbody></table>
+=09=09=09=09=09=09=09=09=09
+=09=09=09=09=09=09=09=09=09<table width=3D"400" border=3D"0" cellpadding=3D=
+"0" cellspacing=3D"0" align=3D"center" class=3D"mobile" bgcolor=3D"#282828"=
+ object=3D"drag-module-small" style=3D"background-color: rgb(40, 40, 40);">
+=09=09=09=09=09=09=09=09=09=09<tbody><tr>
+=09=09=09=09=09=09=09=09=09=09=09<td width=3D"100%" valign=3D"middle" align=
+=3D"center">
+=09=09=09=09=09=09=09=09=09=09=09
+=09=09=09=09=09=09=09=09=09=09=09=09<table width=3D"340" border=3D"0" cellp=
+adding=3D"0" cellspacing=3D"0" align=3D"center" style=3D"text-align: center=
+; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" cl=
+ass=3D"full">
+=09=09=09=09=09=09=09=09=09=09=09=09=09<tbody><tr>
+=09=09=09=09=09=09=09=09=09=09=09=09=09=09<td width=3D"100%" height=3D"12" =
+style=3D"font-size: 1px; line-height: 1px;">&nbsp;</td>
+=09=09=09=09=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09=09=09=09=09<tr>
+=09=09=09=09=09=09=09=09=09=09=09=09=09=09<td valign=3D"middle" width=3D"10=
+0%" style=3D"text-align: center; font-family: 'Open Sans', Helvetica, Arial=
+, sans-serif; font-size: 12px; color: rgb(255, 255, 255); line-height: 18px=
+; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;" class=
+=3D"fullCenter">Maxer Erp</td>
+=09=09=09=09=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09=09=09=09</tbody></table>
+=09=09=09=09=09=09=09=09=09=09=09=09
+=09=09=09=09=09=09=09=09=09=09=09</td>
+=09=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09</tbody></table>
+=09=09=09=09=09=09=09=09=09
+=09=09=09=09=09=09=09=09=09<table width=3D"400" border=3D"0" cellpadding=3D=
+"0" cellspacing=3D"0" align=3D"center" class=3D"mobile" bgcolor=3D"#282828"=
+ object=3D"drag-module-small" style=3D"background-color: rgb(40, 40, 40);">
+=09=09=09=09=09=09=09=09=09=09<tbody><tr>
+=09=09=09=09=09=09=09=09=09=09=09<td width=3D"100%" valign=3D"middle" align=
+=3D"center">
+=09=09=09=09=09=09=09=09=09=09=09
+=09=09=09=09=09=09=09=09=09=09=09=09<table width=3D"340" border=3D"0" cellp=
+adding=3D"0" cellspacing=3D"0" align=3D"center" style=3D"text-align: center=
+; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" cl=
+ass=3D"full">
+=09=09=09=09=09=09=09=09=09=09=09=09=09<tbody><tr>
+=09=09=09=09=09=09=09=09=09=09=09=09=09=09<td width=3D"100%" height=3D"30" =
+style=3D"font-size: 1px; line-height: 1px;">&nbsp;</td>
+=09=09=09=09=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09=09=09=09=09<tr>
+=09=09=09=09=09=09=09=09=09=09=09=09=09=09<td valign=3D"middle" width=3D"10=
+0%" style=3D"text-align: center; font-family: 'Open Sans', Helvetica, Arial=
+, sans-serif; font-size: 14px; color: rgb(255, 255, 255); line-height: 22px=
+; font-weight: 400;" class=3D"fullCenter"><p>leave request of    from 12 Fe=
+b, 2018 to 12 Feb, 2018</p>
+=09=09=09=09=09=09=09=09=09=09=09=09=09    </td>
+=09=09=09=09=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09=09=09=09</tbody></table>
+=09=09=09=09=09=09=09=09=09=09=09=09
+=09=09=09=09=09=09=09=09=09=09=09=09=09=09=09=09=09=09=09=09
+=09=09=09=09=09=09=09=09=09=09=09</td>
+=09=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09</tbody></table>
+=09=09=09=09=09=09=09=09=09
+=09=09=09=09=09=09=09=09=09<table width=3D"400" border=3D"0" cellpadding=3D=
+"0" cellspacing=3D"0" align=3D"center" class=3D"mobile" bgcolor=3D"#282828"=
+ object=3D"drag-module-small" style=3D"background-color: rgb(40, 40, 40);">
+=09=09=09=09=09=09=09=09=09=09<tbody><tr>
+=09=09=09=09=09=09=09=09=09=09=09<td width=3D"100%" valign=3D"middle" align=
+=3D"center">
+=09=09=09=09=09=09=09=09=09=09=09
+=09=09=09=09=09=09=09=09=09=09=09=09<table width=3D"340" border=3D"0" cellp=
+adding=3D"0" cellspacing=3D"0" align=3D"center" style=3D"text-align: center=
+; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" cl=
+ass=3D"full">
+=09=09=09=09=09=09=09=09=09=09=09=09=09<tbody><tr>
+=09=09=09=09=09=09=09=09=09=09=09=09=09=09<td width=3D"100%" height=3D"20" =
+style=3D"font-size: 1px; line-height: 1px;">&nbsp;</td>
+=09=09=09=09=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09=09=09=09</tbody></table>
+=09=09=09=09=09=09=09=09=09=09=09=09=09=09=09=09=09=09=09
+=09=09=09=09=09=09=09=09=09=09=09</td>
+=09=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09</tbody></table>
+=09=09=09=09=09=09=09=09=09
+=09=09=09=09=09=09=09=09=09<table width=3D"400" border=3D"0" cellpadding=3D=
+"0" cellspacing=3D"0" align=3D"center" class=3D"mobile" bgcolor=3D"#282828"=
+ object=3D"drag-module-small" style=3D"background-color: rgb(40, 40, 40);">
+=09=09=09=09=09=09=09=09=09=09<tbody><tr>
+=09=09=09=09=09=09=09=09=09=09=09<td width=3D"100%" height=3D"20" style=3D"=
+font-size: 1px; line-height: 1px;">&nbsp;</td>
+=09=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09</tbody></table>
+=09=09=09=09=09=09=09=09=09
+=09=09=09=09=09=09=09=09=09
+=09=09=09=09=09=09=09=09=09<table width=3D"400" border=3D"0" cellpadding=3D=
+"0" cellspacing=3D"0" align=3D"center" class=3D"mobile" bgcolor=3D"#131312"=
+ object=3D"drag-module-small" style=3D"background-color: rgb(19, 19, 18);">
+=09=09=09=09=09=09=09=09=09=09<tbody><tr>
+=09=09=09=09=09=09=09=09=09=09=09<td width=3D"100%" height=3D"25" style=3D"=
+font-size: 1px; line-height: 1px;">&nbsp;</td>
+=09=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09=09<tr>
+=09=09=09=09=09=09=09=09=09=09  <td valign=3D"middle" align=3D"center" clas=
+s=3D"buttonScale"><p class=3D"style1 style3">Your Leave Request is Reject</=
+p>=09=09=09=09=09=09=09=09=09      </td>
+=09=09=09=09=09=09=09=09=09  </tr>
+=09=09=09=09=09=09=09=09=09=09<tr>
+=09=09=09=09=09=09=09=09=09=09  <td valign=3D"middle" align=3D"center" clas=
+s=3D"buttonScale">&nbsp;</td>
+=09=09=09=09=09=09=09=09=09  </tr>
+=09=09=09=09=09=09=09=09=09</tbody></table>
+=09=09=09=09=09=09=09=09=09
+=09=09=09=09=09=09=09=09=09<table width=3D"400" border=3D"0" cellpadding=3D=
+"0" cellspacing=3D"0" align=3D"center" class=3D"mobile" bgcolor=3D"#282828"=
+ object=3D"drag-module-small" style=3D"background-color: rgb(40, 40, 40);">
+=09=09=09=09=09=09=09=09=09=09<tbody><tr>
+=09=09=09=09=09=09=09=09=09=09=09<td width=3D"100%" valign=3D"middle" align=
+=3D"center">
+=09=09=09=09=09=09=09=09=09=09=09
+=09=09=09=09=09=09=09=09=09=09=09=09<table width=3D"340" border=3D"0" cellp=
+adding=3D"0" cellspacing=3D"0" align=3D"center" style=3D"text-align: center=
+; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" cl=
+ass=3D"full">
+=09=09=09=09=09=09=09=09=09=09=09=09=09<tbody><tr>
+=09=09=09=09=09=09=09=09=09=09=09=09=09=09<td width=3D"100%" height=3D"35" =
+style=3D"font-size: 1px; line-height: 1px;">&nbsp;</td>
+=09=09=09=09=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09=09=09=09</tbody></table>
+=09=09=09=09=09=09=09=09=09=09=09=09=09=09=09=09=09=09=09
+=09=09=09=09=09=09=09=09=09=09=09</td>
+=09=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09</tbody></table>
+=09=09=09=09=09=09=09=09=09
+=09=09=09=09=09=09=09=09=09<table width=3D"400" border=3D"0" cellpadding=3D=
+"0" cellspacing=3D"0" align=3D"center" class=3D"mobile" bgcolor=3D"#282828"=
+ object=3D"drag-module-small" style=3D"border-bottom-right-radius: 6px; bor=
+der-bottom-left-radius: 6px; background-color: rgb(40, 40, 40);">
+=09=09=09=09=09=09=09=09=09=09<tbody><tr>
+=09=09=09=09=09=09=09=09=09=09=09<td width=3D"100%" valign=3D"middle" align=
+=3D"center">
+=09=09=09=09=09=09=09=09=09=09=09
+=09=09=09=09=09=09=09=09=09=09=09=09<table width=3D"340" border=3D"0" cellp=
+adding=3D"0" cellspacing=3D"0" align=3D"center" style=3D"text-align: center=
+; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" cl=
+ass=3D"full">
+=09=09=09=09=09=09=09=09=09=09=09=09=09<tbody><tr>
+=09=09=09=09=09=09=09=09=09=09=09=09=09=09<td width=3D"100%" height=3D"50" =
+style=3D"font-size: 1px; line-height: 1px;"><span class=3D"style2">Copyrigh=
+t software of www.maxer.ae</span></td>
+=09=09=09=09=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09=09=09=09</tbody></table>
+=09=09=09=09=09=09=09=09=09=09=09=09=09=09=09=09=09=09=09
+=09=09=09=09=09=09=09=09=09=09=09</td>
+=09=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09</tbody></table>
+=09=09=09=09=09=09=09=09=09
+=09=09=09=09=09=09=09=09</td>
+=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09</tbody></table><!-- End Main -->
+=09=09=09=09=09=09
+=09=09=09=09=09=09<!-- CopyRight -->
+=09=09=09=09=09=09<table width=3D"352" border=3D"0" cellpadding=3D"0" cells=
+pacing=3D"0" align=3D"center" class=3D"full" object=3D"drag-module-small">
+=09=09=09=09=09=09=09<tbody><tr>
+=09=09=09=09=09=09=09=09<td width=3D"100%" height=3D"25"></td>
+=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09</tbody></table>
+=09=09=09=09=09=09
+=09=09=09=09=09=09<table width=3D"352" border=3D"0" cellpadding=3D"0" cells=
+pacing=3D"0" align=3D"center" class=3D"full" object=3D"drag-module-small">
+=09=09=09=09=09=09=09<tbody><tr>
+=09=09=09=09=09=09=09=09<td width=3D"100%" height=3D"20" style=3D"font-size=
+: 1px; line-height: 1px;">&nbsp;</td>
+=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09<tr>
+=09=09=09=09=09=09=09=09<td valign=3D"middle" width=3D"100%" style=3D"text-=
+align: center; font-family: 'Open Sans', Helvetica, Arial, sans-serif; colo=
+r: rgb(40, 188, 172); font-size: 12px; font-weight: 400; line-height: 18px;=
+" class=3D"fullCenter"><!--unsub-->=09=09=09=09=09=09=09=09</td>
+=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09</tbody></table>
+=09=09=09=09=09=09
+=09=09=09=09=09=09<table width=3D"352" border=3D"0" cellpadding=3D"0" cells=
+pacing=3D"0" align=3D"center" class=3D"full" object=3D"drag-module-small">
+=09=09=09=09=09=09=09<tbody><tr>
+=09=09=09=09=09=09=09=09<td width=3D"100%" height=3D"60" style=3D"font-size=
+: 1px; line-height: 1px;">&nbsp;</td>
+=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09<tr>
+=09=09=09=09=09=09=09=09<td width=3D"100%" height=3D"1" style=3D"font-size:=
+ 1px; line-height: 1px;">&nbsp;</td>
+=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09</tbody></table><!-- End CopyRight -->
+=09=09=09
+=09=09=09=09=09</div></td>
+=09=09=09=09</tr>
+=09=09=09</tbody></table>
+=09=09=09
+=09=09
+=09=09</td>
+=09</tr>
+</tbody></table><!-- End Notification 6 -->
+
+
+</div>
+</body>
+</html>
