@@ -76,7 +76,7 @@ class VendorsController extends Controller
                 ->first();
 
             $data['code'] = '';
-            if(isset($account) && count($account) > 0)
+            if(isset($account) )
             {
                 $account_code = $account->code+1;
                 $data['code'] = '0'.$account_code;
@@ -252,7 +252,7 @@ class VendorsController extends Controller
               ->where('vendor_id', $id)
               ->get()->toArray();
               $inc = [];
-              if(isset($ch) && count($ch) > 0)
+              if(isset($ch) )
               {
                 foreach($ch as $c)
                 {
@@ -288,7 +288,7 @@ class VendorsController extends Controller
               ->where('vendor_id', $id)
               ->get()->toArray();
               $inc = [];
-              if(isset($ch) && count($ch) > 0)
+              if(isset($ch) )
               {
                 foreach($ch as $c)
                 {
@@ -337,7 +337,7 @@ class VendorsController extends Controller
             ->where('vendor_id', $id)
             ->first();
 
-            if(isset($sales) && count($sales) > 0)
+            if(isset($sales) )
             {
               $total_invoices = $sales->tlt_paid + $sales->tlt_partial + $sales->tlt_unpaid;
             
@@ -379,7 +379,7 @@ class VendorsController extends Controller
             ->groupBy('vendor_id')
             ->first();
 
-            if(isset($customer) && count($customer)){
+            if(isset($customer) ){
                 return $customer->total_sales;
             }
 
@@ -408,7 +408,7 @@ class VendorsController extends Controller
             ->groupBy('vendor_id')
             ->first();
 
-            if(isset($customer) && count($customer)){
+            if(isset($customer) ){
                 return $customer->total_rec;
             }
 
@@ -451,7 +451,7 @@ class VendorsController extends Controller
 
          
             $s = [];
-            if(isset($rows) && count($rows) > 0)
+            if(isset($rows) )
             {
                 foreach($rows as $sale)
                 {
