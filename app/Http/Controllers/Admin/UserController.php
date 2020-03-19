@@ -55,7 +55,7 @@ class UserController extends Controller
             ->first();
 
         $data['code'] = '';
-        if(isset($account) && count($account) > 0)
+        if(isset($account) )
         {
             $account_code = $account->code+1;
             $data['code'] = '0'.$account_code;
