@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Models\Accounts\AccountsSummeryDetail;
 use App\Http\Models\Accounts\AccountsSummery;
 use App\Http\Models\Accounts\AccountsChart;
+use App\Http\Models\Accounts\AccountsType;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Libraries\Customlib;
@@ -35,19 +36,45 @@ class JournalsReportsController extends Controller
             $data = [];
             $data['accounts'] = [];
 
-            $accounts = AccountsChart::whereTypeId('15')->get();
-            if(isset($accounts) && count($accounts) > 0)
+            $accounts = AccountsType::whereParent('0')->get();
+            if(isset($accounts) )
             {
                 foreach($accounts as $account)
                 {
-                    $data['accounts'][] = [
-                        'id' => $account['id'],
-                        'code' => $account['code'],
-                        'name' => $account['name']
-                    ];
+
+                   
+                    if(isset($account->children) )
+                    {
+                        foreach($account->children as $child)
+                        {
+                            
+                            if(isset($child->chartofacc) ){
+
+
+                                foreach($child->chartofacc as $ac){
+                                    
+
+                                    $data['accounts'][] = [
+                                        'id' => $ac->cid,
+                                        'name' => $ac->name,
+                                        'code' => $ac->code,
+                                        
+                                        
+                                    ];
+                                }
+                            }
+                            
+                            
+                        }
+                    }
+                    
+                    
+                    
+                    
                 }
             }
-  
+            
+            
             return view('accounting.reports.expense', $data);
             
         } catch (ModelNotFoundException $e) {
@@ -101,13 +128,13 @@ class JournalsReportsController extends Controller
 
             $query->join('tbl_accounts_chart', 'tbl_accounts_chart.id', '=', 'tbl_accounts_summery_detail.account_id');
             
-            $query->where('tbl_accounts_chart.type_id', '15');
-            $query->whereType('1');
+            $query->where('tbl_accounts_chart.type_id','<>', '15');
+            $query->get();
             $query->groupBy('tbl_accounts_summery.id');
             $sumerys = $query->get();
 
             $payment_detail = '';
-            if(isset($sumerys) && count($sumerys) > 0)
+            if(isset($sumerys) )
             {
                 $tlt_credit=0;$tlt_debit=0;
                 foreach($sumerys as $summery)
@@ -144,16 +171,41 @@ class JournalsReportsController extends Controller
             }
 
 
-            $accounts = AccountsChart::whereTypeId('15')->get();
-            if(isset($accounts) && count($accounts) > 0)
+            $accounts = AccountsType::whereParent('0')->get();
+            if(isset($accounts) )
             {
                 foreach($accounts as $account)
                 {
-                    $data['accounts'][] = [
-                        'id' => $account['id'],
-                        'code' => $account['code'],
-                        'name' => $account['name']
-                    ];
+
+                   
+                    if(isset($account->children) )
+                    {
+                        foreach($account->children as $child)
+                        {
+                            
+                            if(isset($child->chartofacc) ){
+
+
+                                foreach($child->chartofacc as $ac){
+                                    
+
+                                    $data['accounts'][] = [
+                                        'id' => $ac->cid,
+                                        'name' => $ac->name,
+                                        'code' => $ac->code,
+                                        
+                                        
+                                    ];
+                                }
+                            }
+                            
+                            
+                        }
+                    }
+                    
+                    
+                    
+                    
                 }
             }
 
