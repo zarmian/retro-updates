@@ -46,14 +46,14 @@
                 <th></th>
                 <th class="text-right">Action</th>
               </tr>
-              @if(isset($types) && count($types) > 0)
+              @if(isset($types) )
                 @foreach($types as $type)
                 <tr>
                   <td></td>
                   <td colspan="3">{{ $type['name'] }}</td>
                   <td class="text-right"><a href="{{ url('accounting/chart-type/edit', $type['type_id']) }}" class="edit_link">Edit</a></td>
                 </tr>
-                @if(isset($type['children']) && count($type['children']) > 0)
+                @if(isset($type['children']) )
                   @foreach($type['children'] as $children)
                 <tr>
                   <td></td>

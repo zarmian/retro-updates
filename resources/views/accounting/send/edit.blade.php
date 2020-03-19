@@ -29,7 +29,7 @@
           </div>
           @endif
           
-          @if(isset($errors) && count($errors) > 0)
+          @if(isset($errors) && count($errors)>0  )
           <div class="alert alert-danger">
             <ul>
               @foreach($errors->all() as $error)
@@ -85,7 +85,7 @@
                     <tbody>
                     <input type="hidden" value="0" name="id" id="id"> 
 
-                    @if(isset($journal['details']) && count($journal['details']) > 0)
+                    @if(isset($journal['details']) )
                       @foreach($journal['details'] as $detail)
 
                         <tr>
@@ -94,7 +94,7 @@
                             @if(isset($detail) && $detail['types'] == 11)
                               
                               <select name="account_type[]" id="account_type" class="chosen form-control1" tabindex="2"  required="required">
-                              @if(isset($accounts) && count($accounts) > 0)
+                              @if(isset($accounts)  )
     
                               @foreach($accounts as $account)
 
@@ -111,7 +111,7 @@
                             @else
 
                               <select name="account_type[]" id="account_type" class="chosen form-control1" tabindex="2"  required="required">
-                                @if(isset($banks) && count($banks) > 0)
+                                @if(isset($banks)  )
       
                                 @foreach($banks as $bank)
 

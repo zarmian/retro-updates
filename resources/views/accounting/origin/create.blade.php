@@ -9,12 +9,12 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <h1>Edit New Product</h1>
+        <h1>Create New Origin</h1>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
         <a href="{{ url('') }}">@lang('admin/dashboard.dashboard-heading')</a>  / 
-        <a href="{{ url('/accounting/items') }}">Products</a>  / 
-        <a href="#" class="active">Edit New Product</a>
+        <a href="{{ url('/accounting/items') }}">Origin</a>  / 
+        <a href="#" class="active">Create New Origin</a>
       </div>
     </div>
   </div>
@@ -47,28 +47,22 @@
         @endif
 
 
-      <form data-toggle="validator" role="form" method="post" class="registration-form"  action="{{ url('/accounting/items/edit', $product->id) }}" style="margin-top: 20px;" enctype="multipart/form-data">
+      <form data-toggle="validator" role="form" method="post" class="registration-form"  action="{{ url('/accounting/origin/add') }}" style="margin-top: 20px;" enctype="multipart/form-data">
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
         <div class="form_container">
 
           <div class="col-sm-12 col-md-7 col-lg-7 col-xs-12 col-sm-offset-2 col-md-offset-2 col-sm-offset-0">
             <div class="top_content">
-              <h3>Edit New Product</h3>
+              <h3>Create New Origin</h3>
               <p>@lang('admin/employees.field_employee_text')</p>
             </div>
 
             <div class="form_container">
               
               <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6 form-group">
-                <label for="title" class="input_label">Product Name</label>
-                <input type="text" name="name" id="name" class="form-control1" placeholder="Product Name*" required="required" value="{{ $product->name }}" />
+                <label for="title" class="input_label">Origin Name</label>
+                <input type="text" name="origin" id="origin" class="form-control1" placeholder="Origin Name*" required="required" value="" />
               </div>
-
-              <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6 form-group">
-                <label for="price" class="input_label">Product Quantity</label>
-                <input type="text" name="price" id="price" class="form-control1" placeholder="Product Quantity*" required="required" value="{{ $product->price }}" />
-              </div>
-
 
               <div class="col-md-3 col-sm-3 col-lg-3 col-xs-3 form-group">
                 <label for="" class="input_label"></label>

@@ -58,7 +58,7 @@
             <!-- select option -->
             <select name="customer" id="customer" class="chosen form-control1">
               <option value="">@lang('admin/reports.select_by_customer_option_txt')</option>
-              @if(isset($customers) && count($customers) > 0)
+              @if(isset($customers)  )
                 @foreach($customers as $customer)
                   @if($customer->id == app('request')->input('customer'))
                     <option value="{{ $customer->id }}" selected="selected">{{ $customer->first_name }} {{ $customer->last_name }}</option>
@@ -101,7 +101,7 @@
         <div class="alert alert-success">{{ Session::get('msg') }}</div>
       @endif
 
-      @if(isset($errors) && count($errors) > 0)
+      @if(isset($errors) && count($errors)>0  )
         <div class="alert alert-danger">
           <ul>
             @foreach($errors->all() as $error)
@@ -119,7 +119,7 @@
           
           <table class="table table-striped">
             
-              @if(isset($rows) && count($rows) > 0)
+              @if(isset($rows)  )
               
               <div class="col-sm-9">
                 <div class="reports-breads"><h2><b>@lang('admin/reports.sales_payments_report_txt')</b> <span class="filter-txt-highligh">({{ $to_date }} - {{ $from_date }}) </span>@if(!empty($voucher_no)) @lang('admin/reports.for_search_invoice_txt') <span class="filter-txt-highligh">({{$voucher_no}})</span> @endif</h2></div>

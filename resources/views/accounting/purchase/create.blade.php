@@ -27,7 +27,7 @@
             {{ Session::get('msg') }}
           </div>
           @endif
-          @if(isset($errors) && count($errors) > 0)
+          @if(isset($errors) && count($errors)>0  )
           <div class="alert alert-danger">
             <ul>
               @foreach($errors->all() as $error)
@@ -66,7 +66,7 @@
                   <label for="customer" class="input_label">@lang('admin/entries.vendor_label')*</label>
                   <select name="vendor" id="vendor" class="form-control1 chosen" required="required">
                     <option value="">@lang('admin/entries.vendor_select_txt')</option>
-                    @if(isset($customers) && count($customers) > 0)
+                    @if(isset($customers) )
                       @foreach($customers as $customer)
                         <option value="{{ $customer->id }}">{{ $customer->first_name }} {{ $customer->last_name }}</option>
                       @endforeach
@@ -99,7 +99,36 @@
                   <label for="due_date" class="input_label">@lang('admin/entries.invoice_due_date_label')*</label>
                   <input type="text" name="due_date" id="due_date" class="form-control1 datepicker" placeholder="@lang('admin/entries.invoice_due_date_label')" required="required" value="{{ old('date') }}" data-min-year="{{ date('Y',time()) }}" data-max-year="{{ date('Y',strtotime('+10 year',time())) }}" />
                 </div>
-
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group clearfix">
+                  <label for="Origin" class="input_label">Origin*</label>
+                  <input type="hidden" value="0" name="id" id="id">                    
+                      <tr class="tr">
+                        <td class="col-chart" width="250" height="50">
+                          <select name="origin" id="origin" class="form-control1 chosen title">
+                            <option value="0"> -- SELECT -- </option>
+                            @if(isset($origins) )
+                              @foreach($origins as $origin)
+                                <option value="{{ $origin->id }}">{{ $origin->origin }}</option>
+                              @endforeach
+                            @endif
+                          </select>                          
+                        </td>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
+                  <label for="Origin" class="input_label">Destination*</label>
+                  <input type="hidden" value="0" name="id" id="id">                    
+                      <tr class="tr">
+                        <td class="col-chart" width="250" height="50">
+                          <select name="destination" id="destination" class="form-control1 chosen title">
+                            <option value="0"> -- SELECT -- </option>
+                            @if(isset($destinations) )
+                              @foreach($destinations as $destination)
+                                <option value="{{ $destination->id }}">{{ $destination->destination }}</option>
+                              @endforeach
+                            @endif
+                          </select>                          
+                        </td>
+                </div>
                 <div class="col-sm-12">
                   <table class="erp-table erp-ac-transaction-table payment-voucher-table">
                     <thead>
@@ -119,7 +148,7 @@
                         <td class="col-chart" width="250" height="50">
                           <select name="title[]" id="title" class="form-control1 chosen title">
                             <option value="0"> -- SELECT -- </option>
-                            @if(isset($products) && count($products) > 0)
+                            @if(isset($products) )
                               @foreach($products as $product)
                                 <option value="{{ $product->id }}">{{ $product->name }}</option>
                               @endforeach

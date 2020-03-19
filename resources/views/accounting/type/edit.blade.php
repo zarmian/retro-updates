@@ -43,7 +43,7 @@
       @endif
 
           
-        @if(isset($errors) && count($errors) > 0)
+        @if(isset($errors) && count($errors)>0  )
         <div class="alert alert-danger">
           <ul>
             @foreach($errors->all() as $error)
@@ -81,7 +81,7 @@
 
                 <select name="parent" id="parent" data-placeholder="Choose a Types" class="chosen-deselect form-control1" tabindex="2">
                 
-                  @if(isset($types) && count($types) > 0)
+                  @if(isset($types) )
                     @foreach($types as $type)
                     @if($account->parent == $type['type_id'])
                       <option value="0" selected="selected">{{ $type['name'] }}</option>

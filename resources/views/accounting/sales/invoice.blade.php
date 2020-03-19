@@ -125,7 +125,7 @@
                       <th class="border-none" width="150">@lang('admin/entries.total_amount_txt')</th>
                     </tr>
 
-                    @if(isset($sale['details']) && count($sale['details']))
+                    @if(isset($sale['details']) )
                       @foreach($sale['details'] as $detail)
                         <tr>
                           <td class="td-dark-gray">{!! $detail['description'] !!}</td>
@@ -174,7 +174,7 @@
 
 
                <div class="col-sm-12 visible-print-block clearfix">
-            @if(isset($sale['payments']) && count($sale['payments']) > 0)
+            @if(isset($sale['payments']) )
               <div class="invoice-top-space">
                 <h3>@lang('admin/entries.invoice_payment_txt')</h3>
                   <table class="table" width="100%">

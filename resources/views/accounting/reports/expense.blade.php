@@ -46,7 +46,7 @@
             <!-- select option -->
             <select name="account" id="account" class="chosen form-control1">
               <option value="">@lang('admin/reports.select_by_account_option_txt')</option>
-              @if(isset($accounts) && count($accounts) > 0)
+              @if(isset($accounts)  )
                 @foreach($accounts as $account)
                   @if($account['id'] == app('request')->input('account'))
                     <option value="{{ $account['id'] }}" selected="selected">{{ $account['name'] }} </option>
@@ -87,7 +87,7 @@
         <div class="alert alert-success">{{ Session::get('msg') }}</div>
       @endif
 
-      @if(isset($errors) && count($errors) > 0)
+      @if(isset($errors) && count($errors)>0  )
         <div class="alert alert-danger">
           <ul>
             @foreach($errors->all() as $error)
@@ -107,7 +107,7 @@
 
           <table class="table table-striped">
             
-              @if(isset($summery) && count($summery) > 0)
+              @if(isset($summery) && count($summery)>0 )
               
               <div class="col-sm-9">
                 <div class="reports-breads"><h2><b>@lang('admin/reports.expense_report_txt')</b> <span class="filter-txt-highligh">({{$to}} - {{$from}}) </span> ({{ $summery[0]['bank_name'] }} ) </h2></div>

@@ -16,7 +16,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-slide-dropdown">
         <ul class="nav navbar-nav multi-level">
-            <li><a href="{{ url('/') }}">Dashboard</a></li>
+            {{-- <li><a href="{{ url('/') }}">Dashboard</a></li>
             
             @if(Auth::guard('auth')->user()->hasRole('MANAGE_EMPLOYEES') || Auth::guard('auth')->user()->hasRole('MANAGE_DEPARTMENTS') || Auth::guard('auth')->user()->hasRole('MANAGE_DESIGNATION') || Auth::guard('auth')->user()->hasRole('MANAGE_SHIFT') || Auth::guard('auth')->user()->hasRole('SALARIES_CREATED') || Auth::guard('auth')->user()->hasRole('SALARIES_MANAGER'))
             <li class="dropdown">
@@ -42,16 +42,16 @@
                     @if(Auth::guard('auth')->user()->hasRole('SALARIES_CREATED'))
                     <li><a href="{{ url('/salary/create') }}">Create New Salary</a></li>
                     @endif
-                    @if(Auth::guard('auth')->user()->hasRole('SALARIES_MANAGER'))
+                    @if(Auth::guard('auth')->user()->hasRole('SALARIES_MANAGER')) --}}
                     {{-- <li><a href="{{ url('/salary/manage') }}">Manage Salaries</a></li> --}}
-                    @endif
+                    {{-- @endif
                   </ul>
                 </li>
                 @endif
 
               </ul>                
             </li>
-            @endif
+            @endif --}}
             
             @if(Auth::guard('auth')->user()->hasRole('CUSTOMERS_SECTION') || Auth::guard('auth')->user()->hasRole('VENDORS_SECTION'))
             <li class="dropdown">
@@ -73,11 +73,15 @@
 
             @if(Auth::guard('auth')->user()->hasRole('MANAGE_ITEMS'))
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Items<span class="caret"></span></a>        
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Data<span class="caret"></span></a>        
               <ul class="dropdown-menu" role="menu">
               @if(Auth::guard('auth')->user()->hasRole('SALES'))
-                <li><a href="{{ url('accounting/items/add') }}">New Item</a></li>
-                <li><a href="{{ url('accounting/items') }}">View Items</a></li>
+                <li><a href="{{ url('accounting/items/add') }}">New Truck</a></li>
+                <li><a href="{{ url('accounting/items') }}">View Truck</a></li>
+                <li><a href="{{ url('accounting/destination/add') }}">New Destination</a></li>
+                <li><a href="{{ url('accounting/destination') }}">View Destinations</a></li>
+                <li><a href="{{ url('accounting/origin/add') }}">New Origin</a></li>
+                <li><a href="{{ url('accounting/origin') }}">View Origins</a></li>
               @endif
               
               
@@ -123,7 +127,7 @@
             @endif
 
             
-            @if(Auth::guard('auth')->user()->hasRole('MANAGE_EMPLOYEES_LOANS') || Auth::guard('auth')->user()->hasRole('MANAGE_EMPLOYEES_LEAVES'))
+            {{-- @if(Auth::guard('auth')->user()->hasRole('MANAGE_EMPLOYEES_LOANS') || Auth::guard('auth')->user()->hasRole('MANAGE_EMPLOYEES_LEAVES'))
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Requests<span class="caret"></span></a>        
               <ul class="dropdown-menu" role="menu">
@@ -135,10 +139,10 @@
                 @endif
               </ul>                
             </li>
-            @endif
+            @endif --}}
             
 
-            @if(Auth::guard('auth')->user()->hasRole('MANAGE_APPLY_LOAN') || Auth::guard('auth')->user()->hasRole('MANAGE_APPLY_LEAVES'))
+            {{-- @if(Auth::guard('auth')->user()->hasRole('MANAGE_APPLY_LOAN') || Auth::guard('auth')->user()->hasRole('MANAGE_APPLY_LEAVES'))
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Apply for Personal<span class="caret"></span></a>        
               <ul class="dropdown-menu" role="menu">
@@ -150,12 +154,12 @@
                 @endif
               </ul>                
             </li>
-            @endif
+            @endif --}}
 
             
             
 
-            @if(Auth::guard('auth')->user()->hasRole('NOTICEBOARD_MANAGE') || Auth::guard('auth')->user()->hasRole('MANAGE_OFFICIAL_LEAVES'))
+            {{-- @if(Auth::guard('auth')->user()->hasRole('NOTICEBOARD_MANAGE') || Auth::guard('auth')->user()->hasRole('MANAGE_OFFICIAL_LEAVES'))
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Annoumsments<span class="caret"></span></a>        
               <ul class="dropdown-menu" role="menu">
@@ -167,7 +171,7 @@
                 @endif
               </ul>                
             </li>
-            @endif
+            @endif --}}
             
             @if(Auth::guard('auth')->user()->hasRole('FINANCE'))
             <li class="dropdown">
@@ -187,12 +191,12 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports<span class="caret"></span></a>       
               <ul class="dropdown-menu" role="menu">
 
-                @if(Auth::guard('auth')->user()->hasRole('EMPLOYEE_ATTENDANCE_REPORT'))
+                {{-- @if(Auth::guard('auth')->user()->hasRole('EMPLOYEE_ATTENDANCE_REPORT'))
                 <li><a href="{{ url('/reports/daily-attendance') }}">Attendace Reports</a></li>
                 @endif
                 @if(Auth::guard('auth')->user()->hasRole('MANAGE_ATTENDANCE'))
                 <li><a href="{{ url('/reports/manage-attendance') }}">Manage Attendance</a></li>
-                @endif
+                @endif --}}
 
                 @if(Auth::guard('auth')->user()->hasRole('SALE_REPORTS'))
                 <li class="dropdown-submenu"><a href="#">Sale Reports</a>

@@ -31,7 +31,7 @@
         <div class="alert alert-success">{{ Session::get('msg') }}</div>
       @endif
 
-      @if(isset($errors) && count($errors) > 0)
+      @if(isset($errors) &&count($errors)>0 )
         <div class="alert alert-danger">
           <ul>
             @foreach($errors->all() as $error)
@@ -49,7 +49,7 @@
           
           <table class="table table-striped">
             
-              @if(isset($banks) && count($banks) > 0)
+              @if(isset($banks) )
               
               <div class="col-sm-9">
                 <div class="reports-breads"><h2><b>@lang('admin/reports.bank_and_cash_text')</b> <span class="filter-txt-highligh"> </span></h2></div>

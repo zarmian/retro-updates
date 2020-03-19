@@ -22,6 +22,67 @@
 <div class="container mainwrapper margin-top">
   <div class="row">
     <div class="container">
+   
+      
+        
+      
+            <div class="col-sm-3">
+              <div class="inside-block clearfix">
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                  <h4>@lang('admin/entries.customer_invoice_txt')</h4>
+                  <p><span>@lang('admin/entries.today_receivable_heading')</span> {{ $today_receivable }} {{ $currency }}</p>
+                  <p><span>@lang('admin/entries.total_receivable_heading') </span> {{ $total_receivable }} {{ $currency }}</p>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                  <ul>
+                    <li><a href="{{ url('accounting/sales') }}"><i class="fa fa-th-list" aria-hidden="true"></i></a></li>
+                    <li><a href="{{ url('accounting/sales/add') }}"><i class="fa fa-plus" aria-hidden="true"></i></a></li>
+                  </ul>
+                </div>
+                </div>
+            </div>
+
+
+            <div class="col-sm-3">
+              <div class="inside-block clearfix">
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                  <h4>@lang('admin/entries.vendors_bill_txt')</h4>
+                  <p><span>@lang('admin/entries.today_payable_txt')</span> {{ $today_payable }} {{ $currency }}</p>
+                  <p><span>@lang('admin/entries.total_payable_txt')</span> {{ $total_payable }} {{ $currency }}</p>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                  <ul>
+                    <li><a href="{{ url('accounting/purchase') }}"><i class="fa fa-th-list" aria-hidden="true"></i></a></li>
+                    <li><a href="{{ url('accounting/purchase/add') }}"><i class="fa fa-plus" aria-hidden="true"></i></a></li>
+                  </ul>
+                </div>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+              <div class="inside-block clearfix">
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                  <h4>@lang('admin/entries.expenses_txt')</h4>
+                  <p><span>@lang('admin/entries.today_txt') </span> {{ $today_expense }} {{ $currency }}</p>
+                  <p><span>@lang('admin/entries.this_month_txt') </span> {{ $total_expense }} {{ $currency }} </p>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                  <ul>
+                    <li><a href="{{ url('accounting/journal') }}"><i class="fa fa-th-list" aria-hidden="true"></i></a></li>
+                    <li><a href="{{ url('accounting/journal/add') }}"><i class="fa fa-plus" aria-hidden="true"></i></a></li>
+                  </ul>
+                </div>
+                </div>
+            </div>
+
+            
+
+          
+
+        
+      </div>
+  <div class="row">
+    <div class="container">
 
     <div class="account_block">
       <div class="col-sm-3">
@@ -108,7 +169,7 @@
 
                         </tbody>
                     </table></div>
-                @if(isset($recents) && count($recents) > 0)
+                @if(isset($recents) )
                 <h4>@lang('admin/entries.recent_invoice_txt') </h4>
                 <table class="table table-bordered table-hover">
                     <thead>
@@ -171,7 +232,7 @@
                     </thead>
                     
                     <tbody>
-                        @if(isset($payments) && count($payments) > 0)
+                        @if(isset($payments) )
                             @foreach($payments as $payment)
                                 <tr>
                                     <td width="150">{{ $payment['date'] }}</td>
@@ -210,7 +271,7 @@
                     </thead>
 
                     <tbody>
-                        @if(isset($vouchers) && count($vouchers) > 0)
+                        @if(isset($vouchers) )
                             @foreach($vouchers as $payment)
                                 <tr>
                                     <td width="150">{{ $payment['date'] }}</td>

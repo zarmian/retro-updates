@@ -66,7 +66,7 @@
 
 
       <div id="products" class="list-group">
-        @if(isset($transfers) && count($transfers) > 0)
+        @if(isset($transfers) )
         @foreach($transfers as $transfer)
 
           <div class="list-block clearfix">

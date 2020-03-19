@@ -83,7 +83,7 @@
 			                <label for="country_id" class="input_label">@lang('admin/profile.nationality_label')*</label>
 			                <select name="country_id" id="country_id" class="form-control1" required="required">
 			                	<option value="">@lang('admin/profile.select_option')</option>
-			                	@if(isset($countries) && count($countries) > 0)
+			                	@if(isset($countries) )
 									@foreach($countries as $country)
 										@if($country->id == $user->nationality)
 											<option value="{{ $country->id }}" selected="selected">{{ $country->country_name }}</option>
@@ -192,7 +192,7 @@
 	        </div>
 	        @endif
 	          
-	        @if(isset($errors) && count($errors) > 0)
+	        @if(isset($errors) && count($errors)>0  )
 	        <div class="alert alert-danger">
 	          <ul>
 	            @foreach($errors->all() as $error)
@@ -301,7 +301,7 @@
                       <div class="panel-body">
                       <table class="table table-condensed" style="border-collapse:collapse;">
 
-                      @if(isset($notices) && count($notices) > 0)
+                      @if(isset($notices) )
 
                         @foreach($notices as $notice)
                           <thead>

@@ -178,7 +178,7 @@
                       <th class="border-none" width="150">@lang('admin/entries.total_amount_txt')</th>
                     </tr>
 
-                    @if(isset($sale['details']) && count($sale['details']))
+                    @if(isset($sale['details']) )
                       @foreach($sale['details'] as $detail)
                         <tr>
                           <td class="td-dark-gray">{!! $detail['title'] !!}</td>
@@ -207,7 +207,7 @@
                    </tr>
 
                    <tr>
-                     <th class="text-right">VAT</th>
+                     <th class="text-right">TAX</th>
                      <td>{{ $sale['vat_tax_amount'] }}</td>
                    </tr>
 
@@ -234,7 +234,7 @@
 
                
                <div class="col-sm-12 clearfix">
-                  @if(isset($sale['payments']) && count($sale['payments']) > 0)
+                  @if(isset($sale['payments']) )
               <div class="invoice-top-space">
                 <h3>@lang('admin/entries.invoice_payment_txt')</h3>
                   <table class="table" width="100%">
@@ -309,7 +309,7 @@
                 <div class="payments-records">
                   <h4>@lang('admin/entries.payment_records')</h4>
                   <div id="PaymentsViews">
-                  @if(isset($sale['payments']) && count($sale['payments']) > 0)
+                  @if(isset($sale['payments']) )
                     @foreach($sale['payments'] as $payment)
 
                       <div class="payment-bar">

@@ -72,7 +72,7 @@
         <label for="account_id">@lang('admin/entries.payment_bank_label')</label>
         <select name="account_id" id="account_id" class="form-control1 chosen" required="required">
           <option value=""> @lang('admin/common.select_option_txt') </option>
-          @if(isset($accounts) && count($accounts) > 0)
+          @if(isset($accounts) )
             @foreach($accounts as $account)
               <option value="{{ $account->id }}">{{ $account->name }} </option>
             @endforeach

@@ -30,7 +30,7 @@
         <select name="customer" id="customer" class="chosen form-control1">
           <option disabled selected="selected"> @lang('admin/entries.customer_select_txt')</option>
           <option value="">@lang('admin/common.select_all_txt')</option>
-          @if(isset($customers) && count($customers) > 0)
+          @if(isset($customers)  )
             @foreach($customers as $customer)
               @if(Request::get('customer') == md5($customer->id))
                 <option value="{{ md5($customer->id) }}" selected="selected">{{ $customer->first_name }} {{ $customer->last_name }}</option>
@@ -85,7 +85,7 @@
       @endif
       
       <div id="products" class="list-group">
-        @if(isset($sales) && count($sales) > 0)
+        @if(isset($sales)  )
         @foreach($sales as $sale)
 
           <div class="list-block clearfix">

@@ -104,7 +104,7 @@
                       
                     </tr>
 
-                    @if(isset($journal['details']) && count($journal['details']))
+                    @if(isset($journal['details']) )
                       @foreach($journal['details'] as $detail)
                         <tr>
                           <td class="td-light-gray">{!! $detail['date'] !!}</td>

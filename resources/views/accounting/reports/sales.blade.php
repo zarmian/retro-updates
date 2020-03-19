@@ -48,7 +48,7 @@
             <!-- select option -->
             <select name="customer" id="customer" class="chosen form-control1">
               <option value="">@lang('admin/reports.select_by_customer_option_txt')</option>
-              @if(isset($customers) && count($customers) > 0)
+              @if(isset($customers)  )
                 @foreach($customers as $customer)
                   @if($customer->id == \Request::get('customer'))
                     <option value="{{ $customer->id }}" selected="selected">{{ $customer->first_name }} {{ $customer->last_name }}</option>
@@ -106,7 +106,7 @@
         <div class="alert alert-success">{{ Session::get('msg') }}</div>
       @endif
 
-      @if(isset($errors) && count($errors) > 0)
+      @if(isset($errors) && count($errors)>0  )
         <div class="alert alert-danger">
           <ul>
             @foreach($errors->all() as $error)
@@ -126,7 +126,7 @@
 
           <table class="table table-striped">
             
-              @if(isset($sales) && count($sales) > 0)
+              @if(isset($sales)  )
               
               <div class="col-sm-9">
                 <div class="reports-breads"><h2><b>@lang('admin/reports.sales_report_txt')</b> <span class="filter-txt-highligh">({{ $to_date }} - {{ $from_date }}) </span> @if(\Request::has('customer')) @lang('admin/reports.for_search_txt') <span class="filter-txt-highligh">({{ $sales[0]['customer_name']}})</span> @endif </h2></div>
@@ -143,8 +143,10 @@
                   <th width="">@lang('admin/entries.customer_label')</th>
                   <th width="200" style="text-align: left;">@lang('admin/entries.invoice_date_label')</th>
                   <th width="200" style="text-align: left;">@lang('admin/entries.invoice_due_date_label')</th>
-                  <th width="150" align="right" style="text-align: right;" width="100">@lang('admin/entries.tlt_txt')</th>
-                  <th width="150" align="right" style="text-align: right;" width="100" style="text-align: right;">@lang('admin/reports.tlt_paid')</th>
+                  <th width="200" style="text-align: left;">@lang('admin/entries.account_qty_label')</th>
+                  <th width="200" style="text-align: left;">@lang('admin/entries.account_unit_price_label')</th>
+                  <th width="150" align="right" style="text-align: right;" width="100">@lang('admin/entries.tlt_rcv_txt')</th>
+                  <th width="150" align="right" style="text-align: right;" width="100" style="text-align: right;">@lang('admin/reports.tlt_rcv')</th>
 
                 </tr>
        
@@ -155,6 +157,8 @@
                     <th><a href="{{ url('accounting/customers/view', $sale['customer_id']) }}"><b>{{ $sale['customer_name'] }}</b></a></th>
                     <td align="left">{{ $sale['invoice_date'] }}</td>
                     <td align="left">{{ $sale['due_date'] }}</td>
+                    <td align="left">{{ $sale['qty'] }}</td>
+                    <td align="left">{{ $sale['rate'] }}</td>
                     <td align="right">{{ $sale['total'] }} {{ $currency }}</td>
                     <td align="right">{{ $sale['paid'] }} {{ $currency }}</td>
                   </tr>
@@ -162,10 +166,12 @@
                 @endforeach
 
                 <tr>
-                <th></th>
+                <th><b>Total</b></th>
                 <th></th>
                 <td align="right"><b></b></td>
-                <td align="right"><b>@lang('admin/reports.tlt_amount_txt')</b></td>
+                <td align="right"><b></b></td>
+                <td align="left"><b>{{ $tlt['tlt_qty'] }} ltr</b></td>
+                <td align="right"><b></b></td>
                 <td align="right"> <b>{{ $tlt['tlt_amt'] }} {{ $currency }}</b></td>
                 <td align="right"><b>{{ $tlt['tlt_paid_amt'] }} {{ $currency }}</b></td>
 

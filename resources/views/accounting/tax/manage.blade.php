@@ -52,7 +52,7 @@
       
       
       <div id="products" class="row list-group">
-        @if(isset($departments) && count($departments) > 0)
+        @if(isset($departments) )
         @foreach($departments as $department)
 
 

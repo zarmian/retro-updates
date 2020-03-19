@@ -28,7 +28,7 @@
           </div>
           @endif
           
-          @if(isset($errors) && count($errors) > 0)
+          @if(isset($errors) && count($errors)>0  )
           <div class="alert alert-danger">
             <ul>
               @foreach($errors->all() as $error)
@@ -84,7 +84,7 @@
                 <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6 form-group">
                   <label for="gender" class="input_label">@lang('admin/employees.gender_label')</label>
                   <select name="gender" id="gender" class="form-control1">
-                  @if(isset($genders) && count($genders) > 0)
+                  @if(isset($genders) )
                     @foreach($genders as $gender)
                       <option value="{{ $gender->id }}">{{$gender->title}}</option>
                     @endforeach
@@ -95,7 +95,7 @@
                 <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6 form-group">
                   <label for="nationality" class="input_label">@lang('admin/users.nationality_label')</label>
                   <select name="nationality" id="nationality" class="form-control1" required="required">
-                    @if(isset($countries) && count($countries) > 0)
+                    @if(isset($countries) )
                       @foreach($countries as $country)
                         @if(old('nationality') == $country->id)
                           <option value="{{ $country->id }}" selected="selected">{{ $country->country_name }}</option>
@@ -180,7 +180,7 @@
                   <select name="group" id="group" class="form-control1" required="required">
                     <option value=""> @lang('admin/users.select_option')  </option>
 
-                    @if(isset($groups) && count($groups) > 0)
+                    @if(isset($groups) )
                       @foreach($groups as $group)
                         @if(old('group') == $group->id)
                           <option value="{{ $group->id }}" selected="selected">{{ $group->title }}</option>

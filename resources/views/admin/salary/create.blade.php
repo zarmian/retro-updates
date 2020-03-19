@@ -80,7 +80,7 @@
   <div class="row">
     <div class="container">
 
-      @if(isset($errors) && count($errors) > 0)
+      @if(isset($errors) && count($errors)>0  )
       <div class="alert alert-danger">
         @foreach($errors->all() as $error)
           <p>{{ $error }}</p>

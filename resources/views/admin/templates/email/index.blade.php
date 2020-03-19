@@ -47,7 +47,7 @@
       @endif
       
       <div id="products" class="row list-group">
-        @if(isset($templates) && count($templates) > 0)
+        @if(isset($templates) )
         @foreach($templates as $template)
 
 

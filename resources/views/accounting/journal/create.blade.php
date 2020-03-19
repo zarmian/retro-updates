@@ -28,7 +28,7 @@
           </div>
           @endif
           
-          @if(isset($errors) && count($errors) > 0)
+          @if(isset($errors) && count($errors)>0  )
           <div class="alert alert-danger">
             <ul>
               @foreach($errors->all() as $error)
@@ -96,7 +96,7 @@
                       <td class="col-chart" width="250" height="50">
                           <select name="account_type[]" id="account_type" required="required" class="chosen form-control1" tabindex="2">
                           <option value=""> @lang('admin/entries.select_option_exp_account_value') </option>
-                          @if(isset($accounts) && count($accounts) > 0)
+                          @if(isset($accounts)  )
                             @foreach($accounts as $account)
 
                             <option value="{{ $account['id'] }}">{{ $account['code'] }} -- {{ $account['name'] }}</option>
@@ -136,7 +136,7 @@
                         <td class="col-chart" width="250" height="50">
                           <select name="account_type[]" id="account_type" required="required" class="chosen form-control1" tabindex="2">
                           <option value=""> @lang('admin/entries.select_option_bank_value') </option>
-                          @if(isset($banks) && count($banks) > 0)
+                          @if(isset($banks)  )
                             @foreach($banks as $bank)
                             <option value="{{ $bank['id'] }}">{{ $bank['code'] }} -- {{ $bank['name'] }}</option>
                             @endforeach

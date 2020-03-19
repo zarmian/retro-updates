@@ -108,7 +108,7 @@
         <div class="col-lg-12"><div class="alert alert-danger">{{ Session::get('error') }}</div></div>
       @endif
 
-      @if(isset($errors) && count($errors) > 0)
+      @if(isset($errors) && count($errors)>0  )
         <div class="alert alert-danger">
           <ul>
             @foreach($errors->all() as $error)

@@ -63,7 +63,7 @@
       <div id="products" class="list-group">
 
       <div class="row">
-        @if(isset($items) && count($items) > 0)
+        @if(isset($items) )
         @foreach($items as $item)
 
         

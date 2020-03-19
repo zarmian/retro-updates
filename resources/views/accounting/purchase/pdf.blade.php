@@ -130,7 +130,7 @@ div.setting-detail p{
                       <th class="border-none" width="150" align="center" style="font-weight: normal;" height="40">@lang('admin/entries.total_amount_txt')</th>
                     </tr>
 
-                    @if(isset($sale['details']) && count($sale['details']))
+                    @if(isset($sale['details']) )
                       @foreach($sale['details'] as $detail)
                         <tr>
                           <td class="td-dark-gray" height="30" style="background: #efefef !important; padding-left: 10px;">{!! $detail['description'] !!}</td>
@@ -176,7 +176,7 @@ div.setting-detail p{
                </div>
               </div>
 
-              @if(isset($sale['payments']) && count($sale['payments']) > 0)
+              @if(isset($sale['payments']) )
               <div class="invoice-top-space clearfix">
                 <h3>@lang('admin/entries.invoice_payment_txt')</h3>
                   <table class="table" width="100%">

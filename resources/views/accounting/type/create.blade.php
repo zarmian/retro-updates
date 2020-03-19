@@ -36,7 +36,7 @@
         </div>
         @endif
           
-        @if(isset($errors) && count($errors) > 0)
+        @if(isset($errors) && count($errors)>0  )
         <div class="alert alert-danger">
           <ul>
             @foreach($errors->all() as $error)
@@ -73,10 +73,10 @@
 
                 <select name="parent" id="parent" data-placeholder="Choose a Types" class="chosen-deselect form-control1" tabindex="2">
                   <option value="0">Parent</option>
-                  @if(isset($types) && count($types) > 0)
+                  @if(isset($types) )
                     @foreach($types as $type)
                     <option value="{{ $type['type_id'] }}">{{ $type['name'] }}</option>
-                      @if(isset($type['children']) && count($type['children']) > 0)
+                      @if(isset($type['children']) )
                         @foreach($type['children'] as $children)
                           <option value="{{ $children['type_id'] }}"> -- {{ $children['name'] }}</option>
                         @endforeach

@@ -158,7 +158,7 @@
 
                         </tbody>
                     </table></div>
-                @if(isset($recents) && count($recents) > 0)
+                @if(isset($recents) )
                 <h4>@lang('admin/entries.recent_invoice_txt') </h4>
                 <table class="table table-bordered table-hover">
                     <thead>

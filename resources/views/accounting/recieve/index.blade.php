@@ -66,7 +66,7 @@
 
 
       <div id="products" class="list-group">
-        @if(isset($journals) && count($journals) > 0)
+        @if(isset($journals)  )
         @foreach($journals as $journal)
 
           <div class="list-block clearfix">

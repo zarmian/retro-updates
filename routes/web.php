@@ -6,7 +6,8 @@ Route::post('login', ['uses' => 'Auth\AuthController@login'])->middleware('verif
 Route::group(['middleware' => ['user']], function () {
 	
 
-	Route::get('/', ['as' => '/', 'uses' => 'Admin\DashboardController@index']);
+	//Route::get('/', ['as' => '/', 'uses' => 'Admin\DashboardController@index']);
+	Route::get('/', ['as' => '/', 'uses' => 'Accounts\AccountsController@index'])->middleware('permissions:FINANCE');
 
 	Route::get('/search/{q?}', ['as' => '/search/{q?}', 'uses' => 'Admin\DashboardController@search']);
 	
@@ -549,6 +550,33 @@ Route::get('employee/ledger', ['as' => 'employee/ledger', 'uses' => 'Employees\E
 
 	Route::get('accounting/items/delete/{id?}', ['as' => 'accounting/items/delete', 'uses' => 'Accounts\ItemsController@destroy']);
 
+	//Destination
+	Route::get('accounting/destination', ['as' => 'accounting/destination', 'uses' => 'Accounts\DestinationController@index']);
+
+	Route::get('accounting/destination/add', ['as' => 'accounting/destination/add', 'uses' => 'Accounts\DestinationController@create']);
+
+	Route::post('accounting/destination/add', ['as' => 'accounting/destination/add', 'uses' => 'Accounts\DestinationController@store']);
+
+	Route::get('accounting/destination/edit/{id?}', ['as' => 'accounting/destination/edit', 'uses' => 'Accounts\DestinationController@edit']);
+
+	Route::post('accounting/destination/edit/{id?}', ['as' => 'accounting/destination/edit', 'uses' => 'Accounts\DestinationController@update']);
+
+	Route::get('accounting/destination/delete/{id?}', ['as' => 'accounting/destination/delete', 'uses' => 'Accounts\DestinationController@destroy']);
+
+	//Origin
+	Route::get('accounting/origin', ['as' => 'accounting/origin', 'uses' => 'Accounts\OriginController@index']);
+
+	Route::get('accounting/origin/add', ['as' => 'accounting/origin/add', 'uses' => 'Accounts\OriginController@create']);
+
+	Route::post('accounting/origin/add', ['as' => 'accounting/origin/add', 'uses' => 'Accounts\OriginController@store']);
+
+	Route::get('accounting/origin/edit/{id?}', ['as' => 'accounting/origin/edit', 'uses' => 'Accounts\OriginController@edit']);
+
+	Route::post('accounting/origin/edit/{id?}', ['as' => 'accounting/origin/edit', 'uses' => 'Accounts\OriginController@update']);
+
+	Route::get('accounting/origin/delete/{id?}', ['as' => 'accounting/origin/delete', 'uses' => 'Accounts\OriginController@destroy']);
+
+	
 
 	Route::post('accounting/items/ajax-price', ['as' => 'accounting/items/ajax-price', 'uses' => 'Accounts\ItemsController@ajax_price']);
 	

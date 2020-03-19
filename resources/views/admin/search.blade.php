@@ -61,7 +61,7 @@
 
         
 
-        @if(isset($customers) && count($customers) > 0)
+        @if(isset($customers)  )
           <div class="col-sm-12 no-padding"><h4>@lang('admin/common.sales_search_txt')</h4></div>
           
           @foreach($customers as $customer)

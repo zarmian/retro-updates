@@ -4,10 +4,10 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <h1>@lang('admin/entries.journal_heading_txt')</h1>
+        <h1>Manage Origin</h1>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right"><a href="{{ url('/') }}">@lang('admin/dashboard.dashboard-heading')</a>  / 
-      <a href="#" class="active">@lang('admin/entries.journal_heading_txt')</a></div>
+      <a href="#" class="active">Manage Origin</a></div>
     </div>
   </div>
 </section>
@@ -21,15 +21,10 @@
 
       <form action="" method="GET">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <div class="col-lg-4 col-md-4 col-sm-3 col-xs-12">
-        <input type="text" name="code" id="code" class="filter-date-input" placeholder="@lang('admin/entries.entry_code_txt')" value="{{ \Request::get('code') }}"  />
+        <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+        <input type="text" name="origin" id="origin" class="filter-date-input" placeholder="Origin" value="{{ \Request::get('origin') }}"  />
        </div>
 
-       <div class="col-lg-4 col-md-4 col-sm-3 col-xs-12">
-        <input type="text" name="date" id="date" class="filter-date-input datepicker" data-init-set="false" placeholder="@lang('admin/entries.date_label')" value="{{ \Request::get('date') }}"  />
-       </div>
-
-    
        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12 plus-margin">
         <button type="submit" class="search"><i class="fa fa-search" aria-hidden="true"></i></button>
        </div>
@@ -48,7 +43,7 @@
 
         
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 plus-margin">
-        <a href="{{ url('accounting/journal/add') }}" class="plus">+</a></div>
+        <a href="{{ url('accounting/origin/add') }}" class="plus">+</a></div>
 
 
     </div>
@@ -60,42 +55,44 @@
     <div class="container">
      
 
-      @if(Session::has('msg'))
+      {{-- @if(Session::has('msg'))
         <div class="alert alert-success">{{ Session::get('msg') }}</div>
-      @endif
+      @endif --}}
 
 
       <div id="products" class="list-group">
-        @if(isset($journals)  )
-        @foreach($journals as $journal)
 
-          <div class="list-block clearfix">
-            <div class="col-lg-11 col-sm-12 col-xs-12 list-content-row">
-            
-              <div class="col-sm-12 no-padding">
-                <ul class="clearfix">
-                  
-                  <li>@lang('admin/entries.entry_no_txt'): <b> {{ $journal['code'] }} </b></li>
-                  <li style="width: 282px;">@lang('admin/entries.date_label'): <b>{{ $journal['date'] }}</b></li>
-                  <li style="width: 282px;">@lang('admin/entries.detail_txt'): <b>{{ $journal['description'] }}</b></li>
-                  <li>@lang('admin/entries.tlt_txt'): <b> {{ $journal['amount'] }} </b></li>
+      <div class="row">
+        @if(isset($items) )
+        @foreach($items as $item)
+
+        
+        
+          
+           <div class="item col-xs-12 col-lg-3 col-sm-3">
+          <div class="thumbnail">
+            <div class="row">
+              
+                <ul class="list-detail">
                   <li>
-                    
+                    <div class="caption">
+                      <ul>
+                        <li class="name">Origin: <b> {{ $item['origin'] }}</li>
+                      </ul>
+                    </div>
                   </li>
                 </ul>
-                <div class="clearfix"></div>
-              </div>
-              <div class="clearfix"></div>
-          </div>
-          <div class="col-lg-1 col-sm-12 col-xs-12 no-padding">
+                <ul class="inner-btn clearfix">
+{{--                  <li><a href="{{ url('accounting/items/edit/'.$item['id']) }}" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></li>--}}
+                  <li><a href="{{ url('accounting/origin/delete/'.$item['id']) }}" data-toggle="tooltip" title="Delete" class="is_delete"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></li>
+                </ul>
            
-              <div class="col-sm-6 no-padding"><a href="{{ url('accounting/journal/detail/'.$journal['id']) }}" class="payment-btn-list btn-block btn-gray-bg"><i class="fa fa-eye" aria-hidden="true"></i></a>
-              </div>
-              <div class="col-sm-6 no-padding"><a href="{{ url('accounting/journal/edit/'.$journal['id']) }}" class="payment-btn-list btn-block btn-blue-bg"><i class="fa fa-edit" aria-hidden="true"></i></a></div>
-            
+            </div>
           </div>
-          </div>
+        </div>
+        
 
+      
           
          
 
@@ -109,6 +106,8 @@
         @else
           <div class="alert alert-warning">@lang('admin/messages.not_found')</div>
         @endif
+
+        </div>
         
         
       </div>

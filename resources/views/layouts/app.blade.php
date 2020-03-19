@@ -63,7 +63,7 @@
 <!-- footer-->
 <div class="container-fluid footer no-print">
   <div class="row">
-    <div class="col-lg-12"> Copyright &copy; 2016 - Maxer Online. All Rights Reserved. </div>
+    <div class="col-lg-12"> Copyright &copy; 2020 - Retro Fuels. All Rights Reserved. </div>
   </div>
 </div>
 <!--footer--> 

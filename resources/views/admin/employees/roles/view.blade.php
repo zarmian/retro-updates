@@ -21,7 +21,7 @@
 
   <div class="col-md-6 col-md-offset-3">
 
-        @if(isset($errors) && count($errors) > 0)
+        @if(isset($errors) && count($errors)>0  )
           <div class="alert alert-danger">
             <ul>
               @foreach($errors->all() as $error)

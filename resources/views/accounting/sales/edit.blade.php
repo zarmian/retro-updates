@@ -28,7 +28,7 @@
           </div>
           @endif
           
-          @if(isset($errors) && count($errors) > 0)
+          @if(isset($errors) && count($errors)>0  )
           <div class="alert alert-danger">
             <ul>
               @foreach($errors->all() as $error)
@@ -58,7 +58,7 @@
                   <label for="customer" class="input_label">@lang('admin/entries.customer_label')*</label>
                   <select name="customer" id="customer" class="form-control1 chosen">
                     <option value="">@lang('admin/common.select_customer_txt')</option>
-                    @if(isset($customers) && count($customers) > 0)
+                    @if(isset($customers)  )
                       @foreach($customers as $customer)
                         @if($sale['customer_id'] == $customer->id)
                           <option value="{{ $customer->id }}" selected="selected">{{ $customer->first_name }} {{ $customer->last_name }}</option>
@@ -111,7 +111,7 @@
                     <input type="hidden" value="0" name="id" id="id">  
 
 
-                    @if(isset($sale['details']) && count($sale['details']) > 0)
+                    @if(isset($sale['details']) )
                       @foreach($sale['details'] as $detail)
 
 
@@ -120,7 +120,7 @@
 
                           <select name="title[]" id="title" class="form-control1 chosen title">
                             <option value="0"> -- SELECT -- </option>
-                            @if(isset($products) && count($products) > 0)
+                            @if(isset($products) )
                               @foreach($products as $product)
                                 @if($product->id == $detail['title'])
                                   <option value="{{ $product->id }}" selected="selected">{{ $product->name }}</option>
@@ -162,7 +162,7 @@
                           <td class="col-chart" width="250" height="50">
                           <select name="title[]" id="title" class="form-control1 chosen title">
                             <option value="0"> -- SELECT -- </option>
-                            @if(isset($products) && count($products) > 0)
+                            @if(isset($products) )
                               @foreach($products as $product)
                                 <option value="{{ $product->id }}">{{ $product->name }}</option>
                               @endforeach
@@ -230,7 +230,7 @@
                            
                             <th class="col-amount">
                                 <select name="vat_tax_id" id="vat_tax_id" class="form-control1 vat_tax">
-                                @if(isset($tax) && count($tax) > 0)
+                                @if(isset($tax) )
                                   @foreach($tax as $tax)
                                     @if($sale['vat_tax_id'] == $tax->id)
                                       <option value="{{ $tax->id }}" selected="selected">{{ $tax->name }}</option>

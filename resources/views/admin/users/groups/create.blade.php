@@ -33,7 +33,7 @@
       </div>
       @endif
       
-      @if(isset($errors) && count($errors) > 0)
+      @if(isset($errors) && count($errors)>0  )
       <div class="alert alert-danger">
         <ul>
           @foreach($errors->all() as $error)
@@ -83,7 +83,7 @@
 
             <div class="form_container">
 
-              @if(isset($permissions) && count($permissions) > 0)
+              @if(isset($permissions) )
                   @foreach($permissions as $permission)
 
                   @if(isset($allowed_permissions[$permission->name]) && $allowed_permissions[$permission->name] == 'true')

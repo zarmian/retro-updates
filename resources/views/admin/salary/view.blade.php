@@ -35,7 +35,7 @@
         <label for="account">@lang('admin/employees.pay_bank_account_txt')</label>
         <select name="account1" id="account" class="form-control1 chosen-modal">
           <option value="">@lang('admin/common.select_option_txt')</option>
-          @if(isset($accounts) && count($accounts) > 0)
+          @if(isset($accounts)  )
             @foreach($accounts as $account)
               <option value="{{ $account['id'] }}">{{ $account['code'] }} - {{ $account['name'] }}</option>
             @endforeach

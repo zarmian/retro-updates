@@ -28,7 +28,7 @@
           </div>
           @endif
           
-          @if(isset($errors) && count($errors) > 0)
+          @if(isset($errors) && count($errors)>0  )
           <div class="alert alert-danger">
             <ul>
               @foreach($errors->all() as $error)
@@ -113,7 +113,7 @@
                 <div class="col-md-3 col-sm-3 col-lg-3 col-xs-3 form-group">
                   <label for="nationality" class="input_label" required="required">@lang('admin/users.nationality_label')</label>
                   <select name="nationality" id="nationality" class="form-control1" required="required">
-                    @if(isset($countries) && count($countries) > 0)
+                    @if(isset($countries) )
                       @foreach($countries as $country)
                         @if(old('nationality') == $country->id)
                           <option value="{{ $country->id }}" selected="selected">{{ $country->country_name }}</option>
