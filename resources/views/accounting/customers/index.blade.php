@@ -68,7 +68,7 @@
       @endif
       
       <div id="products" class="row list-group">
-        @if(isset($customers) && count($customers) > 0)
+        @if(isset($customers) )
         @foreach($customers as $customer)
 
         <div class="item col-md-6 col-sm-6 col-xs-12 col-lg-3 grid-group-item">
