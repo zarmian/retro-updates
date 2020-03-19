@@ -95,7 +95,15 @@ class AccountsController extends Controller
         $data['total_month_expense'] = number_format($data['total_month_expense'], 2);
 
         $data['total_pie'] = [$this->custom->intCurrency($data['total_month_incom']), $this->custom->intCurrency($data['total_month_expense'])];
-
+        $data['total_receivable'] = $this->getTotalReceivable();
+            $data['total_payable'] = $this->getTotalPayable();
+            $data['today_receivable'] = $this->getTodayReceivable();
+            $data['today_payable'] = $this->getTodayPayable();
+            $data['today_expense'] = $this->getTodayJournalEntry();
+            $data['total_expense'] = $this->getTotalMonthlyJournalEntry();
+            $data['today_expense'] = number_format($data['today_expense']['cr'], 2);
+            $data['total_expense'] = number_format($data['total_expense']['cr'], 2);
+        
         $data['currency'] = $this->custom->currencyFormatSymbol();
 
         return view('accounting.index', $data);
@@ -117,7 +125,7 @@ class AccountsController extends Controller
               ->groupBy(DB::raw('YEAR(invoice_date), MONTH(invoice_date)'))
               ->get()->toArray();
               $inc = [];
-              if(isset($ch) && count($ch) > 0)
+              if(isset($ch) )
               {
                 foreach($ch as $c)
                 {
@@ -147,7 +155,7 @@ class AccountsController extends Controller
               ->groupBy(DB::raw('YEAR(invoice_date), MONTH(invoice_date)'))
               ->get()->toArray();
               $inc = [];
-              if(isset($ch) && count($ch) > 0)
+              if(isset($ch) )
               {
                 foreach($ch as $c)
                 {
@@ -247,7 +255,7 @@ class AccountsController extends Controller
               ->groupBy('month')
               ->first();
 
-              if(isset($incom) && count($incom) > 0)
+              if(isset($incom) )
               {
                 return ($incom->t);
               }else{
@@ -279,7 +287,7 @@ class AccountsController extends Controller
               ->groupBy('date')
               ->first();
 
-              if(isset($expense) && count($expense) > 0)
+              if(isset($expense) )
               {
                 $journal = $this->getTotalMonthlyJournalEntry();
                 return $expense->t + $journal['cr'];
@@ -312,7 +320,7 @@ class AccountsController extends Controller
 
               
               $jr = ['cr' => '0.00'];
-              if(isset($journals) && count($journals) > 0)
+              if(isset($journals) )
               {
                 $amount = 0;
                 $debit = 0;
@@ -367,7 +375,7 @@ class AccountsController extends Controller
 
               
               $jr = ['dr' => '0.00', 'cr' => '0.00'];
-              if(isset($journal) && count($journal) > 0)
+              if(isset($journal) )
               {
                
                 $jr = [
@@ -421,7 +429,7 @@ class AccountsController extends Controller
             $rows = $sales->get();
 
             $s = [];
-            if(isset($rows) && count($rows) > 0)
+            if(isset($rows) )
             {
                 foreach($rows as $sale)
                 {
@@ -472,7 +480,7 @@ class AccountsController extends Controller
                 ) AS tlt_unpaid')
             )->first();
 
-            if(isset($sales) && count($sales) > 0)
+            if(isset($sales) )
             {
               $total_invoices = $sales->tlt_paid + $sales->tlt_partial + $sales->tlt_unpaid;
             
@@ -511,7 +519,7 @@ class AccountsController extends Controller
             $p = [];
 
             $payments = SalesLedger::orderBy('date', 'DESC')->limit($limit)->get();
-            if(isset($payments) && count($payments) > 0)
+            if(isset($payments) )
             {
                 foreach($payments as $payment)
                 {
@@ -552,7 +560,7 @@ class AccountsController extends Controller
             $p = [];
 
             $payments = PurchaseLedger::orderBy('date', 'DESC')->limit($limit)->get();
-            if(isset($payments) && count($payments) > 0)
+            if(isset($payments) )
             {
                 foreach($payments as $payment)
                 {
@@ -599,7 +607,7 @@ class AccountsController extends Controller
         ->groupBy('tbl_sales.invoice_date')
         ->first();
 
-        if(isset($receivable) && count($receivable) <> 0){
+        if(isset($receivable) <> 0){
             return number_format($receivable->total - $receivable->paid, 2);
         }else{
             return '0.00';
@@ -634,10 +642,10 @@ class AccountsController extends Controller
         ->first();
 
 
-        if(count($receivable) == 0){
+        if($receivable){
             return number_format(0, 2);
         }else{
-            return number_format($receivable->total - $receivable->paid, 2);
+            //return number_format($receivable->total - $receivable->paid, 2);
         }
 
       } catch (ModelNotFoundException $e) {
@@ -657,21 +665,22 @@ class AccountsController extends Controller
             $data = [];
 
             $accounts = AccountsType::whereParent('0')->get();
-            if(isset($accounts) && count($accounts) > 0)
+            if(isset($accounts) )
             {
                 foreach($accounts as $account)
                 {
 
                    $coa = [];
-                    if(isset($account->children) && count($account->children) > 0)
+                    if(isset($account->children) )
                     {
                         foreach($account->children as $child)
                         {
                             
-                            if(isset($child->chartofacc) && count($child->chartofacc) > 0){
+                            if(isset($child->chartofacc) ){
 
 
                                 foreach($child->chartofacc as $ac){
+
                                     $balance_type = '';
                                     $opening = '';
                                     if($ac->opening_balance > 0)
@@ -697,7 +706,7 @@ class AccountsController extends Controller
                             
                         }
                     }
-
+                    
                     $coa = array_values(array_sort($coa, function ($value) {
                         return $value['code'];
                     }));
@@ -708,6 +717,7 @@ class AccountsController extends Controller
                         'name' => $account->name,
                         'coa' => $coa
                     ];
+                    
                 }
             }
 
@@ -727,7 +737,7 @@ class AccountsController extends Controller
             $data['total_expense'] = number_format($data['total_expense']['cr'], 2);
 
             $data['currency'] = $this->custom->currencyFormatSymbol();
-
+            
             return view('accounting.chart.index', ['accounts' => $accounts_data], $data);
             
 
@@ -743,7 +753,7 @@ class AccountsController extends Controller
 
         $row = DB::table('tbl_employees_ledger')->select(DB::raw('SUM(amount) as tlt_amt'))->whereMonth('date', '=', date('m', strtotime($date)))->groupBy('employee_id')->first();
         
-        if(isset($row) && count($row) > 0)
+        if(isset($row) )
         {
           return $row->tlt_amt;
         }
@@ -756,21 +766,25 @@ class AccountsController extends Controller
 
 
 
-    protected function account_balance($account_id='')
+    protected function account_balance($account_id)
     {
 
       try {
           
         $row = AccountsChart::findOrFail($account_id);
         $ac_row = AccountsSummeryDetail::select(DB::raw('account_id, SUM(debit) as dr, SUM(credit) as cr'))->where('account_id', $account_id)->groupBy('account_id')->first();
-
+        if(isset($ac_row))
+        {
         if($row->balance_type == 'cr'){
           return $row->opening_balance + $ac_row['cr'] - $ac_row['dr'];
-        }else{
-          return $row->opening_balance + $ac_row['dr'] - $ac_row['cr'];
+        }
+        else{
+            return $row->opening_balance + $ac_row['dr'] - $ac_row['cr'];
+              }
+        }
         }
         
-      } catch (Exception $e) {
+       catch (Exception $e) {
         
       }
     }
@@ -792,13 +806,13 @@ class AccountsController extends Controller
 
             $types = AccountsType::where('parent', '0')->get();
 
-            if(isset($types) && count($types) > 0)
+            if(isset($types) )
             {
                 foreach($types as $type)
                 {
 
                     $children = [];
-                    if(isset($type->children) && count($type->children) > 0)
+                    if(isset($type->children) )
                     {
                         foreach($type->children as $child)
                         {
@@ -886,13 +900,13 @@ class AccountsController extends Controller
 
             $types = AccountsType::where('parent', '0')->get();
 
-            if(isset($types) && count($types) > 0)
+            if(isset($types) )
             {
                 foreach($types as $type)
                 {
 
                     $children = [];
-                    if(isset($type->children) && count($type->children) > 0)
+                    if(isset($type->children) )
                     {
                         foreach($type->children as $child)
                         {
