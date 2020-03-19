@@ -35,19 +35,20 @@ class AccountsReportsController extends Controller
     		$data = [];
     		$data['accounts'] = [];
 
-    		$accounts = AccountsType::whereParent('0')->get();
-            if(isset($accounts) && count($accounts) > 0)
+            $accounts = AccountsType::all();
+           
+            if(isset($accounts) )
             {
                 foreach($accounts as $account)
                 {
 
                    $coa = [];
-                    if(isset($account->children) && count($account->children) > 0)
+                    if(isset($account->children) )
                     {
                         foreach($account->children as $child)
                         {
                             
-                            if(isset($child->chartofacc) && count($child->chartofacc) > 0){
+                            if(isset($child->chartofacc) ){
 
                                 foreach($child->chartofacc as $ac){
                                     $coa[] = [
@@ -126,7 +127,7 @@ class AccountsReportsController extends Controller
             $data['opening_dr'] = '0.00;';
 
     		$opening = AccountsChart::where('id', $data['account_id'])->first();
-    		if(isset($opening) && count($opening) > 0)
+    		if(isset($opening) )
     		{
 
                 if(isset($opening) && $opening == "cr"){
@@ -137,7 +138,7 @@ class AccountsReportsController extends Controller
     			
     		}
 
-    		if(isset($rows) && count($rows) > 0)
+    		if(isset($rows) )
     		{
                 
                 $tlt_dr=0; $tlt_cr=0;$tlt_balance=0;
@@ -211,18 +212,18 @@ class AccountsReportsController extends Controller
 
            
     		$accounts = AccountsType::whereParent('0')->get();
-            if(isset($accounts) && count($accounts) > 0)
+            if(isset($accounts) )
             {
                 foreach($accounts as $account)
                 {
 
                    $coa = [];
-                    if(isset($account->children) && count($account->children) > 0)
+                    if(isset($account->children) )
                     {
                         foreach($account->children as $child)
                         {
                             
-                            if(isset($child->chartofacc) && count($child->chartofacc) > 0){
+                            if(isset($child->chartofacc) ){
 
                                 foreach($child->chartofacc as $ac){
                                     $coa[] = [
@@ -290,15 +291,18 @@ class AccountsReportsController extends Controller
         try {
 
             $data['banks'] = [];
-            $type_id = 9;
-            $banks = AccountsChart::select('id','code', 'name', 'opening_balance', 'balance_type')->whereTypeId($type_id)->get();
-
+            $type_id = 37;
+            $banks = AccountsChart::select('id','code', 'name', 'opening_balance', 'balance_type')->whereTypeId($type_id)
+            ->orWhere('type_id',38)
+            ->get();
+            
             $data['tlt_balance_amt'] = 0;
-            if(isset($banks) && count($banks) > 0)
+            if(isset($banks) )
             {
                 $tlt_debit = 0; $tlt_credit = 0; $tlt_balance = 0; $tlt_balance_amt = 0;
                 foreach($banks as $bank)
                 {
+                    
                     $tlt_debit = $bank->balance->sum('debit');
                     $tlt_credit = $bank->balance->sum('credit');
 
@@ -324,6 +328,7 @@ class AccountsReportsController extends Controller
             }
 
             $data['currency'] = $this->custom->currencyFormatSymbol();
+            
             return view('accounting.reports.bankandcash', $data);
             
         } catch (ModelNotFoundException $e) {
@@ -371,7 +376,7 @@ class AccountsReportsController extends Controller
                              $banks = AccountsChart::select('id','code', 'name', 'opening_balance', 'balance_type')->whereTypeId($type_id)->get();
 
                             $data['tlt_balance_amt'] = 0;
-                            if(isset($banks) && count($banks) > 0)
+                            if(isset($banks))
                             {
                                 $tlt_debit = 0; $tlt_credit = 0; $tlt_balance = 0; $tlt_balance_amt = 0;
                                 $r = 3;
