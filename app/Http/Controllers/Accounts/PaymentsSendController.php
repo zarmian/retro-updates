@@ -56,7 +56,7 @@ class PaymentsSendController extends Controller
             $amount = 0;
 
 
-            if(isset($journals) && count($journals) > 0)
+            if(isset($journals) )
             {
                 foreach($journals as $journal)
                 {
@@ -100,7 +100,7 @@ class PaymentsSendController extends Controller
             $bank_data = [];
 
             $expense_accounts = AccountsChart::whereTypeId('11')->get();
-            if(isset($expense_accounts) && count($expense_accounts) > 0)
+            if(isset($expense_accounts) )
             {
                 foreach($expense_accounts as $expense)
                 {
@@ -113,7 +113,9 @@ class PaymentsSendController extends Controller
             }
 
 
-            $bank_accounts = AccountsChart::whereTypeId('9')->get();
+            $bank_accounts = AccountsChart::where('type_id','=','38')
+            ->orWhere('type_id','=','37')
+            ->get();
             if(isset($bank_accounts) && count($bank_accounts) > 0)
             {
                 foreach($bank_accounts as $bank)
@@ -324,7 +326,9 @@ class PaymentsSendController extends Controller
             }
 
 
-            $bank_accounts = AccountsChart::whereTypeId('9')->get();
+            $bank_accounts = AccountsChart::where('type_id','=','38')
+            ->orWhere('type_id','=','37')
+            ->get();
             if(isset($bank_accounts) && count($bank_accounts) > 0)
             {
                 foreach($bank_accounts as $bank)
@@ -362,14 +366,14 @@ class PaymentsSendController extends Controller
             $custom = new Customlib();
 
             $journal = AccountsSummery::where('type', '9')->findOrFail($id);
-            if(isset($journal) && count($journal) > 0)
+            if(isset($journal) )
             {
                 
                 $dt = Carbon::parse($journal->date);
 
                 $d['details'] = [];
                 $tlt_dr = 0; $tlt_cr = 0;
-                if(isset($journal->details) && count($journal->details) > 0)
+                if(isset($journal->details) )
                 {
                     foreach($journal->details as $detail)
                     {
