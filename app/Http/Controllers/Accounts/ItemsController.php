@@ -52,7 +52,7 @@ class ItemsController extends Controller
             $sales = $qry->paginate($data['per_page']);
 
 
-            if(isset($sales) && count($sales) > 0)
+            if(isset($sales) )
             {
                 foreach($sales as $sale)
                 {
@@ -349,7 +349,7 @@ class ItemsController extends Controller
                             $details = [];
                             $p = [];
                             
-                            if(isset($sale->details) && count($sale->details) > 0)
+                            if(isset($sale->details) )
                             {
                                 foreach($sale->details as $detail)
                                 {
@@ -367,7 +367,7 @@ class ItemsController extends Controller
                             }
 
 
-                            if(isset($sale->paid) && count($sale->paid) > 0)
+                            if(isset($sale->paid) )
                             {
                                 $tlt_paid_sum = 0;
                                 foreach($sale->paid as $paid)
@@ -451,11 +451,11 @@ class ItemsController extends Controller
             $data = [];
             $sale = Sales::where('invoice_number', $inv_no)->first();
             
-            if(isset($sale) && count($sale) > 0)
+            if(isset($sale) )
             {
 
                 $payments = [];
-                if(isset($sale->paid) && count($sale->paid) > 0)
+                if(isset($sale->paid) )
                 {
                     $total = $sale->total - $sale->discount;
                     $balance = $sale->total - $sale->discount;
@@ -490,7 +490,7 @@ class ItemsController extends Controller
                 $details = [];
                 $p = [];
                 
-                if(isset($sale->details) && count($sale->details) > 0)
+                if(isset($sale->details) )
                 {
                     foreach($sale->details as $detail)
                     {
@@ -508,7 +508,7 @@ class ItemsController extends Controller
                 }
 
                 $tlt_paid_sum = 0;
-                if(isset($sale->paid) && count($sale->paid) > 0)
+                if(isset($sale->paid) )
                 {
                     
                     foreach($sale->paid as $paid)
