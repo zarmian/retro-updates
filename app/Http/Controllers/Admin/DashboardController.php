@@ -482,7 +482,7 @@ class DashboardController extends Controller
 
                     $customers = Customers::where('first_name', 'LIKE', '%'.$q.'%')->orWhere('last_name', 'LIKE', '%'.$q.'%')->get();
 
-                    if(isset($customers) && count($customers) > 0)
+                    if(isset($customers)  )
                     {
                         foreach($customers as $customer)
                         {
