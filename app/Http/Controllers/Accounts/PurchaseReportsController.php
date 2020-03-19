@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Accounts;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Models\Accounts\PurchaseLedger;
 use App\Http\Models\Accounts\Purchase;
+use App\Http\Models\Accounts\PurchaseDetail;
 use App\Http\Models\Accounts\Vendors;
 use App\Http\Controllers\Controller;
 use App\Http\Models\Accounts\Items;
@@ -83,11 +84,15 @@ class PurchaseReportsController extends Controller
 
             $sales = $query->get();
 
-            
-            if(isset($sales) && count($sales) > 0)
+            $tlt_amt = 0; $tlt_paid_amt = 0; $tlt_qty=0;
+            $data['tlt'] = [];
+            if(isset($sales))
             {
                 foreach($sales as $sale)
                 {
+                    $details=PurchaseDetail::where('sale_id','=',$sale['id'])->get();
+                    foreach($details as $detail)
+                    {
                     $data['sales'][] = [
                         'id' => $sale['id'],
                         'invoice_number' => $sale['invoice_number'],
@@ -95,11 +100,22 @@ class PurchaseReportsController extends Controller
                         'customer_name' => $sale->vendor->first_name.' '.$sale->vendor->last_name,
                         'customer_id' => $sale->vendor->id,
                         'due_date' => $this->custom->dateformat($sale['due_date']),
+                        'rate' =>$detail->unit_price,
+                        'qty' => $detail->qty,
                         'total' => number_format($sale['total'], 2),
                         'paid' => number_format($sale->paid->sum('amount'), 2)
                     ];
+                    $tlt_qty= $tlt_qty + $detail->qty;
+                    $tlt_amt = $tlt_amt + $sale['total'];
+                    $tlt_paid_amt = $tlt_paid_amt + $sale->paid->sum('amount');
+                }
                 }
             }
+            $data['tlt'] = [
+                'tlt_amt' => number_format($tlt_amt, 2),
+                'tlt_paid_amt' => number_format($tlt_paid_amt, 2),
+                'tlt_qty' => number_format($tlt_qty, 2)
+            ];
 
             $data['to_date'] = $this->custom->dateformat($nice_to_date);
             $data['from_date'] = $this->custom->dateformat($nice_from_date);
@@ -167,7 +183,7 @@ class PurchaseReportsController extends Controller
                 $rows = $query->get();
 
                 $data['rows'] = [];
-                if(isset($rows) && count($rows) > 0)
+                if(isset($rows) )
                 {
 
                     $total = 0;
@@ -388,7 +404,7 @@ class PurchaseReportsController extends Controller
 
                             $tlt_amt = 0; $tlt_paid_amt = 0;
                             $data['tlt'] = [];
-                            if(isset($sales) && count($sales) > 0)
+                            if(isset($sales) )
                             {
                                 $r = 3;
                                 foreach($sales as $sale)
@@ -500,7 +516,7 @@ class PurchaseReportsController extends Controller
                             $rows = $query->get();
 
                             $data['rows'] = [];
-                            if(isset($rows) && count($rows) > 0)
+                            if(isset($rows) )
                             {
 
                                 $sub_total = 0;
