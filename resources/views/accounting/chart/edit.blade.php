@@ -36,7 +36,7 @@
         </div>
         @endif
           
-        @if(isset($errors) && count($errors) > 0)
+        @if(isset($errors) &&count($errors)>0 )
         <div class="alert alert-danger">
           <ul>
             @foreach($errors->all() as $error)
@@ -77,10 +77,10 @@
                 <label for="account_type" class="input_label">@lang('admin/accounting.type_name_txt')*</label>
 
                 <select name="account_type" id="account_type" data-placeholder="Choose a Types" class="chosen form-control1" tabindex="2">
-                  @if(isset($types) && count($types) > 0)
+                  @if(isset($types) )
                     @foreach($types as $type)
                     <optgroup label="{{ $type['name'] }}">
-                      @if(isset($type['children']) && count($type['children']) > 0)
+                      @if(isset($type['children']) )
                         @foreach($type['children'] as $children)
                           @if($chart->type_id == $children['type_id'])
                             <option value="{{ $children['type_id'] }}" selected="selected"> -- {{ $children['name'] }}</option>
