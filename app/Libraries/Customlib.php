@@ -61,11 +61,10 @@ class Customlib{
 		$invoice_number = '00001';
 
 		$sale = SalesLedger::select('payment_no', 'id')->orderBy('id', 'DESC')->first();
-		if(count($sale) > 0)
-		{
+		
 			$invoice_no = $this->getInteger($sale->payment_no);
 			$invoice_number = str_pad($invoice_no + 1, 5, 0, STR_PAD_LEFT);
-		}
+		
 
 		return $invoice_number;
 	}
@@ -80,11 +79,10 @@ class Customlib{
 		->where('type', '1')
 		->orderBy('code', 'DESC')
 		->first();
-		if(count($journal) > 0)
-		{
+		
 			$invoice_no = $this->getInteger($journal->code);
 			$invoice_number = str_pad($invoice_no + 1, 5, 0, STR_PAD_LEFT);
-		}
+		
 
 		return $invoice_number;
 	}
@@ -98,11 +96,10 @@ class Customlib{
 		->where('type', '4')
 		->orderBy('code', 'DESC')
 		->first();
-		if(count($journal) > 0)
-		{
+		
 			$invoice_no = $this->getInteger($journal->code);
 			$invoice_number = str_pad($invoice_no + 1, 5, 0, STR_PAD_LEFT);
-		}
+		
 
 		return $invoice_number;
 	}
@@ -117,11 +114,10 @@ class Customlib{
 		->where('code', 'like', 'SE-%')
 		->orderBy('code', 'DESC')
 		->first();
-		if(count($sale) > 0)
-		{
+		
 			$invoice_no = $this->getInteger($sale->code);
 			$invoice_number = str_pad($invoice_no + 1, 5, 0, STR_PAD_LEFT);
-		}
+		
 
 		return $invoice_number;
 	}
@@ -132,11 +128,10 @@ class Customlib{
 		$invoice_number = '00001';
 
 		$sale = \App\Http\Models\Accounts\PurchaseLedger::select('payment_no', 'id')->orderBy('id', 'DESC')->first();
-		if(count($sale) > 0)
-		{
+		
 			$invoice_no = $this->getInteger($sale->payment_no);
 			$invoice_number = str_pad($invoice_no + 1, 5, 0, STR_PAD_LEFT);
-		}
+		
 
 		return $invoice_number;
 	}
@@ -297,7 +292,7 @@ class Customlib{
    public function getCurrencyByCountryId($id = '')
    {
    		$cur = DB::table('tbl_countries')->whereId($id)->first();
-   		if(isset($cur) && count($cur) > 0)
+   		if(isset($cur) )
    		{
    			return $cur->currency_code;
    		}
@@ -340,7 +335,7 @@ class Customlib{
         ->where('tbl_employees.id', $employee_id)
         ->first();
 
-        if(isset($shift) && count($shift) > 0)
+        if(isset($shift) )
         {
         	return $shift;
         }
