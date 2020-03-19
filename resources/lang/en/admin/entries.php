@@ -29,7 +29,8 @@ return [
     
     'amt_txt' => 'Amount',
     'dis_txt' => 'Discount',
-    'tlt_txt' => 'Total',
+    'tlt_rcv_txt' => 'Total Recieveable',
+    'tlt_pay_txt' => 'Total Payable',
     'update_sales_heading' => 'Update Sale',
     'sales_update' => 'Sale has been updated.',
     'delete_msg' => 'Sale has been deleted.',
@@ -77,7 +78,7 @@ return [
     'account_label' => 'Account',
     'account_description_label' => 'Description',
     'account_qty_label' => 'Qty',
-    'account_unit_price_label' => 'Unit Amount',
+    'account_unit_price_label' => 'Rate',
     'account_amount_label' => 'Amount',
     'select_option_value' => '-- SELECT --',
     'select_option_bank_value' => '-- SELECT BANK --',
@@ -95,6 +96,7 @@ return [
     'print_txt' => 'PRINT',
     'note_heading_txt' => 'Note',
     'note_txt' => 'Sorry! record not found.',
+    'tlt_txt' => 'Total',
 
     'email_short_txt' => 'E:',
     'phone_short_txt' => 'T:',
@@ -155,7 +157,7 @@ return [
 
     'error_debit_credit_equal' => 'The amount of debit and credit are not same',
 
-    'title_label' => 'Title',
+    'title_label' => 'Truck No.',
     'balance_txt' => 'Balance',
     'payment_date_txt' => 'Payment Date',
     'tlt_balance_txt' => 'Total Balance',
@@ -167,8 +169,8 @@ return [
     'ib_entry_code_txt' => 'IB Code',
     'ib_heading_txt' => 'Internal Transfer',
     'create_ib_heading' => 'Create Internal Transfer',
-    'select_option_ib_bank_from_value' => ' -- SELECT FROM BANK --',
-    'select_option_ib_bank_to_value'    => ' -- SELECT TO BANK --',
+    'select_option_ib_bank_from_value' => ' -- SELECT FROM ACCOUNT --',
+    'select_option_ib_bank_to_value'    => ' -- SELECT TO ACCOUNT --',
     'ib_txt' => 'IB',
     'entry_ib_code_txt' => 'IB Code',
     'ib_to_label' => 'To Bank',
