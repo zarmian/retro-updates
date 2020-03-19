@@ -536,7 +536,7 @@ class ReportController extends Controller
             $data['trials'] = [];
 
             $accounts = AccountsChart::get();
-            if(isset($accounts) && count($accounts) > 0)
+            if(isset($accounts) )
             {
                 $data['total'] = [];
                 $tlt_opening_dr = 0; $tlt_opening_cr = 0; $tlt_trans_dr = 0; $tlt_trans_cr = 0; $tlt_closing_dr = 0; $tlt_closing_cr = 0;
@@ -550,7 +550,7 @@ class ReportController extends Controller
 
                     $transition_dr = 0; $transition_cr = 0; $closing_dr = 0; $closing_cr = 0;
 
-                    if(isset($transition) && count($transition) > 0)
+                    if(isset($transition) )
                     {
                         $transition_dr = $transition->tdebit;
                         $transition_cr = $transition->tcredit;
@@ -651,7 +651,7 @@ class ReportController extends Controller
 
                         // Manipulate 2nd row
                         $accounts = AccountsChart::get();
-                        if(isset($accounts) && count($accounts) > 0)
+                        if(isset($accounts) )
                         {
                             $sr = 3; $tlt_opening_dr = 0; $tlt_opening_cr = 0; $tlt_trans_dr = 0; $tlt_trans_cr = 0; $tlt_closing_dr = 0; $tlt_closing_cr = 0;
                             foreach($accounts as $account)
@@ -664,7 +664,7 @@ class ReportController extends Controller
 
                                 $transition_dr = 0; $transition_cr = 0; $closing_dr = 0; $closing_cr = 0;
 
-                                if(isset($transition) && count($transition) > 0)
+                                if(isset($transition) )
                                 {
                                     $transition_dr = $transition->tdebit;
                                     $transition_cr = $transition->tcredit;
