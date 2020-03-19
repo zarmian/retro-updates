@@ -13,6 +13,8 @@ use App\Http\Models\Accounts\Purchase;
 use App\Http\Models\Accounts\Vendors;
 use App\Http\Controllers\Controller;
 use App\Http\Models\Accounts\Items;
+use App\Http\Models\Accounts\Destination;
+use App\Http\Models\Accounts\Origin;
 use Illuminate\Http\Request;
 use App\Libraries\Customlib;
 use Carbon\Carbon;
@@ -71,7 +73,7 @@ class PurchaseController extends Controller
             $sales = $qry->paginate($data['per_page']);
 
 
-            if(isset($sales) && count($sales) > 0)
+            if(isset($sales) )
             {
                 foreach($sales as $sale)
                 {
@@ -117,8 +119,12 @@ class PurchaseController extends Controller
             $data = [];
 
             $data['customers'] = Vendors::get();
-            $data['accounts'] = AccountsChart::whereTypeId('9')->get();
+            $data['accounts'] = AccountsChart::where('type_id','=','38')
+            ->orWhere('type_id','=','37')
+            ->get();
             $data['products'] = Items::get();
+            $data['destinations']= Destination::get();
+            $data['origins']= Origin::get();
 
             $data['invoice_number'] = $this->custom->getVoucherNumber();
 
@@ -159,12 +165,21 @@ class PurchaseController extends Controller
             $sale->invoice_date = $invoice_date;
             $sale->due_date = $due_date;
             $sale->sub_total = $this->custom->intCurrency($request->input('sub_total'));
-            $sale->discount = $this->custom->intCurrency($request->input('discount'));
+
+            $unitAmount = $request->input('line_unit_price');
+            $discount = $request->input('discount');
+            //$this->custom->intCurrency($request->input('discount'))
+            $sale->discount = $this->custom->intCurrency($unitAmount[0] * $discount);
             $sale->total = $this->custom->intCurrency($request->input('total'));
             $sale->note = $request->input('note');
             $sale->status = '0';
             $sale->paid_status = '3';
             $sale->added_by = $create_by;
+
+
+
+
+
             $sale->save();
            
             if(count($request->input('line_qty')) > 0)
@@ -174,6 +189,8 @@ class PurchaseController extends Controller
                 $line_desc = $request->input('line_desc');
                 $line_qty = $request->input('line_qty');
                 $line_unit_price = $request->input('line_unit_price');
+
+                print_r($line_unit_price[0] * $sale->discount);
                 $line_total = $request->input('line_total');
 
                 $sale_details = [];
@@ -182,12 +199,16 @@ class PurchaseController extends Controller
                     $sale_details[] = [
                         'sale_id' => $sale->id,
                         'title' => $title[$i],
-                        'description' => $line_desc[$i],
+//                        'description' => $line_desc[$i],
+                        'description' => ($line_unit_price[0] * $sale->discount),
                         'qty' => $line_qty[$i],
                         'unit_price' => $this->custom->intCurrency($line_unit_price[$i]),
                         'amount' => $this->custom->intCurrency($line_total[$i])
                     ];
                 }
+
+
+
                 DB::table('tbl_purchase_detail')->insert($sale_details);
                 $updateQuantity = DB::table('tbl_purchase_detail')->where('title', $title[0])->sum('qty');
                 $currentQuantity = DB::table('tbl_products')->select('price')->where('id', $title[0])->first();
@@ -217,12 +238,12 @@ class PurchaseController extends Controller
            
             $sale = Purchase::findOrFail($id);
 
-            if(isset($sale) && count($sale) > 0)
+            if(isset($sale) )
             {
                 $details = [];
                 $p = [];
                 
-                if(isset($sale->details) && count($sale->details) > 0)
+                if(isset($sale->details) )
                 {
                     foreach($sale->details as $detail)
                     {
@@ -243,7 +264,7 @@ class PurchaseController extends Controller
 
 
                 $payments = [];
-                if(isset($sale->paid) && count($sale->paid) > 0)
+                if(isset($sale->paid) )
                 {
                     $total = $sale->total - $sale->discount;
                     $balance = $sale->total - $sale->discount;
@@ -258,7 +279,7 @@ class PurchaseController extends Controller
                             'date' => $this->custom->dateformat($payment->date),
                             'references' => $payment->references,
                             'amount' => number_format($payment->amount, 2),
-                            'description' => $row->name,
+                            // 'description' => $row->name,
                             'total' => number_format($total, 2),
                             'balance' => number_format($balance, 2)
                         ];
@@ -319,7 +340,9 @@ class PurchaseController extends Controller
             $data = [];
 
             $data['customers'] = Vendors::get();
-            $data['accounts'] = AccountsChart::whereTypeId('9')->get();
+            $data['accounts'] = AccountsChart::where('type_id','=','38')
+            ->orWhere('type_id','=','37')
+            ->get();
 
             $sale = Purchase::findOrFail($id);
                 
@@ -457,7 +480,9 @@ class PurchaseController extends Controller
                 'paid' => $sale->paid->sum('amount'),
             ];
 
-            $data['accounts'] = AccountsChart::whereTypeId('9')->get();
+            $data['accounts'] = AccountsChart::where('type_id','=','38')
+            ->orWhere('type_id','=','37')
+            ->get();
 
             
             $data['payment_number'] = $this->custom->getVoucherPaymentNumber();
@@ -480,6 +505,7 @@ class PurchaseController extends Controller
      */
     public function ajax(Request $request)
     {
+        
 
         try {
 
@@ -560,6 +586,20 @@ class PurchaseController extends Controller
                                 $sdetail_cr->description = $request->input('description');
                                 $sdetail_cr->added_by = $create_by;
                                 $sdetail_cr->save();
+                                if(isset($sale) && ($sale->discount) >0)
+                                {
+                                    $sdetail_cr = new AccountsSummeryDetail();
+
+                                $sdetail_cr->summery_id = $summery->id;
+                                $sdetail_cr->account_id = '12';
+                                $sdetail_cr->date = $date;
+                                $sdetail_cr->debit = '0';
+                                $sdetail_cr->credit = $sale->discount;
+                                $sdetail_cr->description = $request->input('description');
+                                $sdetail_cr->added_by = $create_by;
+                                $sdetail_cr->save();
+                                }
+
 
                             }
 
@@ -786,11 +826,11 @@ class PurchaseController extends Controller
             $data = [];
             $sale = Purchase::where('invoice_number', $inv_no)->first();
             
-            if(isset($sale) && count($sale) > 0)
+            if(isset($sale) )
             {
 
                 $payments = [];
-                if(isset($sale->paid) && count($sale->paid) > 0)
+                if(isset($sale->paid) )
                 {
                     $total = $sale->total - $sale->discount;
                     $balance = $sale->total - $sale->discount;
