@@ -56,7 +56,7 @@ class PaymentsReceivedController extends Controller
             $amount = 0;
 
 
-            if(isset($journals) && count($journals) > 0)
+            if(isset($journals) )
             {
                 foreach($journals as $journal)
                 {
@@ -100,7 +100,7 @@ class PaymentsReceivedController extends Controller
             $bank_data = [];
 
             $expense_accounts = AccountsChart::whereTypeId('17')->get();
-            if(isset($expense_accounts) && count($expense_accounts) > 0)
+            if(isset($expense_accounts) )
             {
                 foreach($expense_accounts as $expense)
                 {
@@ -114,7 +114,7 @@ class PaymentsReceivedController extends Controller
 
 
             $bank_accounts = AccountsChart::whereTypeId('9')->get();
-            if(isset($bank_accounts) && count($bank_accounts) > 0)
+            if(isset($bank_accounts) )
             {
                 foreach($bank_accounts as $bank)
                 {
@@ -263,14 +263,14 @@ class PaymentsReceivedController extends Controller
             if(is_null($id)) return redirect('accounting/payments/received');
 
             $journal = AccountsSummery::where('type', '8')->findOrFail($id);
-            if(isset($journal) && count($journal) > 0)
+            if(isset($journal) )
             {
                 
                 $dt = Carbon::parse($journal->date);
 
                 $d['details'] = [];
                 $tlt_dr = 0; $tlt_cr = 0;
-                if(isset($journal->details) && count($journal->details) > 0)
+                if(isset($journal->details) )
                 {
                     foreach($journal->details as $detail)
                     {
@@ -311,7 +311,7 @@ class PaymentsReceivedController extends Controller
             $bank_data = [];
 
             $expense_accounts = AccountsChart::whereTypeId('17')->get();
-            if(isset($expense_accounts) && count($expense_accounts) > 0)
+            if(isset($expense_accounts) )
             {
                 foreach($expense_accounts as $expense)
                 {
@@ -325,7 +325,7 @@ class PaymentsReceivedController extends Controller
 
 
             $bank_accounts = AccountsChart::whereTypeId('9')->get();
-            if(isset($bank_accounts) && count($bank_accounts) > 0)
+            if(isset($bank_accounts) )
             {
                 foreach($bank_accounts as $bank)
                 {
@@ -362,14 +362,14 @@ class PaymentsReceivedController extends Controller
             $custom = new Customlib();
 
             $journal = AccountsSummery::where('type', '8')->findOrFail($id);
-            if(isset($journal) && count($journal) > 0)
+            if(isset($journal) )
             {
                 
                 $dt = Carbon::parse($journal->date);
 
                 $d['details'] = [];
                 $tlt_dr = 0; $tlt_cr = 0;
-                if(isset($journal->details) && count($journal->details) > 0)
+                if(isset($journal->details) )
                 {
                     foreach($journal->details as $detail)
                     {
