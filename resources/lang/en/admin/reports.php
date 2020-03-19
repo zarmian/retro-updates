@@ -35,6 +35,7 @@ return [
     'tlt_amount_txt' => 'Total Amount',
     'tlt_paid_txt' => 'Total Paid',
     'tlt_paid' => 'Paid',
+    'tlt_rcv' => 'Recieved',
 
     'purchse_report_txt' => 'Purchase Report',
     'due_date_txt' => 'Due Date',
