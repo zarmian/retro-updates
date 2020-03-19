@@ -7,6 +7,7 @@ use App\Http\Models\Accounts\SalesLedger;
 use App\Http\Models\Accounts\Customers;
 use App\Http\Controllers\Controller;
 use App\Http\Models\Accounts\Sales;
+use App\Http\Models\Accounts\SalesDetail;
 use Illuminate\Http\Request;
 use App\Libraries\Customlib;
 use Carbon\Carbon;
@@ -59,6 +60,7 @@ class SalesReportsController extends Controller
             $nice_from_date = Carbon::createFromFormat('m/d/Y', $data['from'])->toDateString();
             
             $query = Sales::query();
+            
 
             if(isset($data['customer_id']) && $data['customer_id'] <> "")
             {
@@ -84,13 +86,16 @@ class SalesReportsController extends Controller
             
 
             $sales = $query->get();
-
-            $tlt_amt = 0; $tlt_paid_amt = 0;
+          
+            $tlt_amt = 0; $tlt_paid_amt = 0; $tlt_qty=0;
             $data['tlt'] = [];
-            if(isset($sales) && count($sales) > 0)
+            if(isset($sales) )
             {
                 foreach($sales as $sale)
                 {
+                    $details=SalesDetail::where('sale_id','=',$sale['id'])->get();
+                    foreach($details as $detail)
+                    {
                     $data['sales'][] = [
                         'id' => $sale['id'],
                         'invoice_number' => $sale['invoice_number'],
@@ -98,19 +103,23 @@ class SalesReportsController extends Controller
                         'customer_name' => $sale->customer->first_name.' '.$sale->customer->last_name,
                         'customer_id' => $sale->customer->id,
                         'due_date' => $this->custom->dateformat($sale['due_date']),
+                        'rate' =>$detail->unit_price,
+                        'qty' => $detail->qty,
                         'total' => number_format($sale['total'], 2),
                         'paid' => number_format($sale->paid->sum('amount'), 2),
 
                     ];
-
+                    $tlt_qty= $tlt_qty + $detail->qty;
                     $tlt_amt = $tlt_amt + $sale['total'];
                     $tlt_paid_amt = $tlt_paid_amt + $sale->paid->sum('amount');
+                }
 
                 }
 
                 $data['tlt'] = [
                     'tlt_amt' => number_format($tlt_amt, 2),
-                    'tlt_paid_amt' => number_format($tlt_paid_amt, 2)
+                    'tlt_paid_amt' => number_format($tlt_paid_amt, 2),
+                    'tlt_qty' => number_format($tlt_qty, 2)
                 ];
 
                 
@@ -183,7 +192,7 @@ class SalesReportsController extends Controller
                 $rows = $query->get();
 
                 $data['rows'] = [];
-                if(isset($rows) && count($rows) > 0)
+                if(isset($rows) )
                 {
 
                     $total = 0;
@@ -403,7 +412,7 @@ class SalesReportsController extends Controller
 
                             $tlt_amt = 0; $tlt_paid_amt = 0;
                             $data['tlt'] = [];
-                            if(isset($sales) && count($sales) > 0)
+                            if(isset($sales) )
                             {
                                 $r = 3;
                                 foreach($sales as $sale)
@@ -509,7 +518,7 @@ class SalesReportsController extends Controller
                             $rows = $query->get();
 
                             $data['rows'] = [];
-                            if(isset($rows) && count($rows) > 0)
+                            if(isset($rows) )
                             {
 
                                 $sub_total = 0;
