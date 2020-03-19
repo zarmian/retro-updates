@@ -24,7 +24,7 @@ class SettingsController extends Controller
             $data = [];
 
             $st = Settings::select('config_name', 'config_value', 'serialized')->get();
-            if(isset($st) && count($st) > 0)
+            if(isset($st) )
             {
                 foreach($st as $setting)
                 {
