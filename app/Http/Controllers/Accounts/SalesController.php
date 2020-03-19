@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Models\Accounts\Customers;
 use App\Http\Models\Accounts\Items;
+use App\Http\Models\Accounts\Destination;
+use App\Http\Models\Accounts\Origin;
 use App\Http\Models\Accounts\AccountsChart;
 use App\Http\Models\Accounts\SalesLedger;
 use App\Http\Models\Accounts\AccountsSummery;
@@ -71,7 +73,7 @@ class SalesController extends Controller
             $sales = $qry->paginate($data['per_page']);
 
 
-            if(isset($sales) && count($sales) > 0)
+            if(isset($sales) )
             {
                 foreach($sales as $sale)
                 {
@@ -114,10 +116,13 @@ class SalesController extends Controller
             $data = [];
 
             $data['customers'] = Customers::get();
-            $data['accounts'] = AccountsChart::whereTypeId('9')->get();
+            $data['accounts'] = AccountsChart::where('type_id','=','38')
+            ->orWhere('type_id','=','37')
+            ->get();
             $data['products'] = Items::get();
             $data['tax'] = Tax::get(); 
-
+            $data['destinations']= Destination::get();
+            $data['origins']= Origin::get();
             $custom = new Customlib;
             $data['invoice_number'] = $custom->getInvoiceNumber();
             $data['vat'] = $this->custom->getSetting('VAT_TAX');
@@ -182,8 +187,15 @@ class SalesController extends Controller
             $sale->invoice_date = $invoice_date;
             $sale->due_date = $due_date;
             $sale->sub_total = $this->custom->intCurrency($request->input('sub_total'));
-            $sale->discount = $this->custom->intCurrency($request->input('discount'));
-            $sale->total = $this->custom->intCurrency($total_amount);
+
+
+            $unitAmount = $request->input('line_unit_price');
+            $discount = $request->input('discount');
+
+//            $sale->discount = $this->custom->intCurrency($request->input('discount'));
+            $sale->discount = $this->custom->intCurrency($unitAmount[0] * $discount);
+            
+            $sale->total = $this->custom->intCurrency($request->input('total'));
             $sale->vat_tax_id = $vat_tax_id;
             $sale->vat_tax_amount = $vat_tax_amount;
             $sale->note = $request->input('note');
@@ -208,10 +220,13 @@ class SalesController extends Controller
                     $sale_details[] = [
                         'sale_id' => $sale->id,
                         'title' => $title[$i],
-                        'description' => $line_desc[$i],
+//                        'description' => $line_desc[$i],
+                        'description' => ($line_unit_price[0] * $sale->discount),
                         'qty' => $line_qty[$i],
                         'unit_price' => $this->custom->intCurrency($line_unit_price[$i]),
-                        'amount' => $this->custom->intCurrency($line_total[$i])
+                        'amount' => $this->custom->intCurrency($line_total[$i]),
+                        'destination' => $request->input('destination'),
+                        'origin' => $request->input('origin')
                     ];
                 }
 
@@ -309,13 +324,13 @@ class SalesController extends Controller
            
             $sale = Sales::findOrFail($id);
 
-            if(isset($sale) && count($sale) > 0)
+            if(isset($sale) )
             {
 
                 $details = [];
                 $p = [];
                 
-                if(isset($sale->details) && count($sale->details) > 0)
+                if(isset($sale->details) )
                 {
                     foreach($sale->details as $detail)
                     {
@@ -335,7 +350,7 @@ class SalesController extends Controller
                 }
 
                 $tlt_paid_sum = 0;
-                if(isset($sale->paid) && count($sale->paid) > 0)
+                if(isset($sale->paid) )
                 {
                     
                     foreach($sale->paid as $paid)
@@ -429,7 +444,9 @@ class SalesController extends Controller
 
             //print_r($data);
 
-            $data['accounts'] = AccountsChart::whereTypeId('9')->get();
+            $data['accounts'] = AccountsChart::where('type_id','=','38')
+            ->orWhere('type_id','=','37')
+            ->get();
 
             
             $data['payment_number'] = $this->custom->getPaymentNumber();
@@ -480,7 +497,7 @@ class SalesController extends Controller
 
                         $customer = Customers::leftJoin('tbl_accounts_chart', 'tbl_customers.code', '=', 'tbl_accounts_chart.code')->select(DB::raw('tbl_customers.id as vid, tbl_accounts_chart.id as cid'))->where('tbl_customers.id', $customer_id)->first();
 
-                        if(isset($customer) && count($customer) > 0)
+                        if(isset($customer) )
                         {
 
                             $ledger = new SalesLedger;
@@ -595,12 +612,14 @@ class SalesController extends Controller
             $data = [];
 
             $data['customers'] = Customers::get();
-            $data['accounts'] = AccountsChart::whereTypeId('9')->get();
+            $data['accounts'] = AccountsChart::where('type_id','=','38')
+            ->orWhere('type_id','=','37')
+            ->get();
 
             $sale = Sales::findOrFail($id);
 
             $details = [];
-            if(isset($sale->details) && count($sale->details) > 0)
+            if(isset($sale->details) )
             {
                 foreach($sale->details as $detail)
                 {
@@ -910,7 +929,7 @@ class SalesController extends Controller
                             $details = [];
                             $p = [];
                             
-                            if(isset($sale->details) && count($sale->details) > 0)
+                            if(isset($sale->details) )
                             {
                                 foreach($sale->details as $detail)
                                 {
@@ -928,7 +947,7 @@ class SalesController extends Controller
                             }
 
 
-                            if(isset($sale->paid) && count($sale->paid) > 0)
+                            if(isset($sale->paid) )
                             {
                                 $tlt_paid_sum = 0;
                                 foreach($sale->paid as $paid)
@@ -1012,11 +1031,11 @@ class SalesController extends Controller
             $data = [];
             $sale = Sales::where('invoice_number', $inv_no)->first();
             
-            if(isset($sale) && count($sale) > 0)
+            if(isset($sale) )
             {
 
                 $payments = [];
-                if(isset($sale->paid) && count($sale->paid) > 0)
+                if(isset($sale->paid) )
                 {
                     $total = $sale->total - $sale->discount;
                     $balance = $sale->total - $sale->discount;
@@ -1051,7 +1070,7 @@ class SalesController extends Controller
                 $details = [];
                 $p = [];
                 
-                if(isset($sale->details) && count($sale->details) > 0)
+                if(isset($sale->details))
                 {
                     foreach($sale->details as $detail)
                     {
@@ -1069,7 +1088,7 @@ class SalesController extends Controller
                 }
 
                 $tlt_paid_sum = 0;
-                if(isset($sale->paid) && count($sale->paid) > 0)
+                if(isset($sale->paid) )
                 {
                     
                     foreach($sale->paid as $paid)
