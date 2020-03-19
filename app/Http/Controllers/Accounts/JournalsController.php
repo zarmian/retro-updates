@@ -55,7 +55,7 @@ class JournalsController extends Controller
             $amount = 0;
 
 
-            if(isset($journals) && count($journals) > 0)
+            if(isset($journals) )
             {
                 foreach($journals as $journal)
                 {
@@ -95,41 +95,54 @@ class JournalsController extends Controller
             
             $data = [];
 
-            $expense_data = [];
+            $coa = [];
             $bank_data = [];
 
-            $expense_accounts = AccountsChart::whereTypeId('15')->get();
-            if(isset($expense_accounts) && count($expense_accounts) > 0)
+            $accounts = AccountsType::whereParent('0')->get();
+            if(isset($accounts) )
             {
-                foreach($expense_accounts as $expense)
+                foreach($accounts as $account)
                 {
-                    $expense_data[] = [
-                        'id' => $expense['id'],
-                        'code' => $expense['code'],
-                        'name' => $expense['name']
-                    ];
-                }
-            }
+
+                   
+                    if(isset($account->children) )
+                    {
+                        foreach($account->children as $child)
+                        {
+                            
+                            if(isset($child->chartofacc) ){
 
 
-            $bank_accounts = AccountsChart::whereTypeId('9')->get();
-            if(isset($bank_accounts) && count($bank_accounts) > 0)
-            {
-                foreach($bank_accounts as $bank)
-                {
-                    $bank_data[] = [
-                        'id' => $bank['id'],
-                        'code' => $bank['code'],
-                        'name' => $bank['name']
-                    ];
+                                foreach($child->chartofacc as $ac){
+                                    
+
+                                    $coa[] = [
+                                        'id' => $ac->cid,
+                                        'name' => $ac->name,
+                                        'code' => $ac->code,
+                                        
+                                        
+                                    ];
+                                }
+                            }
+                            
+                            
+                        }
+                    }
+                    
+                    
+                    
+                    
                 }
             }
+            
             
 
           
             $code = $this->custom->getJournalCode();
+            
 
-            return view('accounting/journal/create', ['accounts' => $expense_data, 'code' => $code, 'banks' => $bank_accounts]);
+            return view('accounting/journal/create', ['accounts' => $coa, 'code' => $code, 'banks' => $coa]);
 
         } catch (ModelNotFoundException $e) {
             
@@ -242,14 +255,14 @@ class JournalsController extends Controller
             if(is_null($id)) return redirect('accounting/journal');
 
             $journal = AccountsSummery::where('type', '1')->findOrFail($id);
-            if(isset($journal) && count($journal) > 0)
+            if(isset($journal) )
             {
                 
                 $dt = Carbon::parse($journal->date);
 
                 $d['details'] = [];
                 $tlt_dr = 0; $tlt_cr = 0;
-                if(isset($journal->details) && count($journal->details) > 0)
+                if(isset($journal->details) )
                 {
                     foreach($journal->details as $detail)
                     {
@@ -288,7 +301,7 @@ class JournalsController extends Controller
             $bank_data = [];
 
             $expense_accounts = AccountsChart::whereTypeId('15')->get();
-            if(isset($expense_accounts) && count($expense_accounts) > 0)
+            if(isset($expense_accounts) )
             {
                 foreach($expense_accounts as $expense)
                 {
@@ -302,7 +315,7 @@ class JournalsController extends Controller
 
 
             $bank_accounts = AccountsChart::whereTypeId('9')->get();
-            if(isset($bank_accounts) && count($bank_accounts) > 0)
+            if(isset($bank_accounts) )
             {
                 foreach($bank_accounts as $bank)
                 {
@@ -339,14 +352,14 @@ class JournalsController extends Controller
             $custom = new Customlib();
 
             $journal = AccountsSummery::where('type', '1')->findOrFail($id);
-            if(isset($journal) && count($journal) > 0)
+            if(isset($journal) )
             {
                 
                 $dt = Carbon::parse($journal->date);
 
                 $d['details'] = [];
                 $tlt_dr = 0; $tlt_cr = 0;
-                if(isset($journal->details) && count($journal->details) > 0)
+                if(isset($journal->details) )
                 {
                     foreach($journal->details as $detail)
                     {
