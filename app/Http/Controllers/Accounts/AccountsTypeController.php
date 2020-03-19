@@ -21,13 +21,13 @@ class AccountsTypeController extends Controller
             $data[] = [];
             $types = AccountsType::where('parent', '0')->get();
 
-            if(isset($types) && count($types) > 0)
+            if(isset($types) )
             {
                 foreach($types as $type)
                 {
 
                     $children = [];
-                    if(isset($type->children) && count($type->children) > 0)
+                    if(isset($type->children) )
                     {
                         foreach($type->children as $child)
                         {
@@ -69,13 +69,13 @@ class AccountsTypeController extends Controller
 
             $types = AccountsType::where('parent', '0')->get();
 
-            if(isset($types) && count($types) > 0)
+            if(isset($types) )
             {
                 foreach($types as $type)
                 {
 
                     $children = [];
-                    if(isset($type->children) && count($type->children) > 0)
+                    if(isset($type->children) )
                     {
                         foreach($type->children as $child)
                         {
@@ -158,19 +158,19 @@ class AccountsTypeController extends Controller
 
             $data['account'] = $accountsType->whereId($id)->first();
             
-            if(!isset($data['account']) && count($data['account']) === 0){
+            if(!isset($data['account']) ){
                 return redirect('accounting/chart-type');
             }
 
             $types = AccountsType::where('parent', '0')->get();
 
-            if(isset($types) && count($types) > 0)
+            if(isset($types) )
             {
                 foreach($types as $type)
                 {
 
                     $children = [];
-                    if(isset($type->children) && count($type->children) > 0)
+                    if(isset($type->children) )
                     {
                         foreach($type->children as $child)
                         {
