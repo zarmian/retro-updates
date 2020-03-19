@@ -49,7 +49,7 @@ class InterbankController extends Controller
 
             $interbanks = $qry->where('type', '4')->orderBy('code', 'DESC')->paginate($data['per_page']);
 
-            if(isset($interbanks) && count($interbanks) > 0)
+            if(isset($interbanks) )
             {
                 foreach($interbanks as $interbank)
                 {
@@ -89,8 +89,10 @@ class InterbankController extends Controller
 
             $code = $this->custom->getInterBankCode();
 
-            $bank_accounts = AccountsChart::whereTypeId('9')->get();
-            if(isset($bank_accounts) && count($bank_accounts) > 0)
+            $bank_accounts = AccountsChart::where('type_id','=','38')
+            ->orWhere('type_id','=','37')
+            ->get();
+            if(isset($bank_accounts) )
             {
                 foreach($bank_accounts as $bank)
                 {
@@ -194,14 +196,14 @@ class InterbankController extends Controller
             if(is_null($id)) return redirect('accounting/interbank');
 
             $transfer = AccountsSummery::where('type', '4')->findOrFail($id);
-            if(isset($transfer) && count($transfer) > 0)
+            if(isset($transfer))
             {
                 
                 $dt = Carbon::parse($transfer->date);
 
                 $d['details'] = [];
                 $tlt_dr = 0; $tlt_cr = 0;
-                if(isset($transfer->details) && count($transfer->details) > 0)
+                if(isset($transfer->details) )
                 {
                     foreach($transfer->details as $detail)
                     {
@@ -265,14 +267,14 @@ class InterbankController extends Controller
             if(is_null($id)) return redirect('accounting/interbank');
 
             $interbank = AccountsSummery::where('type', '4')->findOrFail($id);
-            if(isset($interbank) && count($interbank) > 0)
+            if(isset($interbank) )
             {
                 
                 $dt = Carbon::parse($interbank->date);
 
                 $d['details'] = [];
                 $tlt_dr = 0; $tlt_cr = 0;
-                if(isset($interbank->details) && count($interbank->details) > 0)
+                if(isset($interbank->details) )
                 {
                     foreach($interbank->details as $detail)
                     {
@@ -310,8 +312,10 @@ class InterbankController extends Controller
             }
 
 
-            $bank_accounts = AccountsChart::whereTypeId('9')->get();
-            if(isset($bank_accounts) && count($bank_accounts) > 0)
+            $bank_accounts = AccountsChart::where('type_id','=','38')
+            ->orWhere('type_id','=','37')
+            ->get();
+            if(isset($bank_accounts) )
             {
                 foreach($bank_accounts as $bank)
                 {
