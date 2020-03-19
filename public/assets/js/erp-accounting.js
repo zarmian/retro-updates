@@ -137,7 +137,7 @@
 
 
                     table.find('tfoot input.price-total').val( ERP_Accounting.numFormating( total ) );
-
+                    table.find('tfoot input.line_dis').val( ERP_Accounting.numFormating( cal_dis_amount ) );
 
 
                     //row.find('input.line_tax_amount').val( ERP_Accounting.numFormating( tax_amount ) );
