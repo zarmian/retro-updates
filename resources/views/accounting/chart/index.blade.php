@@ -120,7 +120,7 @@
                 <th>@lang('admin/accounting.action_txt')</th>
               </tr>
 
-              @if(isset($accounts) && count($accounts) > 0)
+              @if(isset($accounts) )
                 @foreach($accounts as $account)
 
 
@@ -130,7 +130,7 @@
                 <td colspan="4"><b>{{ $account['name'] }}</b></td>
               </tr>
               
-              @if(isset($account['coa']) && count($account['coa']) > 0)
+              @if(isset($account['coa']) )
                 @foreach($account['coa'] as $coa)
                   <tr>
                     <td>{{ $coa['code'] }}</td>
@@ -139,7 +139,7 @@
                     <td>{{ $coa['opening'] }} {{ $coa['balance_type'] }} </td>
                     <td>{{ $coa['balance'] }} {{ $currency }}</td>
                     @if(isset($coa['is_systemize']) && $coa['is_systemize'] == 1)
-                    <td>@lang('admin/accounting.system_account')</td>
+                    <td><a href="{{ url('accounting/chart/edit', $coa['cid']) }}">@lang('admin/accounting.edit_txt')</a> </td>
                     @else
                     <td>
                       <a href="{{ url('accounting/chart/edit', $coa['cid']) }}">@lang('admin/accounting.edit_txt')</a> 
