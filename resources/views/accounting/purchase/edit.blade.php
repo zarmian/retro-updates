@@ -291,7 +291,7 @@ $(".chosen").select2();
     
 
     $.ajax({
-      url: base_url+'/accounting/items/ajax-price',
+      url: base_url+'/accounting/trucks/ajax-price',
       type: 'POST',
       dataType: 'json',
       data: {'_token': '{{ csrf_token() }}', id: id},

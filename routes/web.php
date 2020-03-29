@@ -538,17 +538,21 @@ Route::group(['middleware' => ['user']], function () {
 Route::get('employee/ledger', ['as' => 'employee/ledger', 'uses' => 'Employees\EmployeesAttendanceController@ledger']);
 
 	
-	Route::get('accounting/items', ['as' => 'accounting/items', 'uses' => 'Accounts\ItemsController@index']);
+	Route::get('accounting/trucks', ['as' => 'accounting/trucks', 'uses' => 'Accounts\TrucksController@index']);
 
-	Route::get('accounting/items/add', ['as' => 'accounting/items/add', 'uses' => 'Accounts\ItemsController@create']);
+	Route::get('accounting/trucks/add', ['as' => 'accounting/trucks/add', 'uses' => 'Accounts\TrucksController@create']);
 
-	Route::post('accounting/items/add', ['as' => 'accounting/items/add', 'uses' => 'Accounts\ItemsController@store']);
+	Route::post('accounting/trucks/add', ['as' => 'accounting/trucks/add', 'uses' => 'Accounts\TrucksController@store']);
 
-	Route::get('accounting/items/edit/{id?}', ['as' => 'accounting/items/edit', 'uses' => 'Accounts\ItemsController@edit']);
+	Route::get('accounting/trucks/edit/{id?}', ['as' => 'accounting/trucks/edit', 'uses' => 'Accounts\TrucksController@edit']);
 
-	Route::post('accounting/items/edit/{id?}', ['as' => 'accounting/items/edit', 'uses' => 'Accounts\ItemsController@update']);
+	Route::post('accounting/trucks/edit/{id?}', ['as' => 'accounting/trucks/edit', 'uses' => 'Accounts\TrucksController@update']);
 
-	Route::get('accounting/items/delete/{id?}', ['as' => 'accounting/items/delete', 'uses' => 'Accounts\ItemsController@destroy']);
+	Route::get('accounting/trucks/delete/{id?}', ['as' => 'accounting/trucks/delete', 'uses' => 'Accounts\TrucksController@destroy']);
+
+	Route::get('accounting/trucks/addproducts', ['as' => 'accounting/trucks/addproducts', 'uses' => 'Accounts\TrucksController@addproduct']);
+
+	Route::post('accounting/trucks/addproducts', ['as' => 'accounting/trucks/addproducts', 'uses' => 'Accounts\TrucksController@storeproduct']);
 
 	//Destination
 	Route::get('accounting/destination', ['as' => 'accounting/destination', 'uses' => 'Accounts\DestinationController@index']);
@@ -576,9 +580,21 @@ Route::get('employee/ledger', ['as' => 'employee/ledger', 'uses' => 'Employees\E
 
 	Route::get('accounting/origin/delete/{id?}', ['as' => 'accounting/origin/delete', 'uses' => 'Accounts\OriginController@destroy']);
 
-	
+	//Product
+	Route::get('accounting/products', ['as' => 'accounting/products', 'uses' => 'Accounts\ProductController@index']);
 
-	Route::post('accounting/items/ajax-price', ['as' => 'accounting/items/ajax-price', 'uses' => 'Accounts\ItemsController@ajax_price']);
+	Route::get('accounting/products/add', ['as' => 'accounting/products/add', 'uses' => 'Accounts\ProductController@create']);
+
+	Route::post('accounting/products/add', ['as' => 'accounting/products/add', 'uses' => 'Accounts\ProductController@store']);
+
+	Route::get('accounting/products/edit/{id?}', ['as' => 'accounting/products/edit', 'uses' => 'Accounts\ProductController@edit']);
+
+	Route::post('accounting/products/edit/{id?}', ['as' => 'accounting/products/edit', 'uses' => 'Accounts\ProductController@update']);
+
+	Route::get('accounting/products/delete/{id?}', ['as' => 'accounting/products/delete', 'uses' => 'Accounts\ProductController@destroy']);
+
+
+	Route::post('accounting/trucks/ajax-products', ['as' => 'accounting/trucks/ajax-products', 'uses' => 'Accounts\TrucksController@ajax_products']);
 	
 	Route::post('accounting/sales/vat-price', ['as' => 'accounting/sales/vat-price', 'uses' => 'Accounts\SalesController@vat_price']);
 

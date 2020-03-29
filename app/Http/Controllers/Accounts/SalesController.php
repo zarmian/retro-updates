@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Accounts;
 
 use App\Http\Models\Accounts\Sales;
 use App\Http\Models\Accounts\SalesDetail;
+use App\Http\Models\Accounts\PurchaseDetail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Models\Accounts\Customers;
-use App\Http\Models\Accounts\Items;
+use App\Http\Models\Accounts\Trucks;
+use App\Http\Models\Accounts\Product;
 use App\Http\Models\Accounts\Destination;
 use App\Http\Models\Accounts\Origin;
 use App\Http\Models\Accounts\AccountsChart;
@@ -119,7 +121,23 @@ class SalesController extends Controller
             $data['accounts'] = AccountsChart::where('type_id','=','38')
             ->orWhere('type_id','=','37')
             ->get();
-            $data['products'] = Items::get();
+            $data['products'] = Trucks::get();
+            $purchases= PurchaseDetail::orderBy('id','DESC')->take(20)->get();
+            $pur =[];
+            foreach($purchases as $purchase)
+            {
+                $name= Trucks::select('name')->where('id','=',$purchase->title)->first();
+            $pur[]=([
+                
+                    'id'=> $purchase->id,
+                    'truck'=> $name->name,
+                    'product' => $purchase->products->name,
+                
+            ]);
+            }
+            
+            $data['purchases'] = $pur;
+            
             $data['tax'] = Tax::get(); 
             $data['destinations']= Destination::get();
             $data['origins']= Origin::get();
@@ -213,7 +231,9 @@ class SalesController extends Controller
                 $line_qty = $request->input('line_qty');
                 $line_unit_price = $request->input('line_unit_price');
                 $line_total = $request->input('line_total');
-
+                $product = $request->input('truck_product');
+                $pur_id = $request->input('purchases');
+                
                 $sale_details = [];
                 for($i=0; $i < count($line_qty); $i++)
                 {
@@ -221,12 +241,13 @@ class SalesController extends Controller
                         'sale_id' => $sale->id,
                         'title' => $title[$i],
 //                        'description' => $line_desc[$i],
-                        'description' => ($line_unit_price[0] * $sale->discount),
+                        'product' => $product[$i],
                         'qty' => $line_qty[$i],
                         'unit_price' => $this->custom->intCurrency($line_unit_price[$i]),
                         'amount' => $this->custom->intCurrency($line_total[$i]),
                         'destination' => $request->input('destination'),
-                        'origin' => $request->input('origin')
+                        'origin' => $request->input('origin'),
+                        'pur_id' => $pur_id[$i],
                     ];
                 }
 
@@ -335,7 +356,7 @@ class SalesController extends Controller
                     foreach($sale->details as $detail)
                     {
 
-                        $row = Items::where('id', $detail->title)->first();
+                        $row = Trucks::where('id', $detail->title)->first();
                         
                         $details[] =  [
                             'id' => $detail->id,
@@ -444,10 +465,44 @@ class SalesController extends Controller
 
             //print_r($data);
 
-            $data['accounts'] = AccountsChart::where('type_id','=','38')
-            ->orWhere('type_id','=','37')
-            ->get();
+            $accounts = AccountsType::whereParent('0')->get();
+            if(isset($accounts) )
+            {
+                foreach($accounts as $account)
+                {
 
+                   
+                    if(isset($account->children) )
+                    {
+                        foreach($account->children as $child)
+                        {
+                            
+                            if(isset($child->chartofacc) ){
+
+
+                                foreach($child->chartofacc as $ac){
+                                    
+
+                                    $coa[] = [
+                                        'id' => $ac->cid,
+                                        'name' => $ac->name,
+                                        'code' => $ac->code,
+                                        
+                                        
+                                    ];
+                                }
+                            }
+                            
+                            
+                        }
+                    }
+                    
+                    
+                    
+                    
+                }
+            }
+            $data['accounts'] = $accounts;
             
             $data['payment_number'] = $this->custom->getPaymentNumber();
 
@@ -652,7 +707,7 @@ class SalesController extends Controller
                 'details' => $details
             ];
 
-            $data['products'] = Items::get();
+            $data['products'] = Trucks::get();
             $data['tax'] = Tax::get(); 
 
             return view('accounting/sales/edit', $data);

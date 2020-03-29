@@ -76,12 +76,31 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Data<span class="caret"></span></a>        
               <ul class="dropdown-menu" role="menu">
               @if(Auth::guard('auth')->user()->hasRole('SALES'))
-                <li><a href="{{ url('accounting/items/add') }}">New Truck</a></li>
-                <li><a href="{{ url('accounting/items') }}">View Truck</a></li>
+              <li class="dropdown-submenu"><a href="#">Trucks</a>
+                <ul class="dropdown-menu">
+                <li><a href="{{ url('accounting/trucks/add') }}">New Truck</a></li>
+                <li><a href="{{ url('accounting/trucks') }}">View Trucks</a></li>
+                <li><a href="{{ url('accounting/trucks/addproducts') }}">New Product to Truck</a></li>
+              </ul>
+            </li>
+            <li class="dropdown-submenu"><a href="#">Destinations</a>
+              <ul class="dropdown-menu">
                 <li><a href="{{ url('accounting/destination/add') }}">New Destination</a></li>
                 <li><a href="{{ url('accounting/destination') }}">View Destinations</a></li>
+              </ul>
+            </li>
+            <li class="dropdown-submenu"><a href="#">Origins</a>
+              <ul class="dropdown-menu">
                 <li><a href="{{ url('accounting/origin/add') }}">New Origin</a></li>
                 <li><a href="{{ url('accounting/origin') }}">View Origins</a></li>
+              </ul>
+            </li>
+            <li class="dropdown-submenu"><a href="#">Products</a>
+              <ul class="dropdown-menu">
+                <li><a href="{{ url('accounting/products/add') }}">New Product</a></li>
+                <li><a href="{{ url('accounting/products') }}">View Products</a></li>
+              </ul>
+            </li>
               @endif
               
               
@@ -91,7 +110,7 @@
             
             @if(Auth::guard('auth')->user()->hasRole('SALES') || Auth::guard('auth')->user()->hasRole('PURCHASE') || Auth::guard('auth')->user()->hasRole('EXPENSES'))
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Transections<span class="caret"></span></a>        
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Transactions<span class="caret"></span></a>        
               <ul class="dropdown-menu" role="menu">
               @if(Auth::guard('auth')->user()->hasRole('SALES'))
                 <li><a href="{{ url('accounting/sales/add') }}">New Sale</a></li>
@@ -114,13 +133,13 @@
               @endif --}}
 
               @if(Auth::guard('auth')->user()->hasRole('EXPENSES'))
-                <li><a href="{{ url('accounting/journal/add') }}">New Expens</a></li>
-                <li><a href="{{ url('accounting/journal') }}">Expens Record</a></li>
+                <li><a href="{{ url('accounting/journal/add') }}">New Journal Entry</a></li>
+                <li><a href="{{ url('accounting/journal') }}">Journal Record</a></li>
               @endif
 
               @if(Auth::guard('auth')->user()->hasRole('FINANCE'))
-                <li><a href="{{ url('accounting/interbank/add') }}">Internal Trans</a></li>
-                <li><a href="{{ url('accounting/interbank') }}">Internal Trans Record</a></li>
+                <li><a href="{{ url('accounting/interbank/add') }}">Inter-Bank Trans</a></li>
+                <li><a href="{{ url('accounting/interbank') }}">Inter-Bank Trans Record</a></li>
               @endif
               </ul>                
             </li>
@@ -230,9 +249,9 @@
                 <li><a href="{{ url('/reports/statement') }}">Account Statement Report</a></li>
                 @endif
 
-                @if(Auth::guard('auth')->user()->hasRole('MANAGE_EMPLOYEES'))
+                {{-- @if(Auth::guard('auth')->user()->hasRole('MANAGE_EMPLOYEES'))
                 <li><a href="{{ url('/employees/ledger') }}">Employees Ledger</a></li>
-                @endif
+                @endif --}}
 
               </ul>                
             </li>

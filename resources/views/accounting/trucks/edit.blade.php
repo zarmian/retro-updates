@@ -47,7 +47,7 @@
         @endif
 
 
-      <form data-toggle="validator" role="form" method="post" class="registration-form"  action="{{ url('/accounting/items/edit', $product->id) }}" style="margin-top: 20px;" enctype="multipart/form-data">
+      <form data-toggle="validator" role="form" method="post" class="registration-form"  action="{{ url('/accounting/trucks/edit', $product->id) }}" style="margin-top: 20px;" enctype="multipart/form-data">
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
         <div class="form_container">
 

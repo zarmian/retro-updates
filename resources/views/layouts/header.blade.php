@@ -7,21 +7,21 @@
       
       <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 col-lg-offset-2 col-md-offset-1">
 
-        @if(isset(Auth::guard('auth')->user()->roles->default) && Auth::guard('auth')->user()->roles->default == 1)
+        {{-- @if(isset(Auth::guard('auth')->user()->roles->default) && Auth::guard('auth')->user()->roles->default == 1)
         <form action="{{ url('/search')}}" method="get" id="searchForm">
           <label id="email-label">
             <i id="filtersubmit" class="fa fa-search"></i>
             <input type="text" name="q" class="input search" />
           </label>
         </form>
-        @endif
+        @endif --}}
       </div>
 
-      <script type="text/javascript">
+      {{-- <script type="text/javascript">
         $('#filtersubmit').click(function() { 
           $('#searchForm').submit();
       });
-      </script>
+      </script> --}}
 
 
       <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
@@ -33,8 +33,8 @@
         </div>
         <ul class="nav nav-pills" role="tablist">
         
-          <li role="presentation"><a href="javascript:void(0)" onclick="myNoticeBoard()" class="dropbtn">@lang('employees/common.noticeboard_txt')<span class="badge purpal"><b>{{ count($notices) }}</b></span></a></li>
-          <li role="presentation">
+          {{-- <li role="presentation"><a href="javascript:void(0)" onclick="myNoticeBoard()" class="dropbtn">@lang('employees/common.noticeboard_txt')<span class="badge purpal"><b>{{ count($notices) }}</b></span></a></li>
+          <li role="presentation"> --}}
             <ul class="nav nav-pills">
               <li role="presentation" class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> {{  (Auth::guard('auth')->user()->username) }} <span class="caret"></span> <span class="badge red"><i class="fa fa-user"></i></span></a>
                 <ul class="dropdown-menu">
@@ -46,7 +46,7 @@
           </li>
         </ul>
         
-         @if(isset($notices) && count($notices) > 0)
+         {{-- @if(isset($notices) && count($notices) > 0)
         <div style="position: relative;">
           
           <div id="style-3" class="dropdown-content">
@@ -75,7 +75,7 @@
         </div>
 
         </div>
-        @endif
+        @endif --}}
 
         <script type="text/javascript">
         /* When the user clicks on the button, 

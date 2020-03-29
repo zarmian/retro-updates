@@ -53,13 +53,14 @@ class OriginController extends Controller
             {
                 foreach($sales as $sale)
                 {
-                    $data['origin'][] = [
+                    $data['origins'][] = [
                         'id' => $sale->id,
                         'origin' => $sale->origin,
                         
                     ];
                 }
             }
+            
             
             $data['pages'] = $sales->appends(\Input::except('page'))->render();
             
@@ -136,7 +137,7 @@ class OriginController extends Controller
             if(is_null($id)) return redirect('accounting/origin');
 
             $data = [];
-            $data['product'] = Items::findOrFail($id);
+            $data['product'] = Trucks::findOrFail($id);
 
             return view('accounting/origin/edit', $data);
             

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Accounts;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Controllers\Controller;
-use App\Http\Models\Accounts\Items;
+use App\Http\Models\Accounts\Trucks;
+use App\Http\Models\Accounts\TruckDetail;
+use App\Http\Models\Accounts\Product;
 use Illuminate\Http\Request;
 use App\Libraries\Customlib;
 use Carbon\Carbon;
@@ -16,7 +18,7 @@ use PDF;
 use URL;
 
 
-class ItemsController extends Controller
+class TrucksController extends Controller
 {
 
     public function __construct()
@@ -34,40 +36,61 @@ class ItemsController extends Controller
         try {
 
             $data = [];
-            $data['sales'] = [];
+            $data['trucks'] = [];
 
             $data['per_page'] = \Request::get('per_page') ?: 12;
 
-            $qry = Items::query();
+            $qry = Trucks::query();
 
             if(\Request::has('name'))
             {
                 $name = \Request::get('name');
                 $qry->where('name', 'LIKE', "%$name%");
+                
             }
 
         
             
             $qry->orderBy('id', 'DESC');
-            $sales = $qry->paginate($data['per_page']);
-
-
-            if(isset($sales) )
+            
+            
+            $trucks = $qry->paginate($data['per_page']);
+           
+            
+            if(isset($trucks) )
             {
-                foreach($sales as $sale)
+                foreach($trucks as $truck)
                 {
-                    $data['items'][] = [
-                        'id' => $sale->id,
-                        'name' => $sale->name,
-                        'price' => $sale->price,
+                    $products=[];
+                    $productdetails = TruckDetail::where('truck_id', $truck->id)->get();
+                    if(isset($productdetails))
+                    {
+                        
+                        foreach($productdetails as $product)
+                        {
+                    $products[]=[
+                        'name'=>$product->products->name,
+                        'quantity'=>number_format($product->quantity, 0),
+                    ];
+                        }
+                    }
+                    
+                    
+                    $data['trucks'][] = [
+                        'id' => $truck->id,
+                        'name' => $truck->name,
+                        'products' => $products,
+                        
                         
                     ];
                 }
             }
+            
 
-            $data['pages'] = $sales->appends(\Input::except('page'))->render();
+            $data['pages'] = $trucks->appends(\Input::except('page'))->render();
+            
 
-            return view('accounting/items/index', $data);
+            return view('accounting/trucks/index', $data);
             
         } catch (ModelNotFoundException $e) {
             
@@ -86,7 +109,7 @@ class ItemsController extends Controller
             $data = [];
 
 
-            return view('accounting/items/create');
+            return view('accounting/trucks/create');
 
         } catch (ModelNotFoundException $e) {
             return redirect('accounting/sales');
@@ -104,21 +127,19 @@ class ItemsController extends Controller
         try {
 
             $this->validate($request, [
-                'name' => 'required',
-                'price' => 'required',
+                'number' => 'required',
             ]);
 
          
 
-            $sale = new Items;
-            $sale->name = $request->input('name');
-            $sale->price = $request->input('price');
+            $sale = new Trucks;
+            $sale->name = $request->input('number');
       
             $sale->save();
 
 
-            $request->session()->flash('msg', __('Product has been added successfully.'));
-            return redirect('accounting/items/add');
+            $request->session()->flash('msg', __('Truck has been added successfully.'));
+            return redirect('accounting/trucks/add');
             
         } catch (ModelNotFoundException $e) {
             return redirect('accounting/sales');
@@ -138,12 +159,12 @@ class ItemsController extends Controller
     {
         try {
 
-            if(is_null($id)) return redirect('accounting/items');
+            if(is_null($id)) return redirect('accounting/trucks');
 
             $data = [];
-            $data['product'] = Items::findOrFail($id);
+            $data['product'] = Trucks::findOrFail($id);
 
-            return view('accounting/items/edit', $data);
+            return view('accounting/trucks/edit', $data);
             
         } catch (ModelNotFoundException $e) {
             return redirect('accounting/sales');
@@ -161,7 +182,7 @@ class ItemsController extends Controller
     {
         try {
 
-            if(is_null($id)) return redirect('accounting/items');
+            if(is_null($id)) return redirect('accounting/trucks');
 
             $this->validate($request, [
                 'name' => 'required',
@@ -169,7 +190,7 @@ class ItemsController extends Controller
             ]);
 
 
-            $sale = Items::findOrFail($id);
+            $sale = Trucks::findOrFail($id);
 
             $sale->name = $request->input('name');
             $sale->price = $request->input('price');
@@ -178,10 +199,10 @@ class ItemsController extends Controller
 
 
             $request->session()->flash('msg', __('Product has been updated successfully.'));
-            return redirect('accounting/items/edit/'.$id);
+            return redirect('accounting/trucks/edit/'.$id);
             
         } catch (ModelNotFoundException $e) {
-            return redirect('accounting/items');
+            return redirect('accounting/trucks');
         }
     }
 
@@ -195,19 +216,19 @@ class ItemsController extends Controller
     {
         try {
 
-            if(is_null($id)) return redirect('accounting/items');
+            if(is_null($id)) return redirect('accounting/trucks');
 
-            $sale = Items::findOrFail($id);
+            $sale = Trucks::findOrFail($id);
             $delete = $sale->delete();
             if($sale)
             {
-                \Request::session()->flash('msg', __('Product has been deleted successfully.'));
+                \Request::session()->flash('msg', __('Truck has been deleted successfully.'));
             }
 
-            return redirect('accounting/items');
+            return redirect('accounting/trucks');
 
         } catch (ModelNotFoundException $e) {
-             return redirect('accounting/items');
+             return redirect('accounting/trucks');
         }
     }
 
@@ -559,17 +580,72 @@ class ItemsController extends Controller
 
 
 
-    public function ajax_price(Request $request){
+    public function ajax_products(Request $request){
 
         $id = $request->input('id');
         if($id <> ""){
-
-            $row = Items::findOrFail($id);
-            return response()->json(['error'=> '0', 'row' => $row]);
+            $products=[];
+            $rows = TruckDetail::where('truck_id','=',$id)->get();
+            $len= $rows->count();
+            if(isset($rows))
+            {
+                foreach($rows as $row)
+                {
+                    $products[]=[
+                        'id'=> $row->product_id,
+                        'name' => $row->products->name,
+                        'qty' => $row->quantity,
+                    ];
+                }
+            }
+            
+            
+            return response()->json(['error'=> '0','len'=> $len, 'data' => $products]);
 
         }else{
             return response()->json(['error'=> '1', 'row' => 'Sorry! Email has been disabled, please check your setting.']);
         }
         
+    }
+    public function addproduct()
+    {
+        try {
+
+            $data = [];
+            $data['trucks'] = Trucks::get();
+            $data['products'] = Product::get();
+
+            return view('accounting/trucks/addproducts', $data);
+
+        } catch (ModelNotFoundException $e) {
+            return redirect('accounting/sales');
+        }
+    }
+    public function storeproduct(Request $request)
+    {
+        try {
+            
+
+            $this->validate($request, [
+                'trucks' => 'required',
+                'products' => 'required',
+            ]);
+
+         
+
+            $sale = new TruckDetail;
+            $sale->truck_id = $request->input('trucks');
+            $sale->product_id = $request->input('products');
+
+      
+            $sale->save();
+
+
+            $request->session()->flash('msg', __('Product has been added to Truck successfully.'));
+            return redirect('accounting/trucks/addproducts');
+            
+        } catch (ModelNotFoundException $e) {
+            return redirect('accounting/sales');
+        }
     }
 }

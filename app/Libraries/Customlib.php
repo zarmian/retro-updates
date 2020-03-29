@@ -4,6 +4,7 @@ namespace App\Libraries;
 use App\Http\Models\Accounts\SalesLedger;
 use App\Http\Models\Admin\EmailTemplates;
 use App\Http\Models\Accounts\Purchase;
+use App\Http\Models\Accounts\PurchaseLedger;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Models\Admin\Settings;
 use App\Http\Models\Accounts\Sales;
@@ -61,12 +62,15 @@ class Customlib{
 		$invoice_number = '00001';
 
 		$sale = SalesLedger::select('payment_no', 'id')->orderBy('id', 'DESC')->first();
-		
+		if(!empty($sale))
+		{
 			$invoice_no = $this->getInteger($sale->payment_no);
 			$invoice_number = str_pad($invoice_no + 1, 5, 0, STR_PAD_LEFT);
-		
-
-		return $invoice_number;
+		}
+        elseif (empty($sale))
+        {
+            return $invoice_number;
+        }
 	}
 
 
@@ -79,12 +83,15 @@ class Customlib{
 		->where('type', '1')
 		->orderBy('code', 'DESC')
 		->first();
-		
+		if(!empty($journal))
+		{
 			$invoice_no = $this->getInteger($journal->code);
 			$invoice_number = str_pad($invoice_no + 1, 5, 0, STR_PAD_LEFT);
-		
-
-		return $invoice_number;
+		}
+        elseif (empty($journal))
+        {
+            return $invoice_number;
+        }
 	}
 
 	public function getInterBankCode()
@@ -126,14 +133,23 @@ class Customlib{
 	public function getVoucherPaymentNumber()
 	{
 		$invoice_number = '00001';
-
-		$sale = \App\Http\Models\Accounts\PurchaseLedger::select('payment_no', 'id')->orderBy('id', 'DESC')->first();
 		
-			$invoice_no = $this->getInteger($sale->payment_no);
+		$sale = PurchaseLedger::select('payment_no', 'id')->orderBy('id', 'DESC')->first();
+		
+		
+		if(!empty($sale))
+		{
+			$invoice_no = $this->getInteger($sale->payment_number);
 			$invoice_number = str_pad($invoice_no + 1, 5, 0, STR_PAD_LEFT);
+		    return $invoice_number;
+		}
+        elseif (empty($sale))
+        {
+            return $invoice_number;
+        }
 		
 
-		return $invoice_number;
+		
 	}
 
 

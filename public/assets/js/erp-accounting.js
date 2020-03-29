@@ -21,7 +21,7 @@
             $( 'table.erp-ac-transaction-table' ).on( 'click', '.remove-line', this.table.removeRow );
 
             $( 'table.erp-ac-transaction-table.payment-voucher-table' ).on( 'click', '.remove-line', this.paymentVoucher.onChange );
-            $( 'table.erp-ac-transaction-table.payment-voucher-table' ).on( 'change', 'input.line_qty, input.line_price, input.line_dis, input.discount', this.paymentVoucher.onChange );
+            $( 'table.erp-ac-transaction-table.payment-voucher-table' ).on( 'change', 'input.line_qty, input.line_price, input.line_dis, input.discount, input.discount1', this.paymentVoucher.onChange );
             //$( 'table.erp-ac-transaction-table.payment-voucher-table' ).on( 'change', 'select.erp-ac-tax-dropdown', this.paymentVoucher.onChange );
         },
 
@@ -81,11 +81,12 @@
 
 
                 var table = $('table.payment-voucher-table');
-                var total = 0.00;
+                var total = 0.0000;
                 var total_tax = [];
 
                 var discount_amt   = ( table.find('input.discount').val() ) || '00';
-
+                var discount1_amt   = ( table.find('input.discount1').val() ) || '00';
+                console.log(discount1_amt);
                 table.find('tbody > tr').each(function(index, el) {
 
                     if ( ! $(el).is(":visible") ) {
@@ -96,6 +97,8 @@
                     var qty        = ( row.find('input.line_qty').val() ) || 1;
                     var line_price = ( row.find('input.line_price').val() ) || '00'; //Unit Amount
                     var discount   = ( row.find('input.line_dis').val() ) || '00';
+                    var discount1   = ( row.find('input.discount1').val() ) ;
+                    
                     var tax_id     = row.find('select.line_tax').val();
                     var line_tax   = parseFloat('0.00');
                     var tax_amount = parseFloat('0.00');
@@ -108,8 +111,9 @@
 
                     var price = parseFloat( qty ) * parseFloat( line_price );
 
-                    if ( discount_amt > 0 ) {
+                    if ( discount_amt > 0 || discount1_amt > 0 ) {
                       cal_dis_amount =  ( parseFloat(line_price) * parseFloat(discount_amt) );
+                      cal_dis_amount =   ( parseFloat(cal_dis_amount) + parseFloat(discount1_amt) );
                     }
 
                     // if ( tax_id != '-1' ) {

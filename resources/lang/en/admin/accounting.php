@@ -65,7 +65,7 @@ return [
     'enter_date_txt' => 'Enter Date',
     'account_balance' => 'Balance',
     
-    'item_txt' => 'Manage Items',
+    'item_txt' => 'Manage Trucks',
     'create_item_txt' => 'Create New Item',
     'item_name_txt' => 'Item Name',
     'item_price_txt' => 'Item Price',

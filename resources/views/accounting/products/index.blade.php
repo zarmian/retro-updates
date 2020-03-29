@@ -4,10 +4,10 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <h1>Manage Origin</h1>
+        <h1>Manage Products</h1>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right"><a href="{{ url('/') }}">@lang('admin/dashboard.dashboard-heading')</a>  / 
-      <a href="#" class="active">Manage Origin</a></div>
+      <a href="#" class="active">Manage Products</a></div>
     </div>
   </div>
 </section>
@@ -22,7 +22,7 @@
       <form action="" method="GET">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
-        <input type="text" name="origin" id="origin" class="filter-date-input" placeholder="Origin" value="{{ \Request::get('origin') }}"  />
+        <input type="text" name="name" id="name" class="filter-date-input" placeholder="Product Name" value="{{ \Request::get('name') }}"  />
        </div>
 
        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12 plus-margin">
@@ -43,7 +43,7 @@
 
         
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 plus-margin">
-        <a href="{{ url('accounting/origin/add') }}" class="plus">+</a></div>
+        <a href="{{ url('accounting/trucks/add') }}" class="plus">+</a></div>
 
 
     </div>
@@ -55,16 +55,17 @@
     <div class="container">
      
 
-      {{-- @if(Session::has('msg'))
+      @if(Session::has('msg'))
         <div class="alert alert-success">{{ Session::get('msg') }}</div>
-      @endif --}}
+      @endif
 
 
       <div id="products" class="list-group">
 
       <div class="row">
-        @if(isset($origins) )
-        @foreach($origins as $origin)
+        
+        @if(isset($product) )
+        @foreach($product as $item)
 
         
         
@@ -77,14 +78,15 @@
                   <li>
                     <div class="caption">
                       <ul>
-                        <li class="name">Origin: <b> {{ $origin['origin'] }}</li>
+                        <li class="name">Name: <b> {{ $item['name'] }}</li>
+                        {{-- <li class="name">Available Quantity: <b> {{ $product['price'] }}</li> --}}
                       </ul>
                     </div>
                   </li>
                 </ul>
                 <ul class="inner-btn clearfix">
-{{--                  <li><a href="{{ url('accounting/items/edit/'.$item['id']) }}" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></li>--}}
-                  <li><a href="{{ url('accounting/origin/delete/'.$origin['id']) }}" data-toggle="tooltip" title="Delete" class="is_delete"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></li>
+{{--                  <li><a href="{{ url('accounting/trucks/edit/'.$product['id']) }}" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></li>--}}
+                  <li><a href="{{ url('accounting/products/delete/'.$item['id']) }}" data-toggle="tooltip" title="Delete" class="is_delete"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></li>
                 </ul>
            
             </div>

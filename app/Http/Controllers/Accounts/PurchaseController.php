@@ -12,7 +12,7 @@ use App\Http\Models\Admin\EmailTemplates;
 use App\Http\Models\Accounts\Purchase;
 use App\Http\Models\Accounts\Vendors;
 use App\Http\Controllers\Controller;
-use App\Http\Models\Accounts\Items;
+use App\Http\Models\Accounts\Trucks;
 use App\Http\Models\Accounts\Destination;
 use App\Http\Models\Accounts\Origin;
 use Illuminate\Http\Request;
@@ -122,7 +122,7 @@ class PurchaseController extends Controller
             $data['accounts'] = AccountsChart::where('type_id','=','38')
             ->orWhere('type_id','=','37')
             ->get();
-            $data['products'] = Items::get();
+            $data['products'] = Trucks::get();
             $data['destinations']= Destination::get();
             $data['origins']= Origin::get();
 
@@ -168,8 +168,11 @@ class PurchaseController extends Controller
 
             $unitAmount = $request->input('line_unit_price');
             $discount = $request->input('discount');
+            $discount1 = $request->input('discount1');
             //$this->custom->intCurrency($request->input('discount'))
-            $sale->discount = $this->custom->intCurrency($unitAmount[0] * $discount);
+            $qty_dis = $this->custom->intCurrency($unitAmount[0] * $discount);
+            $total_dis= $this->custom->intCurrency($qty_dis + $discount1);
+            $sale->discount = $total_dis;
             $sale->total = $this->custom->intCurrency($request->input('total'));
             $sale->note = $request->input('note');
             $sale->status = '0';
@@ -186,11 +189,11 @@ class PurchaseController extends Controller
             {
 
                 $title = $request->input('title');
-                $line_desc = $request->input('line_desc');
                 $line_qty = $request->input('line_qty');
                 $line_unit_price = $request->input('line_unit_price');
-
-                print_r($line_unit_price[0] * $sale->discount);
+                $product = $request->input('truck_product');
+                
+                
                 $line_total = $request->input('line_total');
 
                 $sale_details = [];
@@ -200,10 +203,12 @@ class PurchaseController extends Controller
                         'sale_id' => $sale->id,
                         'title' => $title[$i],
 //                        'description' => $line_desc[$i],
-                        'description' => ($line_unit_price[0] * $sale->discount),
+                        'product' => $product[$i],
                         'qty' => $line_qty[$i],
                         'unit_price' => $this->custom->intCurrency($line_unit_price[$i]),
-                        'amount' => $this->custom->intCurrency($line_total[$i])
+                        'amount' => $this->custom->intCurrency($line_total[$i]),
+                        'origin' => $request->input('origin'),
+                        'destination' => $request->input('destination')
                     ];
                 }
 
@@ -248,7 +253,7 @@ class PurchaseController extends Controller
                     foreach($sale->details as $detail)
                     {
 
-                        $row = Items::where('id', $detail->title)->first();
+                        $row = Trucks::where('id', $detail->title)->first();
                         
                         $details[] =  [
                             'id' => $detail->id,
@@ -270,7 +275,7 @@ class PurchaseController extends Controller
                     $balance = $sale->total - $sale->discount;
                     foreach($sale->paid as $payment)
                     {
-                        $row = Items::where('id', $payment->title)->first();
+                        $row = Trucks::where('id', $payment->title)->first();
 
                         $balance = $balance - $payment->amount;
                         
@@ -361,7 +366,7 @@ class PurchaseController extends Controller
                 'details' => $sale->details
             ];
 
-            $data['products'] = Items::get();
+            $data['products'] = Trucks::get();
 
             return view('accounting/purchase/edit', $data);
             
@@ -467,7 +472,8 @@ class PurchaseController extends Controller
             if(is_null($id)) return view('accounting.sales.notfound');
 
             $sale = Purchase::findOrFail($id);
-
+            if(isset($sale))
+{
             $data['sale'] = [
                 'id' => $sale->id,
                 'customer_id' => $sale->vendor_id,
@@ -479,10 +485,46 @@ class PurchaseController extends Controller
                 'tlt_amt' => $sale->sub_total - $sale->discount - $sale->paid->sum('amount'),
                 'paid' => $sale->paid->sum('amount'),
             ];
+        }
 
-            $data['accounts'] = AccountsChart::where('type_id','=','38')
-            ->orWhere('type_id','=','37')
-            ->get();
+        $accounts = AccountsType::whereParent('0')->get();
+            if(isset($accounts) )
+            {
+                foreach($accounts as $account)
+                {
+
+                   
+                    if(isset($account->children) )
+                    {
+                        foreach($account->children as $child)
+                        {
+                            
+                            if(isset($child->chartofacc) ){
+
+
+                                foreach($child->chartofacc as $ac){
+                                    
+
+                                    $coa[] = [
+                                        'id' => $ac->cid,
+                                        'name' => $ac->name,
+                                        'code' => $ac->code,
+                                        
+                                        
+                                    ];
+                                }
+                            }
+                            
+                            
+                        }
+                    }
+                    
+                    
+                    
+                    
+                }
+            }
+            $data['accounts'] = $accounts;
 
             
             $data['payment_number'] = $this->custom->getVoucherPaymentNumber();

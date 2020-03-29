@@ -11,7 +11,7 @@
             // journal entry
             $('table.erp-ac-transaction-table.journal-table').on( 'click', '.remove-line', this.journal.onChange );
             $('table.erp-ac-transaction-table.journal-table').on( 'change', 'input.line_debit, input.line_credit', this.journal.onChange );
-
+            
             $(document.body ).on( 'keyup change', '.line_price, .line_credit, .line_debit, .erp-ac-line-due, input.pay_amount', this.keyUpNumberFormating );
 
         },
@@ -21,7 +21,7 @@
             $( 'table.erp-ac-transaction-table' ).on( 'click', '.remove-line', this.table.removeRow );
 
             $( 'table.erp-ac-transaction-table.payment-voucher-table' ).on( 'click', '.remove-line', this.paymentVoucher.onChange );
-            $( 'table.erp-ac-transaction-table.payment-voucher-table' ).on( 'change', 'input.line_qty, input.line_price, input.line_dis, input.discount', this.paymentVoucher.onChange );
+            $( 'table.erp-ac-transaction-table.payment-voucher-table' ).on( 'change', 'input.line_qty, input.line_price, input.line_dis, input.discount, input.discount1', this.paymentVoucher.onChange );
             //$( 'table.erp-ac-transaction-table.payment-voucher-table' ).on( 'change', 'select.erp-ac-tax-dropdown', this.paymentVoucher.onChange );
         },
 
@@ -55,7 +55,7 @@
 
                 // destroy the last select2 for proper cloning
                 table.find('tbody > tr:first').find('select').not('select.erp-ac-tax-dropdown').select2('destroy');
-
+                
                 var tr = table.find('tbody > tr:first'),
                     clone = tr.clone();
 
@@ -65,8 +65,8 @@
                 tr.after( clone );
 
                 // re-initialize selec2
-                //
-                $('.erp-ac-transaction-form').find('.erp-ac-transaction-table .chosen').select2();
+               //
+               $('.erp-ac-transaction-form').find('.erp-ac-transaction-table .chosen').select2();
             }
         },
 
@@ -85,7 +85,8 @@
                 var total_tax = [];
 
                 var discount_amt   = ( table.find('input.discount').val() ) || '00';
-
+                var discount1_amt   = ( table.find('input.discount1').val() ) || '00';
+                console.log(discount1_amt);
                 table.find('tbody > tr').each(function(index, el) {
 
                     if ( ! $(el).is(":visible") ) {
@@ -96,6 +97,8 @@
                     var qty        = ( row.find('input.line_qty').val() ) || 1;
                     var line_price = ( row.find('input.line_price').val() ) || '00'; //Unit Amount
                     var discount   = ( row.find('input.line_dis').val() ) || '00';
+                    var discount1   = ( row.find('input.discount1').val() ) ;
+                    
                     var tax_id     = row.find('select.line_tax').val();
                     var line_tax   = parseFloat('0.00');
                     var tax_amount = parseFloat('0.00');
@@ -108,8 +111,9 @@
 
                     var price = parseFloat( qty ) * parseFloat( line_price );
 
-                    if ( discount_amt > 0 ) {
-                        cal_dis_amount =  ( parseFloat(line_price) * parseFloat(discount_amt) );
+                    if ( discount_amt > 0 || discount1_amt > 0 ) {
+                      cal_dis_amount =  ( parseFloat(line_price) * parseFloat(discount_amt) );
+                      cal_dis_amount =   ( parseFloat(cal_dis_amount) + parseFloat(discount1_amt) );
                     }
 
                     // if ( tax_id != '-1' ) {
@@ -137,7 +141,7 @@
 
 
                     table.find('tfoot input.price-total').val( ERP_Accounting.numFormating( total ) );
-
+                    table.find('tfoot input.line_dis').val( ERP_Accounting.numFormating( cal_dis_amount ) );
 
 
                     //row.find('input.line_tax_amount').val( ERP_Accounting.numFormating( tax_amount ) );
@@ -179,7 +183,7 @@
                 ERP_Accounting.paymentVoucher.calculate();
             },
 
-
+            
         },
 
         /**
@@ -187,7 +191,7 @@
          *
          * @type {Object}
          */
-        journal: {
+         journal: {
             calculate: function() {
 
 
@@ -241,16 +245,16 @@
                 decimal_sep    = ERP_AC.decimal_separator,
                 number_decimal = ERP_AC.number_decimal,
                 decimal_count  = typeof current_value.split(decimal_sep)[1] == 'undefined' ? 0 : current_value.split(decimal_sep)[1];
-            decimal_count  = decimal_count.length - 1;
+                decimal_count  = decimal_count.length - 1;
 
             if ( decimal_count >= number_decimal ) {
                 var split      = current_value.split(decimal_sep),
                     first_term = split.shift() + decimal_sep,
                     last_term  = split.join('').slice(0, number_decimal),
                     new_val    = first_term + last_term;
-                self.val( new_val );
-                ERP_Accounting.paymentVoucher.calculate();
-                ERP_Accounting.journal.calculate();
+                    self.val( new_val );
+                    ERP_Accounting.paymentVoucher.calculate();
+                    ERP_Accounting.journal.calculate();
             }
 
             var regex    = new RegExp( '[^\-0-9\%\\'+ERP_AC.decimal_separator+']+', 'gi' ),
@@ -276,7 +280,7 @@
             return accounting.formatMoney( $number, options);
         },
 
-
+        
     };
 
 
@@ -285,6 +289,6 @@
 
     });
 
-
+   
 
 })(jQuery);

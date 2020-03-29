@@ -136,7 +136,7 @@ class DestinationController extends Controller
             if(is_null($id)) return redirect('accounting/destination');
 
             $data = [];
-            $data['product'] = Items::findOrFail($id);
+            $data['product'] = Trucks::findOrFail($id);
 
             return view('accounting/destination/edit', $data);
             

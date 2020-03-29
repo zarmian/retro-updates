@@ -4,33 +4,33 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{ config('app.name') }}</title>
+<title><?php echo e(config('app.name')); ?></title>
 
-{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> --}}
-<script src="{{ asset('assets/js/jquery.min.js')}}"></script>
-<link href="{{ asset('assets/bootstrap/css/bootstrap.css?v=1.23')}}" type="text/css" rel="stylesheet">
+
+<script src="<?php echo e(asset('assets/js/jquery.min.js')); ?>"></script>
+<link href="<?php echo e(asset('assets/bootstrap/css/bootstrap.css?v=1.23')); ?>" type="text/css" rel="stylesheet">
 
 <link rel="stylesheet" href="http://alxlit.name/bootstrap-chosen/bootstrap.css">
-<link href="{{ asset('assets/css/flexnav.css') }}" type="text/css" rel="stylesheet">
-<link rel="stylesheet" href="{{ asset('assets/validator/dist/css/bootstrapValidator.css') }}" />
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/sweetalert2/dist/sweetalert2.min.css') }}">
-<link href="{{ asset('assets/select2/css/select2.min.css')}}" type="text/css" rel="stylesheet">
+<link href="<?php echo e(asset('assets/css/flexnav.css')); ?>" type="text/css" rel="stylesheet">
+<link rel="stylesheet" href="<?php echo e(asset('assets/validator/dist/css/bootstrapValidator.css')); ?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo e(asset('assets/sweetalert2/dist/sweetalert2.min.css')); ?>">
+<link href="<?php echo e(asset('assets/select2/css/select2.min.css')); ?>" type="text/css" rel="stylesheet">
 <!-- custom css -->
-<link href="{{ asset('assets/datepicker/datedropper.css') }}" rel="stylesheet" type="text/css" />
+<link href="<?php echo e(asset('assets/datepicker/datedropper.css')); ?>" rel="stylesheet" type="text/css" />
 
   <!-- include summernote -->
-  <link rel="stylesheet" href="{{ asset('assets/editor/dist/summernote.css')}}">
-  <script type="text/javascript" src="{{ asset('assets/editor/dist/summernote.js')}}"></script>
+  <link rel="stylesheet" href="<?php echo e(asset('assets/editor/dist/summernote.css')); ?>">
+  <script type="text/javascript" src="<?php echo e(asset('assets/editor/dist/summernote.js')); ?>"></script>
   
 <!-- dateDropper lib -->
-<script src="{{ asset('assets/datepicker/datedropper.js') }}"></script>
-<link href="{{ asset('assets/font-awsome/css/font-awesome.min.css') }}" type="text/css" rel="stylesheet">
+<script src="<?php echo e(asset('assets/datepicker/datedropper.js')); ?>"></script>
+<link href="<?php echo e(asset('assets/font-awsome/css/font-awesome.min.css')); ?>" type="text/css" rel="stylesheet">
 
-<link href="{{ asset('assets/css/stylesheet-main.css?v=1.3')}}" type="text/css" rel="stylesheet">
+<link href="<?php echo e(asset('assets/css/stylesheet-main.css?v=1.3')); ?>" type="text/css" rel="stylesheet">
 
 
 
-@yield('head')
+<?php echo $__env->yieldContent('head'); ?>
 
 <script type="text/javascript">
   var site = <?php echo json_encode(array('base_url' => url('/'))); ?>
@@ -40,18 +40,18 @@
 
 <body>
 <!-- header-->
-@include('layouts.header')
+<?php echo $__env->make('layouts.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <!-- header-->
-@include('layouts.nav')
+<?php echo $__env->make('layouts.nav', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <!-- menu --> 
 
 <!-- breadcrumb --> 
-@yield('breadcrumb')
+<?php echo $__env->yieldContent('breadcrumb'); ?>
 
-@yield('search')
+<?php echo $__env->yieldContent('search'); ?>
 <!-- Main Wrapper-->
 
-@yield('content')
+<?php echo $__env->yieldContent('content'); ?>
 
 <div class="modal fade" id="ProjectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -69,21 +69,21 @@
 <!--footer--> 
 
 
-<script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js')}}"></script>
-<script type="text/javascript" src="{{ asset('assets/validator/bootstrapValidator.min.js') }}"></script>
-<script src="{{ asset('assets/chosen/chosen.jquery.js?v=1.0') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/select2/js/select2.full.min.js?v=1.0') }}"></script>
-<script src="{{ asset('assets/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+<script type="text/javascript" src="<?php echo e(asset('assets/js/bootstrap.min.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('assets/validator/bootstrapValidator.min.js')); ?>"></script>
+<script src="<?php echo e(asset('assets/chosen/chosen.jquery.js?v=1.0')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('assets/select2/js/select2.full.min.js?v=1.0')); ?>"></script>
+<script src="<?php echo e(asset('assets/sweetalert2/dist/sweetalert2.min.js')); ?>"></script>
 
-<script type="text/javascript" src="{{ asset('assets/js/accounting.min.js?v=1.0') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/custom.js')}}"></script>
+<script type="text/javascript" src="<?php echo e(asset('assets/js/accounting.min.js?v=1.0')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('assets/js/custom.js')); ?>"></script>
 
 <script type='text/javascript'>
 /* <![CDATA[ */
 var ERP_AC = {"nonce":"ba48391130","emailConfirm":"Sent","emailConfirmMsg":"The email has been sent","confirmMsg":"You are about to permanently delete this item.","copied":"Copied","ajaxurl":"","decimal_separator":".","thousand_separator":",","number_decimal":"4","currency":"","symbol":"$","message":{"confirm":"Are you sure!","new_customer":"New Customer","new_vendor":"New Vendor","new":"Create New","transaction":"Transaction History","processing":"Processing please wait!","new_tax":"Tax Rates","tax_item":"Tax item details","tax_update":"Tax Update","tax_deleted":"Your tax record has been deleted successfully","delete":"Are you sure you want to delete this? This cannot be undone.","void":"Are you sure you want to mark this transaction as void? This action can not be reversed!","restore":"Yes, restore it!","cancel":"Cancel","error":"Error!","alreadyExist":"Already exists as a customer or vendor","transaction_status":"Transaction Status","submit":"Submit","redo":"Yes, redo it!","yes":"Yes, do it!","no_result":"No Result Found!","search":"Search"},"plupload":{"url":"","flash_swf_url":"","filters":[{"title":"Allowed Files","extensions":"*"}],"multipart":true,"urlstream_upload":true}};
 /* ]]> */
 </script>
-<script type="text/javascript" src="{{ asset('assets/js/erp-accounting.js?v=1.0') }}"></script>
+<script type="text/javascript" src="<?php echo e(asset('assets/js/erp-accounting.js?v=1.0')); ?>"></script>
 
 
 <!-- select option -->
@@ -120,9 +120,9 @@ $(document).ready(function() {
 <!-- select option -->
 
 <!--clander-->
-<link rel="stylesheet" href="{{ asset('assets/css/monthly.css') }}">
+<link rel="stylesheet" href="<?php echo e(asset('assets/css/monthly.css')); ?>">
  
-    <script type="text/javascript" src="{{ asset('assets/js/monthly.js') }}"></script>
+    <script type="text/javascript" src="<?php echo e(asset('assets/js/monthly.js')); ?>"></script>
     <script type="text/javascript">
         $(window).load( function() {
     
@@ -139,7 +139,7 @@ $(document).ready(function() {
 
 
 
-<script type="text/javascript" src="{{ asset('assets/js/jquery.canvasjs.min.js') }}"></script>
+<script type="text/javascript" src="<?php echo e(asset('assets/js/jquery.canvasjs.min.js')); ?>"></script>
 <script type="text/javascript">
   window.onload = function () {
     var chart = new CanvasJS.Chart("chartContainer",
@@ -188,6 +188,6 @@ chart.render();
 }
 </script>
 
-@yield('scripts')
+<?php echo $__env->yieldContent('scripts'); ?>
 </body>
 </html>

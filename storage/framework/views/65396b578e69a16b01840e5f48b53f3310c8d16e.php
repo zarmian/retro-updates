@@ -1,68 +1,68 @@
-@extends('layouts.app')
-@section('breadcrumb')
+<?php $__env->startSection('breadcrumb'); ?>
 <section class="breadcrumb">
   <div class="container">
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <h1>@lang('admin/entries.sales_heading_txt')</h1>
+        <h1><?php echo app('translator')->getFromJson('admin/entries.sales_heading_txt'); ?></h1>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
-        <a href="{{ url('/') }}">@lang('admin/dashboard.dashboard-heading')</a>  / 
-        <a href="{{ url('accounting/sales') }}">@lang('admin/entries.sales_heading_txt')</a>  / 
-        <a href="#" class="active">@lang('admin/entries.create_sales_heading')</a>
+        <a href="<?php echo e(url('/')); ?>"><?php echo app('translator')->getFromJson('admin/dashboard.dashboard-heading'); ?></a>  / 
+        <a href="<?php echo e(url('accounting/sales')); ?>"><?php echo app('translator')->getFromJson('admin/entries.sales_heading_txt'); ?></a>  / 
+        <a href="#" class="active"><?php echo app('translator')->getFromJson('admin/entries.create_sales_heading'); ?></a>
       </div>
     </div>
   </div>
 </section>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <div class="container mainwrapper margin-top">
   <div class="row">
     <div class="container">
       <div class="col-sm-12 col-md-12 col-lg-12">
-        @if(Session::has('msg'))
+        <?php if(Session::has('msg')): ?>
           <div class="alert alert-success">
-            {{ Session::get('msg') }}
+            <?php echo e(Session::get('msg')); ?>
+
           </div>
-          @endif
+          <?php endif; ?>
           
-          @if(isset($errors) && count($errors)>0  )
+          <?php if(isset($errors) && count($errors)>0  ): ?>
           <div class="alert alert-danger">
             <ul>
-              @foreach($errors->all() as $error)
-              <li>{{ $error }}</li>
-              @endforeach
+              <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+              <li><?php echo e($error); ?></li>
+              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
           </div>
-         @endif
+         <?php endif; ?>
 
-         <form data-toggle="validator" role="form" action="{{ url('accounting/sales/save') }}" method="POST" enctype="multipart/form-data" class="erp-form erp-ac-transaction-form">
+         <form data-toggle="validator" role="form" action="<?php echo e(url('accounting/sales/save')); ?>" method="POST" enctype="multipart/form-data" class="erp-form erp-ac-transaction-form">
          
-          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+          <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
 
           <div class="form_container">
 
           
-          {{-- Left From Colum --}}
+          
           <div class="col-sm-9 col-md-9 col-lg-9 col-xs-12 col-sm-offset-2">
             <div class="top_content">
-              <h3>@lang('admin/entries.create_sales_heading')</h3>
-              <p>@lang('admin/users.field_employee_text')</p>
+              <h3><?php echo app('translator')->getFromJson('admin/entries.create_sales_heading'); ?></h3>
+              <p><?php echo app('translator')->getFromJson('admin/users.field_employee_text'); ?></p>
             </div>
 
             <div class="">
 
                 <div class="col-md-5 col-sm-5 col-lg-5 col-xs-5 form-group">
-                  <label for="customer" class="input_label">@lang('admin/entries.customer_label')*</label>
+                  <label for="customer" class="input_label"><?php echo app('translator')->getFromJson('admin/entries.customer_label'); ?>*</label>
                   <select name="customer" id="customer" class="form-control1 chosen" required="required">
-                    <option value="">@lang('admin/common.select_customer_txt')</option>
-                    @if(isset($customers)  )
-                      @foreach($customers as $customer)
-                        <option value="{{ $customer->id }}">{{ $customer->first_name }} {{ $customer->last_name }}</option>
-                      @endforeach
-                    @endif
+                    <option value=""><?php echo app('translator')->getFromJson('admin/common.select_customer_txt'); ?></option>
+                    <?php if(isset($customers)  ): ?>
+                      <?php $__currentLoopData = $customers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $customer): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <option value="<?php echo e($customer->id); ?>"><?php echo e($customer->first_name); ?> <?php echo e($customer->last_name); ?></option>
+                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    <?php endif; ?>
                   </select>
                 </div>
 
@@ -78,24 +78,24 @@
                           
                           <select name="purchases[]" id="purchases" class="form-control1 chosen purchases">
                             <option value="0"> -- SELECT -- </option>
-                            @if(isset($purchases) )
+                            <?php if(isset($purchases) ): ?>
                             
-                              @foreach($purchases as $purchase)
-                                <option value="{{ $purchase['id'] }}">{{ $purchase['truck'] }}   {{ $purchase['product'] }}</option>
-                              @endforeach
-                            @endif
+                              <?php $__currentLoopData = $purchases; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $purchase): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($purchase['id']); ?>"><?php echo e($purchase['truck']); ?>   <?php echo e($purchase['product']); ?></option>
+                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php endif; ?>
                           </select>
                           
-                          {{-- <input type="text" name="title[]" id="title" required="required" class="form-control1" placeholder="@lang('admin/entries.title_label')" /> --}}
+                          
                         </td>
                 </div>
 
                 <div class="col-md-4 col-sm-4 col-lg-4 col-xs-4 form-group clearfix">
-                  <label for="invoice_no" class="input_label">@lang('admin/entries.invoice_no_label')*</label>
+                  <label for="invoice_no" class="input_label"><?php echo app('translator')->getFromJson('admin/entries.invoice_no_label'); ?>*</label>
                   
                   <div class="input-group">
                     <span class="input-group-addon" id="basic-addon1">INV</span>
-                    <input type="text" name="invoice_number" id="invoice_number" class="form-control1" placeholder="@lang('admin/entries.invoice_no_label')*" value="{{ $invoice_number }}" required="required" readonly="readonly" style="border-bottom-left-radius: 0px;border-top-left-radius: 0px;" />
+                    <input type="text" name="invoice_number" id="invoice_number" class="form-control1" placeholder="<?php echo app('translator')->getFromJson('admin/entries.invoice_no_label'); ?>*" value="<?php echo e($invoice_number); ?>" required="required" readonly="readonly" style="border-bottom-left-radius: 0px;border-top-left-radius: 0px;" />
 
                   </div>
                   
@@ -105,13 +105,13 @@
                
 
                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group clearfix">
-                  <label for="invoice_date" class="input_label">@lang('admin/entries.invoice_date_label')*</label>
-                  <input type="text" name="invoice_date" id="invoice_date" class="form-control1 datepicker" placeholder="@lang('admin/entries.invoice_date_label')" required="required" value="{{ old('date') }}" data-min-year="{{ date('Y',strtotime('-10 year',time())) }}" data-max-year="{{ date('Y',strtotime('+10 year',time())) }}"/>
+                  <label for="invoice_date" class="input_label"><?php echo app('translator')->getFromJson('admin/entries.invoice_date_label'); ?>*</label>
+                  <input type="text" name="invoice_date" id="invoice_date" class="form-control1 datepicker" placeholder="<?php echo app('translator')->getFromJson('admin/entries.invoice_date_label'); ?>" required="required" value="<?php echo e(old('date')); ?>" data-min-year="<?php echo e(date('Y',strtotime('-10 year',time()))); ?>" data-max-year="<?php echo e(date('Y',strtotime('+10 year',time()))); ?>"/>
                 </div>
 
                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
-                  <label for="due_date" class="input_label">@lang('admin/entries.invoice_due_date_label')*</label>
-                  <input type="text" name="due_date" id="due_date" class="form-control1 datepicker" placeholder="@lang('admin/entries.invoice_due_date_label')" required="required" value="{{ old('date') }}" data-min-year="{{ date('Y',strtotime('-10 year',time())) }}" data-max-year="{{ date('Y',strtotime('+10 year',time())) }}" />
+                  <label for="due_date" class="input_label"><?php echo app('translator')->getFromJson('admin/entries.invoice_due_date_label'); ?>*</label>
+                  <input type="text" name="due_date" id="due_date" class="form-control1 datepicker" placeholder="<?php echo app('translator')->getFromJson('admin/entries.invoice_due_date_label'); ?>" required="required" value="<?php echo e(old('date')); ?>" data-min-year="<?php echo e(date('Y',strtotime('-10 year',time()))); ?>" data-max-year="<?php echo e(date('Y',strtotime('+10 year',time()))); ?>" />
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group clearfix">
                   <label for="Origin" class="input_label">Origin*</label>
@@ -120,11 +120,11 @@
                         <td class="col-chart" width="250" height="50">
                           <select name="origin" id="origin" class="form-control1 chosen title">
                             <option value="0"> -- SELECT -- </option>
-                            @if(isset($origins) )
-                              @foreach($origins as $origin)
-                                <option value="{{ $origin->id }}">{{ $origin->origin }}</option>
-                              @endforeach
-                            @endif
+                            <?php if(isset($origins) ): ?>
+                              <?php $__currentLoopData = $origins; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $origin): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($origin->id); ?>"><?php echo e($origin->origin); ?></option>
+                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php endif; ?>
                           </select>                          
                         </td>
                 </div>
@@ -135,11 +135,11 @@
                         <td class="col-chart" width="250" height="50">
                           <select name="destination" id="destination" class="form-control1 chosen title">
                             <option value="0"> -- SELECT -- </option>
-                            @if(isset($destinations) )
-                              @foreach($destinations as $destination)
-                                <option value="{{ $destination->id }}">{{ $destination->destination }}</option>
-                              @endforeach
-                            @endif
+                            <?php if(isset($destinations) ): ?>
+                              <?php $__currentLoopData = $destinations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $destination): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($destination->id); ?>"><?php echo e($destination->destination); ?></option>
+                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php endif; ?>
                           </select>                          
                         </td>
                 </div>
@@ -147,11 +147,11 @@
                   <table class="erp-table erp-ac-transaction-table payment-voucher-table">
                     <thead>
                         <tr>
-                            <th class="col-chart">@lang('admin/entries.title_label')</th>
+                            <th class="col-chart"><?php echo app('translator')->getFromJson('admin/entries.title_label'); ?></th>
                             <th class="col-desc">Product</th>
-                            <th class="col-desc">@lang('admin/entries.account_qty_label')</th>
-                            <th class="col-desc">@lang('admin/entries.account_unit_price_label')</th>
-                            <th class="col-amount">@lang('admin/entries.account_amount_label')</th>
+                            <th class="col-desc"><?php echo app('translator')->getFromJson('admin/entries.account_qty_label'); ?></th>
+                            <th class="col-desc"><?php echo app('translator')->getFromJson('admin/entries.account_unit_price_label'); ?></th>
+                            <th class="col-amount"><?php echo app('translator')->getFromJson('admin/entries.account_amount_label'); ?></th>
                         </tr>
                     </thead>
 
@@ -165,14 +165,14 @@
                           
                           <select name="title[]" id="title" class="form-control1 chosen title">
                             <option value="0"> -- SELECT -- </option>
-                            @if(isset($products) )
-                              @foreach($products as $product)
-                                <option value="{{ $product->id }}">{{ $product->name }}</option>
-                              @endforeach
-                            @endif
+                            <?php if(isset($products) ): ?>
+                              <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($product->id); ?>"><?php echo e($product->name); ?></option>
+                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php endif; ?>
                           </select>
                           
-                          {{-- <input type="text" name="title[]" id="title" required="required" class="form-control1" placeholder="@lang('admin/entries.title_label')" /> --}}
+                          
                         </td>
 
 
@@ -197,9 +197,7 @@
                           <input type="text" value="" name="line_total[]" id="line_total[]" class="line_total form-control1" placeholder="0.0000" readonly="" required="required" />
                         </td>
 
-                        {{--<td class="col-action">
-                            <a href="" class="remove-line"><span class="fa fa-trash"></span></a>
-                        </td>--}}
+                        
 
                       </tr>
 
@@ -209,11 +207,11 @@
                     </tbody>
                     <tfoot>
                         <tr>
-{{--                            <th><a href="javascript:void(0)" class="button add-line">@lang('admin/entries.add_new_line_button_txt')</a></th>--}}
+
                             <th class="align-right"></th>
                             <th class="align-right"></th>
                             <th class="align-right"></th>
-                            <th class="align-right" align="right">@lang('admin/entries.sub_total_txt')</th>
+                            <th class="align-right" align="right"><?php echo app('translator')->getFromJson('admin/entries.sub_total_txt'); ?></th>
                            
                             <th class="col-amount">
                                 <input type="text" name="sub_total" class="sub-total form-control1" readonly="" placeholder="0.0000" />
@@ -232,7 +230,7 @@
                         </tr>
                         
 
-                        @if(isset($vat) && $vat == 1)
+                        <?php if(isset($vat) && $vat == 1): ?>
 
                         <tr>
                             <th></th>
@@ -242,25 +240,25 @@
                            
                             <th class="col-amount">
                                 <select name="vat_tax_id" id="vat_tax_id" class="form-control1 vat_tax">
-                                @if(isset($tax) )
-                                  @foreach($tax as $tax)
-                                    <option value="{{ $tax->id }}" data-rate="{{ $tax->rate }}">{{ $tax->name }}</option>
-                                  @endforeach
-                                @endif
+                                <?php if(isset($tax) ): ?>
+                                  <?php $__currentLoopData = $tax; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tax): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($tax->id); ?>" data-rate="<?php echo e($tax->rate); ?>"><?php echo e($tax->name); ?></option>
+                                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php endif; ?>
                                 </select>
                             </th>
                         </tr>
 
-                        @else
+                        <?php else: ?>
                         <input type="hidden" name="vat_tax_id" value="0" />
 
-                        @endif
+                        <?php endif; ?>
 
                         <tr>
                             <th></th>
                             <th class="align-right"></th>
                             <th class="align-right"></th>
-                            <th class="align-right" align="right">@lang('admin/entries.total_txt')</th>
+                            <th class="align-right" align="right"><?php echo app('translator')->getFromJson('admin/entries.total_txt'); ?></th>
                            
                             <th class="col-amount">
                                 <input type="text" name="total" class="price-total form-control1" readonly="" placeholder="0.0000" />
@@ -280,7 +278,7 @@
 
 
                 <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 form-group">
-                <textarea name="note" id="note" cols="30" rows="10" class="form-control2" placeholder="@lang('admin/entries.reference_textarea_label')">{{ old('note') }}</textarea>
+                <textarea name="note" id="note" cols="30" rows="10" class="form-control2" placeholder="<?php echo app('translator')->getFromJson('admin/entries.reference_textarea_label'); ?>"><?php echo e(old('note')); ?></textarea>
                 </div>
 
                 
@@ -291,14 +289,14 @@
             </div>
 
 
-            {{-- Right Form Column --}}
+            
 
             
 
             <div class="col-sm-10 col-sm-offset-2">
               <div class="col-sm-2 col-lg-2 col-md-2 col-xs-12">
               <label for="" class="input_label">&nbsp;&nbsp;&nbsp;&nbsp;</label>
-              <button type="submit" name="submitButton" class="btn btn-primary btn-block new-btn">@lang('admin/users.submit_button')</button>
+              <button type="submit" name="submitButton" class="btn btn-primary btn-block new-btn"><?php echo app('translator')->getFromJson('admin/users.submit_button'); ?></button>
             </div>
             </div>
     
@@ -313,9 +311,9 @@
   </div>
 </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('scripts')
+<?php $__env->startSection('scripts'); ?>
 
 <script type="text/javascript">
 $(".chosen").select2();
@@ -334,7 +332,7 @@ $(".chosen").select2();
      url: base_url+'/accounting/trucks/ajax-products',
      type: 'POST',
      dataType: 'json',
-     data: {'_token': '{{ csrf_token() }}', id: id},
+     data: {'_token': '<?php echo e(csrf_token()); ?>', id: id},
      success: function($data, textStatus, xhr){
        
        if($data.error == 0){
@@ -403,7 +401,7 @@ $(".chosen").select2();
       url: base_url+'/accounting/sales/vat-price',
       type: 'POST',
       dataType: 'json',
-      data: {'_token': '{{ csrf_token() }}', id: id},
+      data: {'_token': '<?php echo e(csrf_token()); ?>', id: id},
       success: function(data, textStatus, xhr){
         console.log(data.row.rate);
 
@@ -448,7 +446,7 @@ $(".chosen").select2();
       url: base_url+'/accounting/sales/vat-price',
       type: 'POST',
       dataType: 'json',
-      data: {'_token': '{{ csrf_token() }}', id: id},
+      data: {'_token': '<?php echo e(csrf_token()); ?>', id: id},
       success: function(data, textStatus, xhr){
         console.log(data.row.rate);
 
@@ -493,7 +491,7 @@ $(".chosen").select2();
 	      url: base_url+'/accounting/sales/vat-price',
 	      type: 'POST',
 	      dataType: 'json',
-	      data: {'_token': '{{ csrf_token() }}', id: id},
+	      data: {'_token': '<?php echo e(csrf_token()); ?>', id: id},
 	      success: function(data, textStatus, xhr){
 	        console.log(data.row.rate);
 
@@ -541,4 +539,5 @@ $(document).ready(function() {
 </script>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

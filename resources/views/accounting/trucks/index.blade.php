@@ -4,10 +4,10 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <h1>Manage Products</h1>
+        <h1>Manage Trucks</h1>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right"><a href="{{ url('/') }}">@lang('admin/dashboard.dashboard-heading')</a>  / 
-      <a href="#" class="active">Manage Products</a></div>
+      <a href="#" class="active">Manage Trucks</a></div>
     </div>
   </div>
 </section>
@@ -22,7 +22,7 @@
       <form action="" method="GET">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
-        <input type="text" name="name" id="name" class="filter-date-input" placeholder="Product Name" value="{{ \Request::get('name') }}"  />
+        <input type="text" name="name" id="name" class="filter-date-input" placeholder="Truck Number" value="{{ \Request::get('name') }}"  />
        </div>
 
        <div class="col-lg-1 col-md-1 col-sm-2 col-xs-12 plus-margin">
@@ -43,7 +43,7 @@
 
         
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 plus-margin">
-        <a href="{{ url('accounting/items/add') }}" class="plus">+</a></div>
+        <a href="{{ url('accounting/trucks/add') }}" class="plus">+</a></div>
 
 
     </div>
@@ -63,8 +63,8 @@
       <div id="products" class="list-group">
 
       <div class="row">
-        @if(isset($items) )
-        @foreach($items as $item)
+        @if(isset($trucks) )
+        @foreach($trucks as $truck)
 
         
         
@@ -77,15 +77,20 @@
                   <li>
                     <div class="caption">
                       <ul>
-                        <li class="name">Name: <b> {{ $item['name'] }}</li>
-                        <li class="name">Available Quantity: <b> {{ $item['price'] }}</li>
+                        <li class="name">Number: <b> {{ $truck['name'] }}</li>
+                        <li class="name">Products: </li>
+                        @if(isset($truck['products']) )
+                        @foreach($truck['products'] as $product)
+                        <li class="name"><b> {{ $product['name'] }} : <b> {{ $product['quantity'] }}</li>
+                        @endforeach
+                         @endif
                       </ul>
                     </div>
                   </li>
                 </ul>
                 <ul class="inner-btn clearfix">
-{{--                  <li><a href="{{ url('accounting/items/edit/'.$item['id']) }}" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></li>--}}
-                  <li><a href="{{ url('accounting/items/delete/'.$item['id']) }}" data-toggle="tooltip" title="Delete" class="is_delete"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></li>
+{{--                  <li><a href="{{ url('accounting/trucks/edit/'.$item['id']) }}" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></li>--}}
+                  {{-- <li><a href="{{ url('accounting/trucks/delete/'.$item['id']) }}" data-toggle="tooltip" title="Delete" class="is_delete"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></li> --}}
                 </ul>
            
             </div>

@@ -8,7 +8,7 @@ use App\Http\Models\Accounts\Purchase;
 use App\Http\Models\Accounts\PurchaseDetail;
 use App\Http\Models\Accounts\Vendors;
 use App\Http\Controllers\Controller;
-use App\Http\Models\Accounts\Items;
+use App\Http\Models\Accounts\Trucks;
 use Illuminate\Http\Request;
 use App\Libraries\Customlib;
 use Carbon\Carbon;
