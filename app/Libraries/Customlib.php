@@ -103,12 +103,16 @@ class Customlib{
 		->where('type', '4')
 		->orderBy('code', 'DESC')
 		->first();
+		if(!empty($journal))
+		{
 		
 			$invoice_no = $this->getInteger($journal->code);
 			$invoice_number = str_pad($invoice_no + 1, 5, 0, STR_PAD_LEFT);
-		
-
-		return $invoice_number;
+		}
+		elseif (empty($journal))
+        {
+            return $invoice_number;
+        }
 	}
 
 

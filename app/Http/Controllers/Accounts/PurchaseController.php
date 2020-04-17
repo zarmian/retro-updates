@@ -8,6 +8,7 @@ use App\Http\Models\Accounts\AccountsSummery;
 use App\Http\Models\Accounts\PurchaseDetail;
 use App\Http\Models\Accounts\PurchaseLedger;
 use App\Http\Models\Accounts\AccountsChart;
+use App\Http\Models\Accounts\AccountsType;
 use App\Http\Models\Admin\EmailTemplates;
 use App\Http\Models\Accounts\Purchase;
 use App\Http\Models\Accounts\Vendors;
@@ -215,10 +216,17 @@ class PurchaseController extends Controller
 
 
                 DB::table('tbl_purchase_detail')->insert($sale_details);
-                $updateQuantity = DB::table('tbl_purchase_detail')->where('title', $title[0])->sum('qty');
-                $currentQuantity = DB::table('tbl_products')->select('price')->where('id', $title[0])->first();
-                $temp = $updateQuantity + $currentQuantity->price;
-                DB::table('tbl_products')->where('id', $title[0])->update(['price' => $temp]);
+                $updateQuantity = $line_qty[0];
+                $currentQuantity = DB::table('tbl_truck_detail')->select('quantity')->where([
+                    ['product_id','=', $product[0]],
+                    ['truck_id','=', $title[0]],
+                    ])->first();
+                    
+                $temp = $updateQuantity + $currentQuantity->quantity;
+                DB::table('tbl_truck_detail')->where([
+                    ['product_id', $product[0]],
+                    ['truck_id', $title[0]],
+                    ])->update(['quantity' => $temp]);
             }
 
             $request->session()->flash('msg', __('admin/entries.sales_added'));
@@ -524,7 +532,7 @@ class PurchaseController extends Controller
                     
                 }
             }
-            $data['accounts'] = $accounts;
+            $data['accounts'] = $coa;
 
             
             $data['payment_number'] = $this->custom->getVoucherPaymentNumber();

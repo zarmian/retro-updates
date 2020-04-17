@@ -352,9 +352,11 @@ $(".chosen").select2();
                 var qty = $data.data[i].qty;
                
                 var option = "<option value='"+id+"'>"+name+"</option>"; 
-               //  var qty = tr.find('.line_qty').val();
+                
 
-                $("#truck_product").append(option); 
+                $("#truck_product").append(option);
+                
+
               }
              }
          

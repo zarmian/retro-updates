@@ -73,7 +73,7 @@
           <option value=""> @lang('admin/common.select_option_txt') </option>
           @if(isset($accounts) )
             @foreach($accounts as $account)
-              <option value="{{ $account->id }}">{{ $account->name }} </option>
+            <option value="{{ $account['id'] }}">{{ $account['code'] }} -- {{ $account['name'] }} </option>
             @endforeach
           @endif
         </select>

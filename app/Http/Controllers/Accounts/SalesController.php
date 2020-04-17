@@ -14,6 +14,7 @@ use App\Http\Models\Accounts\Product;
 use App\Http\Models\Accounts\Destination;
 use App\Http\Models\Accounts\Origin;
 use App\Http\Models\Accounts\AccountsChart;
+use App\Http\Models\Accounts\AccountsType;
 use App\Http\Models\Accounts\SalesLedger;
 use App\Http\Models\Accounts\AccountsSummery;
 use App\Http\Models\Accounts\AccountsSummeryDetail;
@@ -132,6 +133,7 @@ class SalesController extends Controller
                     'id'=> $purchase->id,
                     'truck'=> $name->name,
                     'product' => $purchase->products->name,
+                    
                 
             ]);
             }
@@ -162,11 +164,17 @@ class SalesController extends Controller
     {
         try {
 
+            $quantity= DB::table('tbl_truck_detail')->select('quantity')->where([
+                ['product_id','=', $product[0]],
+                ['truck_id','=', $title[0]],
+                ])->first();
             $this->validate($request, [
                 'customer' => 'required',
                 'invoice_number' => 'required|unique:tbl_sales',
                 'invoice_date' => 'required',
                 'due_date' => 'required',
+                'line_qty' => 'lte: [$quantity->quantity] ',
+                
             ]);
 
             $invoice_date =  Carbon::createFromFormat('m/d/Y', $request->input('invoice_date'))->toDateString();
@@ -253,23 +261,34 @@ class SalesController extends Controller
 
 
 
-                $sumQuantity = DB::table('tbl_sales_detail')->where('title', $title[0])->sum('qty');
+                $sumQuantity = DB::table('tbl_sales_detail')->where([
+                    ['product', $product[0]],
+                    ['title', $title[0]],
+                    ])->sum('qty');
 
 
-                $currentQuantity = DB::table('tbl_products')->select('price')->where('id', $title[0])->first();
+                $currentQuantity = DB::table('tbl_truck_detail')->select('quantity')->where([
+                    ['product_id','=', $product[0]],
+                    ['truck_id','=', $title[0]],
+                    ])->first();
                 if($sumQuantity == 0)
                 {
-                    $temp = $currentQuantity->price - $line_qty[0];
-                    DB::table('tbl_products')->where('id', $title[0])->update(['price' => $temp]);
+                    $temp = $currentQuantity->quantity - $line_qty[0];
+                    
+                    DB::table('tbl_products')->where('id', $title[0])->update(['quantity' => $temp]);
                     DB::table('tbl_sales_detail')->insert($sale_details);
                     $request->session()->flash('msg', __('admin/entries.sales_added'));
                     return redirect('accounting/sales/add');
                 }
                 elseif($sumQuantity != 0)
                 {
-                    if($line_qty[0] <= $currentQuantity->price) {
-                        $temp = ($currentQuantity->price - $line_qty[0]);
-                        DB::table('tbl_products')->where('id', $title[0])->update(['price' => $temp]);
+                    if($line_qty[0] <= $currentQuantity->quantity) {
+                        $temp = ($currentQuantity->quantity - $line_qty[0]);
+                        DB::table('tbl_truck_detail')->where([
+                            ['product_id', $product[0]],
+                            ['truck_id', $title[0]],
+                            ])->update(['quantity' => $temp]);
+                            
                         DB::table('tbl_sales_detail')->insert($sale_details);
                         $request->session()->flash('msg', __('admin/entries.sales_added'));
                         return redirect('accounting/sales/add');
@@ -502,7 +521,7 @@ class SalesController extends Controller
                     
                 }
             }
-            $data['accounts'] = $accounts;
+            $data['accounts'] = $coa;
             
             $data['payment_number'] = $this->custom->getPaymentNumber();
 

@@ -325,17 +325,17 @@ var myLineChart = new Chart(ctxL, {
         datasets: [
             {
                 label: "Sale",
-                fillColor: "rgba(90,70,142,0.2)",
+                fillColor: "rgba(90,70,142,1)",
                 strokeColor: "rgba(90,70,142,1)",
                 pointColor: "rgba(90,70,142,1)",
-                pointStrokeColor: "#000000",
+                pointStrokeColor: "#1bbc9b",
                 pointHighlightFill: "#000000",
                 pointHighlightStroke: "rgba(90,70,142,1)",
                 data: monthly_income
             },
             {
                 label: "Purchase",
-                fillColor: "rgba(151,187,205,0.2)",
+                fillColor: "rgba(151,187,205,0.8)",
                 strokeColor: "rgba(151,187,205,1)",
                 pointColor: "rgba(151,187,205,1)",
                 pointStrokeColor: "#fff",

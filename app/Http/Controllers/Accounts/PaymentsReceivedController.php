@@ -134,7 +134,7 @@ class PaymentsReceivedController extends Controller
             ->where('type', '8')
             ->orderBy('code', 'DESC')
             ->first();
-            if(count($journal) > 0)
+            if($journal)
             {
                 $invoice_no = $this->getInteger($journal->code);
                 $code = str_pad($invoice_no + 1, 5, 0, STR_PAD_LEFT);
@@ -142,7 +142,7 @@ class PaymentsReceivedController extends Controller
             
 
           
-            //$code = $this->custom->getJournalCode();
+            $code = $this->custom->getJournalCode();
 
             return view('accounting/recieve/create', ['accounts' => $expense_data, 'code' => $code, 'banks' => $bank_accounts]);
 

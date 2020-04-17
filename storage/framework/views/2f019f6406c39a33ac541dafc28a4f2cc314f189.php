@@ -73,7 +73,7 @@
           <option value=""> <?php echo app('translator')->getFromJson('admin/common.select_option_txt'); ?> </option>
           <?php if(isset($accounts) ): ?>
             <?php $__currentLoopData = $accounts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $account): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-              <option value="<?php echo e($account->id); ?>"><?php echo e($account->name); ?> </option>
+            <option value="<?php echo e($account['id']); ?>"><?php echo e($account['code']); ?> -- <?php echo e($account['name']); ?> </option>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
           <?php endif; ?>
         </select>
