@@ -140,7 +140,7 @@
 
                         <tbody>
 
-
+                          @if(isset($status))
                             <tr>
                                 <td width="150px;"> <a href="#">@lang('admin/entries.unpaid_txt') ({{ $status['unpaid'] }})</a> </td>
                                 <td><div class="progress progress-small progress-thin" style="margin-bottom: 0;">
@@ -166,7 +166,7 @@
 
                                
                             </tr>
-
+                            @endif
                         </tbody>
                     </table></div>
                 @if(isset($recents) )

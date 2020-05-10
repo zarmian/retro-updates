@@ -137,7 +137,7 @@
 
                         <tbody>
 
-
+                          <?php if(isset($status)): ?>
                             <tr>
                                 <td width="150px;"> <a href="#"><?php echo app('translator')->getFromJson('admin/entries.unpaid_txt'); ?> (<?php echo e($status['unpaid']); ?>)</a> </td>
                                 <td><div class="progress progress-small progress-thin" style="margin-bottom: 0;">
@@ -163,7 +163,7 @@
 
                                
                             </tr>
-
+                            <?php endif; ?>
                         </tbody>
                     </table></div>
                 <?php if(isset($recents) ): ?>
