@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Accounts;
 
 use App\Http\Models\Accounts\Sales;
+use App\Http\Models\Accounts\Purchase;
 use App\Http\Models\Accounts\SalesDetail;
 use App\Http\Models\Accounts\PurchaseDetail;
 use Illuminate\Http\Request;
@@ -127,12 +128,15 @@ class SalesController extends Controller
             $pur =[];
             foreach($purchases as $purchase)
             {
+                $date_i= Purchase::select('invoice_date')->where('id',$purchase->sale_id)->first();
+                $date=$this->custom->dateformat($date_i->invoice_date);
                 $name= Trucks::select('name')->where('id','=',$purchase->title)->first();
             $pur[]=([
                 
-                    'id'=> $purchase->id,
+                    'id'=> $purchase->sale_id,
                     'truck'=> $name->name,
                     'product' => $purchase->products->name,
+                    'date'=> $date,
                     
                 
             ]);
@@ -146,7 +150,7 @@ class SalesController extends Controller
             $custom = new Customlib;
             $data['invoice_number'] = $custom->getInvoiceNumber();
             $data['vat'] = $this->custom->getSetting('VAT_TAX');
-
+            
             return view('accounting/sales/create', $data);
 
         } catch (ModelNotFoundException $e) {
@@ -164,16 +168,14 @@ class SalesController extends Controller
     {
         try {
 
-            $quantity= DB::table('tbl_truck_detail')->select('quantity')->where([
-                ['product_id','=', $product[0]],
-                ['truck_id','=', $title[0]],
-                ])->first();
+            
             $this->validate($request, [
                 'customer' => 'required',
                 'invoice_number' => 'required|unique:tbl_sales',
                 'invoice_date' => 'required',
                 'due_date' => 'required',
-                'line_qty' => 'lte: [$quantity->quantity] ',
+                'purchases' => 'required'
+                // 'line_qty' => 'lte: [$quantity->quantity] ',
                 
             ]);
 
@@ -182,7 +184,20 @@ class SalesController extends Controller
             $invoice_number = $request->input('invoice_number');
             $vat_tax_id = $request->input('vat_tax_id');
             $create_by = Auth::guard('auth')->user()->id;
-
+            $title = $request->input('title');
+                $line_desc = $request->input('line_desc');
+                $line_qty = $request->input('line_qty');
+                $line_unit_price = $request->input('line_unit_price');
+                $line_total = $request->input('line_total');
+                $product = $request->input('truck_product');
+                $pur_id = $request->input('purchases');
+                $purchase=PurchaseDetail::where('id',$pur_id[0])->first();
+                $currentQuantity = DB::table('tbl_truck_detail')->select('quantity')->where([
+                    ['product_id','=', $purchase->product],
+                    ['truck_id','=', $purchase->title],
+                    ])->first();
+                    if($currentQuantity->quantity >= $line_qty[0])
+                    {
 
             $vat_tax_amount = 0;
 
@@ -234,81 +249,82 @@ class SalesController extends Controller
             if(count($request->input('line_qty')) > 0)
             {
 
-                $title = $request->input('title');
-                $line_desc = $request->input('line_desc');
-                $line_qty = $request->input('line_qty');
-                $line_unit_price = $request->input('line_unit_price');
-                $line_total = $request->input('line_total');
-                $product = $request->input('truck_product');
-                $pur_id = $request->input('purchases');
+                
                 
                 $sale_details = [];
                 for($i=0; $i < count($line_qty); $i++)
                 {
+                    $extra= PurchaseDetail::where('id',$pur_id[$i])->first();
                     $sale_details[] = [
                         'sale_id' => $sale->id,
-                        'title' => $title[$i],
+                        'title' => $extra->title,
 //                        'description' => $line_desc[$i],
-                        'product' => $product[$i],
+                        'product' => $extra->product,
                         'qty' => $line_qty[$i],
                         'unit_price' => $this->custom->intCurrency($line_unit_price[$i]),
                         'amount' => $this->custom->intCurrency($line_total[$i]),
-                        'destination' => $request->input('destination'),
-                        'origin' => $request->input('origin'),
+                        'destination' => $extra->destination,
+                        'origin' => $extra->origin,
                         'pur_id' => $pur_id[$i],
                     ];
                 }
+                DB::table('tbl_sales_detail')->insert($sale_details);
+
+            }
+                // $sumQuantity = DB::table('tbl_sales_detail')->where([
+                //     ['product', $product[0]],
+                //     ['title', $title[0]],
+                //     ])->sum('qty');
 
 
-
-                $sumQuantity = DB::table('tbl_sales_detail')->where([
-                    ['product', $product[0]],
-                    ['title', $title[0]],
-                    ])->sum('qty');
-
-
-                $currentQuantity = DB::table('tbl_truck_detail')->select('quantity')->where([
-                    ['product_id','=', $product[0]],
-                    ['truck_id','=', $title[0]],
-                    ])->first();
-                if($sumQuantity == 0)
-                {
-                    $temp = $currentQuantity->quantity - $line_qty[0];
+                
+                // if($sumQuantity == 0)
+                // {
+                    // $temp = $currentQuantity->quantity - $line_qty[0];
                     
-                    DB::table('tbl_products')->where('id', $title[0])->update(['quantity' => $temp]);
-                    DB::table('tbl_sales_detail')->insert($sale_details);
-                    $request->session()->flash('msg', __('admin/entries.sales_added'));
-                    return redirect('accounting/sales/add');
-                }
-                elseif($sumQuantity != 0)
-                {
-                    if($line_qty[0] <= $currentQuantity->quantity) {
-                        $temp = ($currentQuantity->quantity - $line_qty[0]);
-                        DB::table('tbl_truck_detail')->where([
-                            ['product_id', $product[0]],
-                            ['truck_id', $title[0]],
-                            ])->update(['quantity' => $temp]);
+                    // // DB::table('tbl_products')->where('id', $title[0])->update(['quantity' => $temp]);
+                    // DB::table('tbl_sales_detail')->insert($sale_details);
+                //     $request->session()->flash('msg', __('admin/entries.sales_added'));
+                //     return redirect('accounting/sales/add');
+                // }
+                // elseif($sumQuantity != 0)
+                // {
+                //     if($line_qty[0] <= $currentQuantity->quantity) {
+                //         $temp = ($currentQuantity->quantity - $line_qty[0]);
+                //         DB::table('tbl_truck_detail')->where([
+                //             ['product_id', $product[0]],
+                //             ['truck_id', $title[0]],
+                //             ])->update(['quantity' => $temp]);
                             
-                        DB::table('tbl_sales_detail')->insert($sale_details);
-                        $request->session()->flash('msg', __('admin/entries.sales_added'));
+                //         DB::table('tbl_sales_detail')->insert($sale_details);
+                //         $request->session()->flash('msg', __('admin/entries.sales_added'));
+                //         return redirect('accounting/sales/add');
+                //     }
+                //     else{
+                //         $request->session()->flash('msg', __('admin/entries.quantity_less'));
+                //         return redirect('accounting/sales/add');
+                // }
+
+                // }
+
+                $temp = $currentQuantity->quantity - $line_qty[0];
+                    
+                DB::table('tbl_truck_detail')->select('quantity')->where([
+                    ['product_id','=', $purchase->product],
+                    ['truck_id','=', $purchase->title],
+                    ])->update(['quantity' => $temp]);
+                
+
+                $request->session()->flash('msg', __('admin/entries.sales_added'));
                         return redirect('accounting/sales/add');
-                    }
-                    else{
-                        $request->session()->flash('msg', __('admin/entries.quantity_less'));
-                        return redirect('accounting/sales/add');
-                }
-
-                }
-
-
-
-
 
 
             }
+            else{
+                $request->session()->flash('error', __('Invalid Quantity'));
+                        return redirect('accounting/sales/add');
 
-
-
+            }
 
 
             /*$enable_email = $this->custom->getSetting('ENABLE_EMAIL');
@@ -586,46 +602,46 @@ class SalesController extends Controller
                             $ledger->added_by = $create_by;
                             $ledger->save();
 
-                            if($ledger)
-                            {
-                                $summery = new AccountsSummery();
-                                $summery->date = $date;
-                                $summery->code = $request->input('payment_no');
-                                $summery->reference  = $request->input('reference');
-                                $summery->description = $request->input('description');
-                                $summery->type = '2';
-                                $summery->added_by = $create_by;
-                                $summery->save();
+                            // if($ledger)
+                            // {
+                            //     $summery = new AccountsSummery();
+                            //     $summery->date = $date;
+                            //     $summery->code = $request->input('payment_no');
+                            //     $summery->reference  = $request->input('reference');
+                            //     $summery->description = $request->input('description');
+                            //     $summery->type = '2';
+                            //     $summery->added_by = $create_by;
+                            //     $summery->save();
 
-                                if($summery)
-                                {
-                                    // Debit Amount Enter
-                                    $sdetail_dr = new AccountsSummeryDetail();
+                            //     if($summery)
+                            //     {
+                            //         // Debit Amount Enter
+                            //         $sdetail_dr = new AccountsSummeryDetail();
 
-                                    $sdetail_dr->summery_id = $summery->id;
-                                    $sdetail_dr->account_id = $customer->cid;
-                                    $sdetail_dr->date = $date;
-                                    $sdetail_dr->debit = $request->input('pay_amount');
-                                    $sdetail_dr->credit = '0';
-                                    $sdetail_dr->description = $request->input('description');
-                                    $sdetail_dr->added_by = $create_by;
-                                    $sdetail_dr->save();
+                            //         $sdetail_dr->summery_id = $summery->id;
+                            //         $sdetail_dr->account_id = $customer->cid;
+                            //         $sdetail_dr->date = $date;
+                            //         $sdetail_dr->debit = $request->input('pay_amount');
+                            //         $sdetail_dr->credit = '0';
+                            //         $sdetail_dr->description = $request->input('description');
+                            //         $sdetail_dr->added_by = $create_by;
+                            //         $sdetail_dr->save();
 
-                                    // Credit Amount Enter
-                                    $sdetail_cr = new AccountsSummeryDetail();
+                            //         // Credit Amount Enter
+                            //         $sdetail_cr = new AccountsSummeryDetail();
 
-                                    $sdetail_cr->summery_id = $summery->id;
-                                    $sdetail_cr->account_id = $request->input('account_id');
-                                    $sdetail_cr->date = $date;
-                                    $sdetail_cr->debit = '0';
-                                    $sdetail_cr->credit = $request->input('pay_amount');
-                                    $sdetail_cr->description = $request->input('description');
-                                    $sdetail_cr->added_by = $create_by;
-                                    $sdetail_cr->save();
+                            //         $sdetail_cr->summery_id = $summery->id;
+                            //         $sdetail_cr->account_id = $request->input('account_id');
+                            //         $sdetail_cr->date = $date;
+                            //         $sdetail_cr->debit = '0';
+                            //         $sdetail_cr->credit = $request->input('pay_amount');
+                            //         $sdetail_cr->description = $request->input('description');
+                            //         $sdetail_cr->added_by = $create_by;
+                            //         $sdetail_cr->save();
 
-                                }
+                            //     }
 
-                            }
+                            // }
 
                             $u_sale = Sales::findOrFail($sale->id);
 

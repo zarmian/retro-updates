@@ -3,12 +3,12 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <h1><?php echo app('translator')->getFromJson('admin/entries.journal_heading_txt'); ?></h1>
+        <h1>Add Send Voucher</h1>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
         <a href="<?php echo e(url('/')); ?>"><?php echo app('translator')->getFromJson('admin/dashboard.dashboard-heading'); ?></a>  / 
-        <a href="<?php echo e(url('accounting/journal')); ?>"><?php echo app('translator')->getFromJson('admin/entries.journal_heading_txt'); ?></a>  / 
-        <a href="#" class="active"><?php echo app('translator')->getFromJson('admin/entries.create_journal_heading'); ?></a>
+        <a href="<?php echo e(url('accounting/payments/send')); ?>">Send Payment Voucher</a>  / 
+        <a href="#" class="active">Add Send Voucher</a>
       </div>
     </div>
   </div>
@@ -38,7 +38,7 @@
           </div>
          <?php endif; ?>
 
-         <form data-toggle="validator" role="form" action="<?php echo e(url('accounting/journal/save')); ?>" method="POST" enctype="multipart/form-data" class="erp-form erp-ac-transaction-form">
+         <form data-toggle="validator" role="form" action="<?php echo e(url('accounting/payments/send/add')); ?>" method="POST" enctype="multipart/form-data" class="erp-form erp-ac-transaction-form">
          
           <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
 
@@ -48,17 +48,17 @@
           
           <div class="col-sm-9 col-md-9 col-lg-9 col-xs-12 col-sm-offset-2">
             <div class="top_content">
-              <h3><?php echo app('translator')->getFromJson('admin/entries.journal_heading_txt'); ?></h3>
+              <h3>Add Send Voucher</h3>
               <p><?php echo app('translator')->getFromJson('admin/users.field_employee_text'); ?></p>
             </div>
 
             <div class="form_container">
 
                 <div class="col-md-4 col-sm-4 col-lg-4 col-xs-4 form-group">
-                  <label for="invoice_no" class="input_label"><?php echo app('translator')->getFromJson('admin/entries.entry_code_txt'); ?>*</label>
+                  <label for="invoice_no" class="input_label">PS*</label>
                   
                   <div class="input-group">
-                    <span class="input-group-addon" id="basic-addon1">JE</span>
+                    <span class="input-group-addon" id="basic-addon1">PS</span>
                     <input type="text" name="code" id="code" class="form-control1" placeholder="<?php echo app('translator')->getFromJson('admin/entries.entry_code_txt'); ?>*" value="<?php echo e($code); ?>" required="required" readonly="readonly" style="border-bottom-left-radius: 0px;border-top-left-radius: 0px; background: #e0e0e0;" />
                   </div>
                   
@@ -95,7 +95,7 @@
 
                       <td class="col-chart" width="250" height="50">
                           <select name="account_type[]" id="account_type" required="required" class="chosen form-control1" tabindex="2">
-                          <option value=""> <?php echo app('translator')->getFromJson('admin/entries.select_option_exp_account_value'); ?> </option>
+                          <option value=""> -- SELECT SUPPLIER -- </option>
                           <?php if(isset($accounts)  ): ?>
                             <?php $__currentLoopData = $accounts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $account): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 

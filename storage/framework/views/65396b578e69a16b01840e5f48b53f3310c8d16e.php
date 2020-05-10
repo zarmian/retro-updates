@@ -27,6 +27,12 @@
 
           </div>
           <?php endif; ?>
+        <?php if(Session::has('error')): ?>
+          <div class="alert alert-danger">
+            <?php echo e(Session::get('error')); ?>
+
+          </div>
+          <?php endif; ?>
           
           <?php if(isset($errors) && count($errors)>0  ): ?>
           <div class="alert alert-danger">
@@ -54,7 +60,7 @@
 
             <div class="">
 
-                <div class="col-md-5 col-sm-5 col-lg-5 col-xs-5 form-group">
+                <div class="col-md-4 col-sm-4 col-lg-4 col-xs-4 form-group">
                   <label for="customer" class="input_label"><?php echo app('translator')->getFromJson('admin/entries.customer_label'); ?>*</label>
                   <select name="customer" id="customer" class="form-control1 chosen" required="required">
                     <option value=""><?php echo app('translator')->getFromJson('admin/common.select_customer_txt'); ?></option>
@@ -67,7 +73,7 @@
                 </div>
 
 
-                 <div class="col-md-3 col-sm-3 col-lg-3 col-xs-3 form-group">
+                 <div class="col-md-5 col-sm-5 col-lg-5 col-xs-5 form-group">
                   <label for="reference" class="input_label">Purchase Record</label>
                   <input type="hidden" value="0" name="id" id="id">                    
                       <tr class="tr">
@@ -81,7 +87,7 @@
                             <?php if(isset($purchases) ): ?>
                             
                               <?php $__currentLoopData = $purchases; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $purchase): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <option value="<?php echo e($purchase['id']); ?>"><?php echo e($purchase['truck']); ?>   <?php echo e($purchase['product']); ?></option>
+                          <option value="<?php echo e($purchase['id']); ?>"><?php echo e($purchase['truck']); ?>   <?php echo e($purchase['product']); ?>  <?php echo e($purchase['date']); ?></option>
                               <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             <?php endif; ?>
                           </select>
@@ -90,7 +96,7 @@
                         </td>
                 </div>
 
-                <div class="col-md-4 col-sm-4 col-lg-4 col-xs-4 form-group clearfix">
+                <div class="col-md-3 col-sm-3 col-lg-3 col-xs-3 form-group clearfix">
                   <label for="invoice_no" class="input_label"><?php echo app('translator')->getFromJson('admin/entries.invoice_no_label'); ?>*</label>
                   
                   <div class="input-group">
@@ -113,42 +119,13 @@
                   <label for="due_date" class="input_label"><?php echo app('translator')->getFromJson('admin/entries.invoice_due_date_label'); ?>*</label>
                   <input type="text" name="due_date" id="due_date" class="form-control1 datepicker" placeholder="<?php echo app('translator')->getFromJson('admin/entries.invoice_due_date_label'); ?>" required="required" value="<?php echo e(old('date')); ?>" data-min-year="<?php echo e(date('Y',strtotime('-10 year',time()))); ?>" data-max-year="<?php echo e(date('Y',strtotime('+10 year',time()))); ?>" />
                 </div>
-                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group clearfix">
-                  <label for="Origin" class="input_label">Origin*</label>
-                  <input type="hidden" value="0" name="id" id="id">                    
-                      <tr class="tr">
-                        <td class="col-chart" width="250" height="50">
-                          <select name="origin" id="origin" class="form-control1 chosen title">
-                            <option value="0"> -- SELECT -- </option>
-                            <?php if(isset($origins) ): ?>
-                              <?php $__currentLoopData = $origins; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $origin): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <option value="<?php echo e($origin->id); ?>"><?php echo e($origin->origin); ?></option>
-                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                            <?php endif; ?>
-                          </select>                          
-                        </td>
-                </div>
-                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group">
-                  <label for="Origin" class="input_label">Destination*</label>
-                  <input type="hidden" value="0" name="id" id="id">                    
-                      <tr class="tr">
-                        <td class="col-chart" width="250" height="50">
-                          <select name="destination" id="destination" class="form-control1 chosen title">
-                            <option value="0"> -- SELECT -- </option>
-                            <?php if(isset($destinations) ): ?>
-                              <?php $__currentLoopData = $destinations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $destination): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <option value="<?php echo e($destination->id); ?>"><?php echo e($destination->destination); ?></option>
-                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                            <?php endif; ?>
-                          </select>                          
-                        </td>
-                </div>
+                
                 <div class="col-sm-12">
                   <table class="erp-table erp-ac-transaction-table payment-voucher-table">
                     <thead>
                         <tr>
-                            <th class="col-chart"><?php echo app('translator')->getFromJson('admin/entries.title_label'); ?></th>
-                            <th class="col-desc">Product</th>
+                            <th class="col-chart"></th>
+                            <th class="col-desc"></th>
                             <th class="col-desc"><?php echo app('translator')->getFromJson('admin/entries.account_qty_label'); ?></th>
                             <th class="col-desc"><?php echo app('translator')->getFromJson('admin/entries.account_unit_price_label'); ?></th>
                             <th class="col-amount"><?php echo app('translator')->getFromJson('admin/entries.account_amount_label'); ?></th>
@@ -163,22 +140,14 @@
 
 
                           
-                          <select name="title[]" id="title" class="form-control1 chosen title">
-                            <option value="0"> -- SELECT -- </option>
-                            <?php if(isset($products) ): ?>
-                              <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <option value="<?php echo e($product->id); ?>"><?php echo e($product->name); ?></option>
-                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                            <?php endif; ?>
-                          </select>
+                          
                           
                           
                         </td>
 
 
                         <td class="col-chart" width="200" height="50">
-                          <select name="truck_product[]" id="truck_product" class="form-control1 chosen product">
-                            <option value="0"> -- SELECT -- </option>
+                          
                             
                             
                           </select>

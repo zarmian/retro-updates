@@ -81,7 +81,22 @@
       @if(Session::has('msg'))
         <div class="alert alert-success">{{ Session::get('msg') }}</div>
       @endif
-      
+      <table class="table table-striped">
+        <tr>
+                   
+          <th width="150">@lang('admin/entries.invoice_number_txt')</th>
+          <th width="150">@lang('admin/entries.customer_label')</th>
+          <th width="150" style="text-align: left;">@lang('admin/entries.invoice_date_label')</th>
+          <th width="150" style="text-align: left;">@lang('admin/entries.invoice_due_date_label')</th>
+          
+          <th width="150"  >@lang('admin/entries.tlt_pay_txt')</th>
+          <th width="150" align="right" style="text-align: right;" width="100" style="text-align: right;">Status</th>
+          <th width="100" align="right" style="text-align: right;" >View</th>
+          <th width="50" align="right" style="text-align: right;" >Edit</th>
+          
+          
+        </tr>
+        </table>
       <div id="products" class="list-group">
         @if(isset($sales) )
         @foreach($sales as $sale)
@@ -93,13 +108,13 @@
               <div class="col-sm-12 no-padding">
                 <ul class="clearfix">
                   
-                  <li>@lang('admin/entries.voucher_number_txt'): <b> {{ $sale['invoice_number'] }} </b></li>
-                  <li>@lang('admin/entries.vendor_label'): <b>{{ $sale['customer_name'] }}</b></li>
-                  <li>@lang('admin/entries.voucher_date_label'): <b>{{ $sale['invoice_date'] }}</b></li>
-                  <li>@lang('admin/entries.invoice_due_date_label'): <b>{{ $sale['due_date'] }}</b></li>
-                  <li>@lang('admin/entries.tlt_txt'): <b> {{ $sale['total'] }} {{ $currency }}</b></li>
-                  <li>
-                    @lang('admin/entries.invoice_paid_status'): 
+                  <li><b> {{ $sale['invoice_number'] }} </b></li>
+                  <li><b>{{ $sale['customer_name'] }}</b></li>
+                  <li ><b>{{ $sale['invoice_date'] }}</b></li>
+                  <li ><b>{{ $sale['due_date'] }}</b></li>
+                  <li ><b> {{ $sale['total'] }}</b></li>
+                  <li align="right" style="text-align: right;">
+                     
                     @if($sale['paid_status'] == 3)
                       <span class="increase-label label label-danger">@lang('admin/entries.unpaid_txt')</span>
                     @elseif($sale['paid_status'] == 2)
@@ -116,8 +131,10 @@
           <div class="col-lg-1 col-md-12 col-sm-12 col-xs-12 no-padding">
             <div class="col-sm-6 no-padding"><a href="{{ url('accounting/purchase/detail/'.$sale['id']) }}" class="payment-btn-list btn-block btn-gray-bg"><i class="fa fa-eye" aria-hidden="true"></i></a>
             </div>
+            @if($sale['paid_status'] == 3)
             <div class="col-sm-6 no-padding"><a href="{{ url('accounting/purchase/edit/'.$sale['id']) }}" class="payment-btn-list btn-block btn-blue-bg"><i class="fa fa-edit" aria-hidden="true"></i></a></div>
           </div>
+          @endif
           
           </div>
           

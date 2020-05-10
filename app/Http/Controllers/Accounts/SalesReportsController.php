@@ -7,11 +7,15 @@ use App\Http\Models\Accounts\SalesLedger;
 use App\Http\Models\Accounts\Customers;
 use App\Http\Controllers\Controller;
 use App\Http\Models\Accounts\Sales;
+use App\Http\Models\Accounts\Trucks;
+use App\Http\Models\Accounts\Destination;
 use App\Http\Models\Accounts\SalesDetail;
 use Illuminate\Http\Request;
 use App\Libraries\Customlib;
 use Carbon\Carbon;
-use Excel;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 use DB;
 
 
@@ -67,44 +71,56 @@ class SalesReportsController extends Controller
                 $query->where('customer_id', '=', $data['customer_id']);
             }
 
-            elseif(isset($data['by_type']) && $data['by_type'] <> "")
+            if(isset($data['by_type']) && $data['by_type'] > "0")
             {
                 $query->where('paid_status', '=', $data['by_type']);
             }
-
-            elseif(isset($data['due_date']) && $data['due_date'] <> "")
-            {
-                $nice_due_date = Carbon::createFromFormat('m/d/Y', $data['due_date'])->toDateString();
-                $query->where('due_date', '=', $nice_due_date);
-            }
-            else
+            if(isset($data['to'])&& $data['from']<> "")
             {
                 $query->where('invoice_date', '>=', $nice_to_date);
                 $query->where('invoice_date', '<=', $nice_from_date);
             }
 
+            // elseif(isset($data['due_date']) && $data['due_date'] <> "")
+            // {
+            //     $nice_due_date = Carbon::createFromFormat('m/d/Y', $data['due_date'])->toDateString();
+            //     $query->where('due_date', '=', $nice_due_date);
+            // }
+            
+                // dd($query);
             
 
             $sales = $query->get();
-          
-            $tlt_amt = 0; $tlt_paid_amt = 0; $tlt_qty=0;
+            // dd($sales);
+            $tlt_amt = 0; $tlt_paid_amt = 0; $tlt_qty=0; $tlt_dis=0;
             $data['tlt'] = [];
             if(isset($sales) )
             {
+                
                 foreach($sales as $sale)
                 {
-                    $details=SalesDetail::where('sale_id','=',$sale['id'])->get();
+                    // dd($sale['id']);
+                    $details=SalesDetail::where('sale_id',$sale->id)->get();
+                    // $destination=
+                    
+                    
                     foreach($details as $detail)
                     {
+                        
+                        $dest=Destination::select('destination')->where('id',$detail->destination)->first();
+                        $tr=Trucks::select('name')->where('id',$detail->title)->first();
                     $data['sales'][] = [
                         'id' => $sale['id'],
                         'invoice_number' => $sale['invoice_number'],
                         'invoice_date' => $this->custom->dateformat($sale['invoice_date']),
-                        'customer_name' => $sale->customer->first_name.' '.$sale->customer->last_name,
+                        'customer_name' => $sale->customer->first_name,
                         'customer_id' => $sale->customer->id,
                         'due_date' => $this->custom->dateformat($sale['due_date']),
                         'rate' =>$detail->unit_price,
+                        'discount'=>$sale->discount,
                         'qty' => $detail->qty,
+                        'truck' => $tr->name,
+                        'destination'=> $dest->destination,
                         'total' => number_format($sale['total'], 2),
                         'paid' => number_format($sale->paid->sum('amount'), 2),
 
@@ -112,6 +128,8 @@ class SalesReportsController extends Controller
                     $tlt_qty= $tlt_qty + $detail->qty;
                     $tlt_amt = $tlt_amt + $sale['total'];
                     $tlt_paid_amt = $tlt_paid_amt + $sale->paid->sum('amount');
+                    $tlt_dis = $tlt_dis +$sale->discount;
+
                 }
 
                 }
@@ -119,10 +137,15 @@ class SalesReportsController extends Controller
                 $data['tlt'] = [
                     'tlt_amt' => number_format($tlt_amt, 2),
                     'tlt_paid_amt' => number_format($tlt_paid_amt, 2),
-                    'tlt_qty' => number_format($tlt_qty, 2)
+                    'tlt_qty' => number_format($tlt_qty, 0),
+                    'tlt_dis' => number_format($tlt_dis, 1)
                 ];
 
                 
+            }
+            else{
+                $data['customers'] = Customers::select('id', 'first_name', 'last_name')->get();
+            return view('accounting.reports.sales', $data);
             }
 
             $data['to_date'] = $this->custom->dateformat($nice_to_date);
@@ -130,11 +153,13 @@ class SalesReportsController extends Controller
 
             $data['currency'] = $this->custom->currencyFormatSymbol();
             $data['customers'] = Customers::select('id', 'first_name', 'last_name')->get();
+            // dd($data);
 
             return view('accounting.reports.sales', $data);
 
         } catch (ModelNotFoundException $e) {
-            
+            $data['customers'] = Customers::select('id', 'first_name', 'last_name')->get();
+            return view('accounting.reports.sales', $data);
         }
     }
 

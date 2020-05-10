@@ -90,6 +90,7 @@ class InterbankController extends Controller
             $code = $this->custom->getInterBankCode();
 
             $bank_accounts = AccountsChart::where('type_id','=','22')
+            ->orWhere('type_id','=','21')
             ->get();
             if(isset($bank_accounts) )
             {

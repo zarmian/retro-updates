@@ -82,7 +82,22 @@
       <?php if(Session::has('msg')): ?>
         <div class="alert alert-success"><?php echo e(Session::get('msg')); ?></div>
       <?php endif; ?>
-      
+      <table class="table table-striped">
+      <tr>
+                 
+        <th width="150"><?php echo app('translator')->getFromJson('admin/entries.invoice_number_txt'); ?></th>
+        <th width="150"><?php echo app('translator')->getFromJson('admin/entries.customer_label'); ?></th>
+        <th width="150" style="text-align: left;"><?php echo app('translator')->getFromJson('admin/entries.invoice_date_label'); ?></th>
+        <th width="150" style="text-align: left;"><?php echo app('translator')->getFromJson('admin/entries.invoice_due_date_label'); ?></th>
+        
+        <th width="150"  ><?php echo app('translator')->getFromJson('admin/entries.tlt_pay_txt'); ?></th>
+        <th width="150" align="right" style="text-align: right;" width="100" style="text-align: right;">Status</th>
+        <th width="100" align="right" style="text-align: right;" >View</th>
+        <th width="50" align="right" style="text-align: right;" >Edit</th>
+        
+        
+      </tr>
+      </table>
       <div id="products" class="list-group">
         <?php if(isset($sales)  ): ?>
         <?php $__currentLoopData = $sales; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sale): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -90,16 +105,16 @@
           <div class="list-block clearfix">
             <div class="col-lg-11 col-md-12 col-sm-12 col-xs-12 list-content-row">
             
-              <div class="col-sm-12 no-padding">
+              <div class="col-md-12 no-padding">
                 <ul class="clearfix">
                   
-                  <li><?php echo app('translator')->getFromJson('admin/entries.invoice_number_txt'); ?>: <b> <?php echo app('translator')->getFromJson('admin/common.inv_prefix'); ?> <?php echo e($sale['invoice_number']); ?> </b></li>
-                  <li><?php echo app('translator')->getFromJson('admin/entries.customer_label'); ?>: <b><?php echo e($sale['customer_name']); ?></b></li>
-                  <li><?php echo app('translator')->getFromJson('admin/entries.invoice_date_label'); ?>: <b><?php echo e($sale['invoice_date']); ?></b></li>
-                  <li><?php echo app('translator')->getFromJson('admin/entries.invoice_due_date_label'); ?>: <b><?php echo e($sale['due_date']); ?></b></li>
-                  <li><?php echo app('translator')->getFromJson('admin/entries.tlt_txt'); ?>: <b> <?php echo e($sale['total']); ?></b></li>
-                  <li>
-                    <?php echo app('translator')->getFromJson('admin/entries.invoice_paid_status'); ?>: 
+                  <li><b> <?php echo app('translator')->getFromJson('admin/common.inv_prefix'); ?> <?php echo e($sale['invoice_number']); ?> </b></li>
+                  <li><b><?php echo e($sale['customer_name']); ?></b></li>
+                  <li ><b><?php echo e($sale['invoice_date']); ?></b></li>
+                  <li ><b><?php echo e($sale['due_date']); ?></b></li>
+                  <li ><b> <?php echo e($sale['total']); ?></b></li>
+                  <li align="right" style="text-align: right;">
+                     
                     <?php if($sale['paid_status'] == 3): ?>
                       <span class="increase-label label label-danger"><?php echo app('translator')->getFromJson('admin/entries.unpaid_txt'); ?></span>
                     <?php elseif($sale['paid_status'] == 2): ?>
@@ -109,16 +124,17 @@
                     <?php endif; ?>
                   </li>
                 </ul>
-                <div class="clearfix"></div>
+               
               </div>
-              <div class="clearfix"></div>
+              
           </div>
           <div class="col-lg-1 col-md-12 col-sm-12 col-xs-12 no-padding">
            
               <div class="col-sm-6 no-padding"><a href="<?php echo e(url('accounting/sales/detail/'.$sale['id'])); ?>" class="payment-btn-list btn-block btn-gray-bg"><i class="fa fa-eye" aria-hidden="true"></i></a>
               </div>
+              <?php if($sale['paid_status'] == 3): ?>
               <div class="col-sm-6 no-padding"><a href="<?php echo e(url('accounting/sales/edit/'.$sale['id'])); ?>" class="payment-btn-list btn-block btn-blue-bg"><i class="fa fa-edit" aria-hidden="true"></i></a></div>
-            
+              <?php endif; ?>
           </div>
           </div>
           

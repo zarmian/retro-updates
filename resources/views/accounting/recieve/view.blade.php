@@ -98,7 +98,7 @@
                   <table class="table">
                     <tr>
                       <th class="border-none" width="150">@lang('admin/entries.date_label')</th>
-                      <th class="border-none">@lang('admin/entries.detail_txt')</th>
+                      <th class="border-none">Account</th>
                       <th class="border-none align-center" width="150">@lang('admin/entries.debit_txt')</th>
                       <th class="border-none align-center" width="150">@lang('admin/entries.credit_txt')</th>
                       
@@ -108,7 +108,7 @@
                       @foreach($journal['details'] as $detail)
                         <tr>
                           <td class="td-light-gray">{!! $detail['date'] !!}</td>
-                          <td class="td-dark-gray">{!! $detail['description'] !!}</td>
+                          <td class="td-dark-gray">{!! $detail['name'] !!}</td>
                           <td class="td-light-gray text-center"><b>{{ $detail['debit'] }}</b></td>
                           <td class="td-dark-gray text-center"><b>{{ $detail['credit'] }}</b></td>
                          

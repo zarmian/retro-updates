@@ -579,7 +579,6 @@ class PurchaseController extends Controller
 
                     $tlt_paid = $sale->paid->sum('amount');
                     $tlt_amount = $sale->sub_total - $sale->discount;
-                    
                     if(($tlt_amount - $tlt_paid) <> 0 ){
 
                         $customer_id = $request->input('customer_id');
@@ -599,61 +598,61 @@ class PurchaseController extends Controller
                         $ledger->added_by = $create_by;
                         $ledger->save();
 
-                        if($ledger)
-                        {
-                            $summery = new AccountsSummery();
-                            $summery->date = $date;
-                            $summery->code = $request->input('payment_no');
-                            $summery->reference  = $request->input('reference');
-                            $summery->description = $request->input('description');
-                            $summery->type = '2';
-                            $summery->added_by = $create_by;
-                            $summery->save();
+                        // if($ledger)
+                        // {
+                        //     $summery = new AccountsSummery();
+                        //     $summery->date = $date;
+                        //     $summery->code = $request->input('payment_no');
+                        //     $summery->reference  = $request->input('reference');
+                        //     $summery->description = $request->input('description');
+                        //     $summery->type = '2';
+                        //     $summery->added_by = $create_by;
+                        //     $summery->save();
 
-                            if($summery)
-                            {
+                        //     if($summery)
+                        //     {
 
-                                // Debit Amount Enter
-                                $sdetail_dr = new AccountsSummeryDetail();
+                        //         // Debit Amount Enter
+                        //         $sdetail_dr = new AccountsSummeryDetail();
 
-                                $sdetail_dr->summery_id = $summery->id;
-                                $sdetail_dr->account_id = $vendor->cid;
-                                $sdetail_dr->date = $date;
-                                $sdetail_dr->debit = '0';
-                                $sdetail_dr->credit = $request->input('pay_amount');
-                                $sdetail_dr->description = $request->input('description');
-                                $sdetail_dr->added_by = $create_by;
-                                $sdetail_dr->save();
+                        //         $sdetail_dr->summery_id = $summery->id;
+                        //         $sdetail_dr->account_id = $vendor->cid;
+                        //         $sdetail_dr->date = $date;
+                        //         $sdetail_dr->debit = '0';
+                        //         $sdetail_dr->credit = $request->input('pay_amount');
+                        //         $sdetail_dr->description = $request->input('description');
+                        //         $sdetail_dr->added_by = $create_by;
+                        //         $sdetail_dr->save();
 
-                                // Credit Amount Enter
-                                $sdetail_cr = new AccountsSummeryDetail();
+                        //         // Credit Amount Enter
+                        //         $sdetail_cr = new AccountsSummeryDetail();
 
-                                $sdetail_cr->summery_id = $summery->id;
-                                $sdetail_cr->account_id = $request->input('account_id');
-                                $sdetail_cr->date = $date;
-                                $sdetail_cr->debit = $request->input('pay_amount');
-                                $sdetail_cr->credit = '0';
-                                $sdetail_cr->description = $request->input('description');
-                                $sdetail_cr->added_by = $create_by;
-                                $sdetail_cr->save();
-                                if(isset($sale) && ($sale->discount) >0)
-                                {
-                                    $sdetail_cr = new AccountsSummeryDetail();
+                        //         $sdetail_cr->summery_id = $summery->id;
+                        //         $sdetail_cr->account_id = $request->input('account_id');
+                        //         $sdetail_cr->date = $date;
+                        //         $sdetail_cr->debit = $request->input('pay_amount');
+                        //         $sdetail_cr->credit = '0';
+                        //         $sdetail_cr->description = $request->input('description');
+                        //         $sdetail_cr->added_by = $create_by;
+                        //         $sdetail_cr->save();
+                        //         if(isset($sale) && ($sale->discount) >0)
+                        //         {
+                        //             $sdetail_cr = new AccountsSummeryDetail();
 
-                                $sdetail_cr->summery_id = $summery->id;
-                                $sdetail_cr->account_id = '12';
-                                $sdetail_cr->date = $date;
-                                $sdetail_cr->debit = '0';
-                                $sdetail_cr->credit = $sale->discount;
-                                $sdetail_cr->description = $request->input('description');
-                                $sdetail_cr->added_by = $create_by;
-                                $sdetail_cr->save();
-                                }
+                        //         $sdetail_cr->summery_id = $summery->id;
+                        //         $sdetail_cr->account_id = '12';
+                        //         $sdetail_cr->date = $date;
+                        //         $sdetail_cr->debit = '0';
+                        //         $sdetail_cr->credit = $sale->discount;
+                        //         $sdetail_cr->description = $request->input('description');
+                        //         $sdetail_cr->added_by = $create_by;
+                        //         $sdetail_cr->save();
+                        //         }
 
 
-                            }
+                        //     }
 
-                        }
+                        // }
 
                         $u_sale = Purchase::findOrFail($sale->id);
 

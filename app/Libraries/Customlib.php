@@ -70,7 +70,8 @@ class Customlib{
         elseif (empty($sale))
         {
             return $invoice_number;
-        }
+		}
+		return $invoice_number;
 	}
 
 
@@ -139,11 +140,10 @@ class Customlib{
 		$invoice_number = '00001';
 		
 		$sale = PurchaseLedger::select('payment_no', 'id')->orderBy('id', 'DESC')->first();
-		
-		
 		if(!empty($sale))
 		{
-			$invoice_no = $this->getInteger($sale->payment_number);
+			$invoice_no = $this->getInteger($sale->payment_no);
+			
 			$invoice_number = str_pad($invoice_no + 1, 5, 0, STR_PAD_LEFT);
 		    return $invoice_number;
 		}

@@ -74,10 +74,11 @@
               <div class="col-sm-12 no-padding">
                 <ul class="clearfix">
                   
-                  <li><?php echo app('translator')->getFromJson('admin/entries.entry_no_txt'); ?>: <b> <?php echo e($journal['code']); ?> </b></li>
-                  <li style="width: 282px;"><?php echo app('translator')->getFromJson('admin/entries.date_label'); ?>: <b><?php echo e($journal['date']); ?></b></li>
-                  <li style="width: 282px;"><?php echo app('translator')->getFromJson('admin/entries.detail_txt'); ?>: <b><?php echo e($journal['description']); ?></b></li>
-                  <li><?php echo app('translator')->getFromJson('admin/entries.tlt_txt'); ?>: <b> <?php echo e($journal['amount']); ?> </b></li>
+                  <li style="width: 150px;"><?php echo app('translator')->getFromJson('admin/entries.entry_no_txt'); ?>: <b> <?php echo e($journal['code']); ?> </b></li>
+                  <li style="width: 150px;"><?php echo app('translator')->getFromJson('admin/entries.date_label'); ?>: <b><?php echo e($journal['date']); ?></b></li>
+                  <li style="width: 161px;">From: <b><?php echo e($journal['from']); ?></b></li>
+                  <li style="width: 161px;">To: <b><?php echo e($journal['to']); ?></b></li>
+                  <li style="text-align:right; width: 300px"><?php echo app('translator')->getFromJson('admin/entries.tlt_txt'); ?>: <b> <?php echo e($journal['amount']); ?> </b></li>
                   <li>
                     
                   </li>

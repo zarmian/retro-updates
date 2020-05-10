@@ -48,8 +48,8 @@
                     
 
                     <li><a href="javascript:void(0)" class="do-print payment-btn btn-blue-bg"><i class="fa fa-print"></i></a></li>
-                    <li><a href="{{ url('accounting/sales/edit', $sale['id']) }}" class="payment-btn btn-light-purple-bg"><i class="fa fa-eye"></i></a></li>
-                    <li><a data-toggle="modal" data-target="#paymentModal" data-id="{{ $sale['id'] }}" rel="tooltip" class="payment-btn btn-gray-bg cursor-pointer"><i class="fa fa-plus"></i></a></li>
+                    {{-- <li><a href="{{ url('accounting/sales/edit', $sale['id']) }}" class="payment-btn btn-light-purple-bg"><i class="fa fa-eye"></i></a></li> --}}
+                    {{-- <li><a data-toggle="modal" data-target="#paymentModal" data-id="{{ $sale['id'] }}" rel="tooltip" class="payment-btn btn-gray-bg cursor-pointer"><i class="fa fa-plus"></i></a></li> --}}
 
                     <li><a href="javascript:void(0)" id="do-email"></a>
 
@@ -133,7 +133,7 @@
 
                     @if(isset($sale['customer']->permanent_address) && !is_null($sale['customer']->permanent_address) && $sale['customer']->permanent_address <> "")
                       <br>
-                      {!! $sale['customer']->permanent_address !!}
+                      {{-- {!! $sale['customer']->permanent_address !!} --}}
                       
                     @endif
                     </p>
@@ -202,14 +202,14 @@
                    </tr>
 
                    <tr>
-                     <th class="text-right">@lang('admin/entries.discount_txt')</th>
+                     <th class="text-right">Shortage</th>
                      <td>{{ $sale['discount'] }}</td>
                    </tr>
 
-                   <tr>
+                   {{-- <tr>
                      <th class="text-right">TAX</th>
                      <td>{{ $sale['vat_tax_amount'] }}</td>
-                   </tr>
+                   </tr> --}}
 
                    <tr>
                      <th class="text-right">@lang('admin/entries.invoice_total_txt')</th>
@@ -217,7 +217,7 @@
                    </tr>
 
                    <tr>
-                     <th class="text-right">@lang('admin/entries.total_amount_txt')</th>
+                     <th class="text-right">Total Recieved</th>
                      <td>{{ $sale['tlt_paid_sum']}}</td>
                    </tr>
 
@@ -241,7 +241,7 @@
                     <tr>
                       <th class="border-none" align="left" style="font-weight: normal;" width="100" height="30">#</th>
                       <th class="border-none" align="left" style="font-weight: normal;" width="200" height="30">@lang('admin/entries.date_label')</th>
-                      <th class="border-none" align="left" style="font-weight: normal;" >@lang('admin/entries.detail_txt')</th>
+                      <th class="border-none" align="left" style="font-weight: normal;" >Account</th>
                       <th class="border-none" width="150" align="center" style="font-weight: normal;" >@lang('admin/entries.paid_amount_txt')</th>
                       
                     </tr>
@@ -252,7 +252,7 @@
                           <td class="td-dark-gray" height="30" style="background: #efefef !important; padding-left: 10px;">@lang('admin/common.payment_prefix') {!! $payment['payment_no'] !!}</td>
                           <td class="td-light-gray" height="30" align="left" style="background: #f5f5f5 !important; padding-left: 10px;">{{ date('d, M Y', strtotime($payment['date'])) }}</td>
 
-                          <td class="td-dark-gray" height="30" style="background: #efefef !important; padding-left: 10px;">{!! $payment['description'] !!}</td>
+                          <td class="td-dark-gray" height="30" style="background: #efefef !important; padding-left: 10px;">{{ $payment['account_name'] }}</td>
                           <td class="td-light-gray text-center" height="30" style="background: #f5f5f5 !important"><b>{{ $payment['amount'] }}</b></td>
                          
                         </tr>
@@ -301,7 +301,7 @@
                       @lang('admin/entries.amount_due_txt'): {{ $sale['due_amount'] }}
                     </p>
 
-                    <button data-toggle="modal" data-target="#paymentModal" data-id="{{ $sale['id'] }}" rel="tooltip" class="btn btn-danger btn-block new-btn">@lang('admin/entries.add_payment_button')</button>
+                    {{-- <button data-toggle="modal" data-target="#paymentModal" data-id="{{ $sale['id'] }}" rel="tooltip" class="btn btn-danger btn-block new-btn">@lang('admin/entries.add_payment_button')</button> --}}
                   </div>
 
                 </div>
@@ -372,17 +372,17 @@
   }
 
   .inv-no-heading {
-    margin-top: -31px !important;
+    margin-top: 0px !important;
     background-color: #FFF !important;
     box-shadow: 5px 2px 10px #cecece !important;
     border: 1px solid #cecece;
     width: 100% !important;
-    height: 50px;
+    height: 18px;
 
 }
 
 .inv-no-heading h2 {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     line-height: 10px;
     padding-left: 20px;
@@ -390,7 +390,7 @@
 
 .invoice-left-block{
   float: left !important;
-  width: 500px !important;
+  width: 300px !important;
 }
 
 .invoice-right-block{

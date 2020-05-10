@@ -8,6 +8,10 @@ use App\Http\Models\Accounts\AccountsSummery;
 use App\Http\Models\Accounts\AccountsChart;
 use App\Http\Models\Accounts\AccountsType;
 use App\Http\Models\Accounts\Journal;
+use App\Http\Models\Accounts\Payment;
+use App\Http\Models\Accounts\Sales;
+use App\Http\Models\Accounts\SalesLedger;
+use App\Http\Models\Accounts\Customers;
 use App\Http\Controllers\Controller;
 use App\Libraries\Customlib;
 use Illuminate\Http\Request;
@@ -31,7 +35,7 @@ class PaymentsReceivedController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {        
         try {
             
             $data = [];
@@ -60,8 +64,17 @@ class PaymentsReceivedController extends Controller
             {
                 foreach($journals as $journal)
                 {
-                    
+                    $name =[];
                     $amount = $journal->amount->sum('credit');
+                    if(isset($journal->details) )
+                {
+                    foreach($journal->details as $detail)
+                    {
+                        $qry=AccountsChart::findOrFail($detail->account_id);
+                        $name[]=$qry->name;
+                    }
+                }
+                    
                     
                     $data['journals'][] = [
                         'id' => $journal->id,
@@ -69,6 +82,8 @@ class PaymentsReceivedController extends Controller
                         'date' => $this->custom->dateformat($journal->date),
                         'reference' => $journal->reference,
                         'description' => $journal->description,
+                        'from'=>$name[0],
+                        'to' =>$name[1],
                         'type' => $journal->type,
                         'amount' => $this->custom->currenyFormat($amount),
                     ];
@@ -113,7 +128,7 @@ class PaymentsReceivedController extends Controller
             }
 
 
-            $bank_accounts = AccountsChart::whereTypeId('9')->get();
+            $bank_accounts = AccountsChart::whereTypeId('22')->get();
             if(isset($bank_accounts) )
             {
                 foreach($bank_accounts as $bank)
@@ -137,12 +152,13 @@ class PaymentsReceivedController extends Controller
             if($journal)
             {
                 $invoice_no = $this->getInteger($journal->code);
+                
                 $code = str_pad($invoice_no + 1, 5, 0, STR_PAD_LEFT);
             }
             
 
           
-            $code = $this->custom->getJournalCode();
+            // $code = $this->custom->getJournalCode();
 
             return view('accounting/recieve/create', ['accounts' => $expense_data, 'code' => $code, 'banks' => $bank_accounts]);
 
@@ -174,7 +190,7 @@ class PaymentsReceivedController extends Controller
             ];
 
             $this->validate($request, $rules);
-
+            
 
             $date = $request->input('date');
             $nice_date =  Carbon::createFromFormat('m/d/Y', $date)->toDateString();
@@ -233,12 +249,185 @@ class PaymentsReceivedController extends Controller
                             ];
                         //}
                     }
-
+                    
                     AccountsSummeryDetail::insert($detail);
-                }
 
+                    //Auto Payment clear
+                    $code1=AccountsChart::Select('code')->where('id',$account_type[0])->first();
+                    // dd($code1);
+                    $qry2=Customers::Select('id')->where('code',$code1->code)->first();
+                    $balance1=Payment::where('customer_id',$account_type[0])->first();
+                    $amount=$line_debit[0] + $balance1->balance;
+                    $customer_id =$qry2->id;
+
+                    
+
+                    $sales=$qry2->sales->where('paid_status','2');
+                    
+                    if(isset($sales))
+                    {
+                        
+                        
+                        {
+                        foreach($sales as $sale)
+                        {  $payment_number= $this->custom->getPaymentNumber();
+                           $sale1 = Sales::findOrFail($sale->id);
+                           $tlt_paid = $sale1->paid->sum('amount');
+                           $tlt_amount = $sale1->sub_total - $sale1->discount;
+                           $remaining= $tlt_amount - $tlt_paid;
+                           if($amount > 0 )
+                           {
+                           if($amount > $remaining)
+                           {
+                               $pay_amount=$remaining;
+                               $amount= $amount-$remaining;
+                           }
+                           elseif($amount == $remaining )
+                           {
+                            $pay_amount=$remaining;
+                               $amount= $amount-$remaining;
+                           }
+                           elseif($amount < $remaining)
+                           {
+                            
+                            $pay_amount=$amount;
+                            $amount=0;
+                           }
+                           
+                            $ledger = new SalesLedger;
+                            $ledger->sale_id = $sale->id;
+                            $ledger->account_id = $account_type[1];
+                            $ledger->customer_id = $customer_id;
+                            $ledger->payment_no = $payment_number;
+                            $ledger->date = $date;
+                            $ledger->references = $code;
+                            $ledger->amount = $pay_amount;
+                            $ledger->added_by = $create_by;
+                            $ledger->save();
+                           
+                           $u_sale = Sales::findOrFail($sale1->id);
+
+                            $tlt_paid_sum = $u_sale->paid->sum('amount');
+                            $tlt_amount_sum = $u_sale->sub_total - $u_sale->discount;
+                            $is_total_paid = $tlt_amount_sum - $tlt_paid_sum;
+
+                            $partial_paid = $tlt_paid_sum*0.50;
+                            $half_payment = $tlt_amount_sum / 2;
+
+                            $is_partial = ($half_payment >= $partial_paid) ? 1 : 0;
+                            
+                            $status = 3;
+
+                           
+                            if($is_total_paid == 0){
+                                $status = 1;
+                            }elseif($is_partial == 1 && ($is_total_paid) <> 0){
+                                $status = 2;
+                            }elseif($tlt_paid_sum <=0){
+                                $status = 3;
+                            }
+
+                            $u_sale->paid_status = $status;
+                            $u_sale->save();
+                        }
+                            
+                        }
+                     
+                    }
+                        
+                    }
+                    $sales=$qry2->sales->where('paid_status','3');
+                    
+                    if(isset($sales))
+                    {
+                        
+                        {
+                        foreach($sales as $sale)
+                        {  $payment_number= $this->custom->getPaymentNumber();
+                           $sale1 = Sales::findOrFail($sale->id);
+                           $tlt_paid = $sale1->paid->sum('amount');
+                           $tlt_amount = $sale1->sub_total - $sale1->discount;
+                           $remaining= $tlt_amount - $tlt_paid;
+                           if($amount> 0 )
+                           {
+                           if($amount > $remaining)
+                           {
+                               $pay_amount=$remaining;
+                               $amount= $amount-$remaining;
+                           }
+                           elseif($amount == $remaining )
+                           {
+                            $pay_amount=$remaining;
+                               $amount= $amount-$remaining;
+                           }
+                           elseif($amount < $remaining)
+                           {
+                            
+                            $pay_amount=$amount;
+                            $amount=0;
+                           }
+                           
+                            $ledger = new SalesLedger;
+                            $ledger->sale_id = $sale->id;
+                            $ledger->account_id = $account_type[1];
+                            $ledger->customer_id = $customer_id;
+                            $ledger->payment_no = $payment_number;
+                            $ledger->date = $date;
+                            $ledger->references = $code;
+                            $ledger->amount = $pay_amount;
+                            $ledger->added_by = $create_by;
+                            $ledger->save();
+                           
+                           $u_sale = Sales::findOrFail($sale1->id);
+
+                            $tlt_paid_sum = $u_sale->paid->sum('amount');
+                            $tlt_amount_sum = $u_sale->sub_total - $u_sale->discount;
+                            $is_total_paid = $tlt_amount_sum - $tlt_paid_sum;
+
+                            $partial_paid = $tlt_paid_sum*0.50;
+                            $half_payment = $tlt_amount_sum / 2;
+
+                            $is_partial = ($half_payment >= $partial_paid) ? 1 : 0;
+                            
+                            $status = 3;
+
+                           
+                            if($is_total_paid == 0){
+                                $status = 1;
+                            }elseif($is_partial == 1 && ($is_total_paid) <> 0){
+                                $status = 2;
+                            }elseif($tlt_paid_sum <=0){
+                                $status = 3;
+                            }
+
+                            $u_sale->paid_status = $status;
+                            $u_sale->save();
+                        }
+                            
+                        }
+                     }
+
+                        
+                    }
+                    $balance1=Payment::where('customer_id',$account_type[0])->first();
+                            if(isset($balance1))
+                            {
+                                
+                                $balance1->balance=$amount;
+                                $balance1->save();
+                            }
+                            else{
+                                $add= new Payment;
+                                $add->customer_id = $account_type[0];
+                                $add->balance = $amount;
+                                $add->save();
+                            }
+
+                }
+                
 
                 $request->session()->flash('msg', 'Payment Voucher has been added sucssfully.');
+
                 return redirect('accounting/payments/received/add');
 
             }
@@ -373,10 +562,13 @@ class PaymentsReceivedController extends Controller
                 {
                     foreach($journal->details as $detail)
                     {
+                        $qry=AccountsChart::findOrFail($detail->account_id);
+                        $name=$qry->name;
  
                         $d['details'][] = [
                             'summery_id' => $detail->summery_id,
                             'account_id' => $detail->account_id,
+                            'name'=> $name,
                             'date' => $this->custom->dateformat($detail->date),
                             'debit' => $this->custom->currenyFormat($detail->debit),
                             'credit' => $this->custom->currenyFormat($detail->credit),

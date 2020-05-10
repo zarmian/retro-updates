@@ -27,6 +27,11 @@
             {{ Session::get('msg') }}
           </div>
           @endif
+        @if(Session::has('error'))
+          <div class="alert alert-danger">
+            {{ Session::get('error') }}
+          </div>
+          @endif
           
           @if(isset($errors) && count($errors)>0  )
           <div class="alert alert-danger">
@@ -54,7 +59,7 @@
 
             <div class="">
 
-                <div class="col-md-5 col-sm-5 col-lg-5 col-xs-5 form-group">
+                <div class="col-md-4 col-sm-4 col-lg-4 col-xs-4 form-group">
                   <label for="customer" class="input_label">@lang('admin/entries.customer_label')*</label>
                   <select name="customer" id="customer" class="form-control1 chosen" required="required">
                     <option value="">@lang('admin/common.select_customer_txt')</option>
@@ -67,7 +72,7 @@
                 </div>
 
 
-                 <div class="col-md-3 col-sm-3 col-lg-3 col-xs-3 form-group">
+                 <div class="col-md-5 col-sm-5 col-lg-5 col-xs-5 form-group">
                   <label for="reference" class="input_label">Purchase Record</label>
                   <input type="hidden" value="0" name="id" id="id">                    
                       <tr class="tr">
@@ -81,7 +86,7 @@
                             @if(isset($purchases) )
                             
                               @foreach($purchases as $purchase)
-                                <option value="{{ $purchase['id'] }}">{{ $purchase['truck'] }}   {{ $purchase['product'] }}</option>
+                          <option value="{{ $purchase['id'] }}">{{ $purchase['truck'] }}   {{ $purchase['product'] }}  {{ $purchase['date'] }}</option>
                               @endforeach
                             @endif
                           </select>
@@ -90,7 +95,7 @@
                         </td>
                 </div>
 
-                <div class="col-md-4 col-sm-4 col-lg-4 col-xs-4 form-group clearfix">
+                <div class="col-md-3 col-sm-3 col-lg-3 col-xs-3 form-group clearfix">
                   <label for="invoice_no" class="input_label">@lang('admin/entries.invoice_no_label')*</label>
                   
                   <div class="input-group">
@@ -113,7 +118,7 @@
                   <label for="due_date" class="input_label">@lang('admin/entries.invoice_due_date_label')*</label>
                   <input type="text" name="due_date" id="due_date" class="form-control1 datepicker" placeholder="@lang('admin/entries.invoice_due_date_label')" required="required" value="{{ old('date') }}" data-min-year="{{ date('Y',strtotime('-10 year',time())) }}" data-max-year="{{ date('Y',strtotime('+10 year',time())) }}" />
                 </div>
-                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group clearfix">
+                {{-- <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 form-group clearfix">
                   <label for="Origin" class="input_label">Origin*</label>
                   <input type="hidden" value="0" name="id" id="id">                    
                       <tr class="tr">
@@ -142,13 +147,13 @@
                             @endif
                           </select>                          
                         </td>
-                </div>
+                </div> --}}
                 <div class="col-sm-12">
                   <table class="erp-table erp-ac-transaction-table payment-voucher-table">
                     <thead>
                         <tr>
-                            <th class="col-chart">@lang('admin/entries.title_label')</th>
-                            <th class="col-desc">Product</th>
+                            <th class="col-chart"></th>
+                            <th class="col-desc"></th>
                             <th class="col-desc">@lang('admin/entries.account_qty_label')</th>
                             <th class="col-desc">@lang('admin/entries.account_unit_price_label')</th>
                             <th class="col-amount">@lang('admin/entries.account_amount_label')</th>
@@ -163,22 +168,22 @@
 
 
                           
-                          <select name="title[]" id="title" class="form-control1 chosen title">
+                          {{-- <select name="title[]" id="title" class="form-control1 chosen title">
                             <option value="0"> -- SELECT -- </option>
                             @if(isset($products) )
                               @foreach($products as $product)
                                 <option value="{{ $product->id }}">{{ $product->name }}</option>
                               @endforeach
                             @endif
-                          </select>
+                          </select> --}}
                           
                           {{-- <input type="text" name="title[]" id="title" required="required" class="form-control1" placeholder="@lang('admin/entries.title_label')" /> --}}
                         </td>
 
 
                         <td class="col-chart" width="200" height="50">
-                          <select name="truck_product[]" id="truck_product" class="form-control1 chosen product">
-                            <option value="0"> -- SELECT -- </option>
+                          {{-- <select name="truck_product[]" id="truck_product" class="form-control1 chosen product">
+                            <option value="0"> -- SELECT -- </option> --}}
                             
                             
                           </select>

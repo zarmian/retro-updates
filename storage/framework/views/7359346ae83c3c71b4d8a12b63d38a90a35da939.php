@@ -1,27 +1,25 @@
-@extends('layouts.app')
+<?php $__env->startSection('head'); ?>
+<link rel="stylesheet" href="<?php echo e(asset('assets/css/timepicki.css')); ?>"/>
+<?php $__env->stopSection(); ?>
 
-@section('head')
-<link rel="stylesheet" href="{{ asset('assets/css/timepicki.css') }}"/>
-@endsection
-
-@section('breadcrumb')
+<?php $__env->startSection('breadcrumb'); ?>
 <section class="breadcrumb">
   <div class="container">
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <h1>@lang('admin/accounting.edit_coa_txt')</h1>
+        <h1><?php echo app('translator')->getFromJson('admin/accounting.edit_coa_txt'); ?></h1>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
-        <a href="{{ url('/') }}">@lang('admin/dashboard.dashboard-heading')</a>  / 
-        <a href="{{ url('accounting/chart') }}">@lang('admin/accounting.chart_heading')</a>  / 
-        <a href="#" class="active">@lang('admin/accounting.edit_coa_txt')</a>
+        <a href="<?php echo e(url('/')); ?>"><?php echo app('translator')->getFromJson('admin/dashboard.dashboard-heading'); ?></a>  / 
+        <a href="<?php echo e(url('accounting/chart')); ?>"><?php echo app('translator')->getFromJson('admin/accounting.chart_heading'); ?></a>  / 
+        <a href="#" class="active"><?php echo app('translator')->getFromJson('admin/accounting.edit_coa_txt'); ?></a>
       </div>
     </div>
   </div>
 </section>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <div class="container mainwrapper margin-top">
   <div class="row">
@@ -30,33 +28,34 @@
 
       <div class="col-sm-12 col-md-12 col-lg-12">
 
-      @if(Session::has('msg'))
+      <?php if(Session::has('msg')): ?>
         <div class="alert alert-success">
-          {{ Session::get('msg') }}
+          <?php echo e(Session::get('msg')); ?>
+
         </div>
-        @endif
+        <?php endif; ?>
           
-        @if(isset($errors) &&count($errors)>0 )
+        <?php if(isset($errors) &&count($errors)>0 ): ?>
         <div class="alert alert-danger">
           <ul>
-            @foreach($errors->all() as $error)
-              <li>{{ $error }}</li>
-            @endforeach
+            <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+              <li><?php echo e($error); ?></li>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
           </ul>
           </div>
-        @endif
+        <?php endif; ?>
 
 
-      <form data-toggle="validator" role="form" method="post" class="registration-form"  action="{{ url('accounting/chart/edit', $chart->id) }}" style="margin-top: 20px;" enctype="multipart/form-data">
+      <form data-toggle="validator" role="form" method="post" class="registration-form"  action="<?php echo e(url('accounting/chart/edit', $chart->id)); ?>" style="margin-top: 20px;" enctype="multipart/form-data">
 
-        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+        <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>" />
         <div class="form_container">
 
-          {{-- Left From Colum --}}
+          
           <div class="col-sm-12 col-md-6 col-lg-6 col-xs-12 col-sm-offset-3 col-md-offset-3 col-sm-offset-0">
             <div class="top_content">
-              <h3>@lang('admin/accounting.edit_coa_txt')</h3>
-              <p>@lang('admin/employees.field_employee_text')</p>
+              <h3><?php echo app('translator')->getFromJson('admin/accounting.edit_coa_txt'); ?></h3>
+              <p><?php echo app('translator')->getFromJson('admin/employees.field_employee_text'); ?></p>
             </div>
 
             <div class="form_container">
@@ -64,49 +63,31 @@
               
 
               <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6 form-group">
-                <label for="name" class="input_label">@lang('admin/accounting.account_title')*</label>
-                <input type="text" name="name" id="name" class="form-control1" placeholder="@lang('admin/accounting.account_type_title')*" required="required" value="{{ $chart->name }}" />
+                <label for="name" class="input_label"><?php echo app('translator')->getFromJson('admin/accounting.account_title'); ?>*</label>
+                <input type="text" name="name" id="name" class="form-control1" placeholder="<?php echo app('translator')->getFromJson('admin/accounting.account_type_title'); ?>*" required="required" value="<?php echo e($chart->name); ?>" />
               </div>
 
               <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6 form-group">
-                <label for="code" class="input_label">@lang('admin/accounting.account_code')*</label>
-                <input type="text" name="code" id="code" class="form-control1" placeholder="@lang('admin/accounting.account_code')*" required="required" readonly="readonly" value="{{ $chart->code }}" />
+                <label for="code" class="input_label"><?php echo app('translator')->getFromJson('admin/accounting.account_code'); ?>*</label>
+                <input type="text" name="code" id="code" class="form-control1" placeholder="<?php echo app('translator')->getFromJson('admin/accounting.account_code'); ?>*" required="required" readonly="readonly" value="<?php echo e($chart->code); ?>" />
               </div>
 
               <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 form-group">
-                {{-- <label for="account_type" class="input_label">@lang('admin/accounting.type_name_txt')*</label>
-
-                <select name="account_type" id="account_type" data-placeholder="Choose a Types" class="chosen form-control1" tabindex="2">
-                  @if(isset($types) )
-                    @foreach($types as $type)
-                    <optgroup label="{{ $type['name'] }}">
-                      @if(isset($type['children']) )
-                        @foreach($type['children'] as $children)
-                          @if($chart->type_id == $children['type_id'])
-                            <option value="{{ $children['type_id'] }}" selected="selected"> -- {{ $children['name'] }}</option>
-                          @else
-                            <option value="{{ $children['type_id'] }}"> -- {{ $children['name'] }}</option>
-                          @endif
-                        @endforeach
-                      @endif
-                      </optgroup>
-                    @endforeach
-                  @endif
-                </select> --}}
+                
                
               </div>
 
               <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6 form-group">
-                <label for="balance_type" class="input_label">@lang('admin/accounting.balance_type_label')</label>
+                <label for="balance_type" class="input_label"><?php echo app('translator')->getFromJson('admin/accounting.balance_type_label'); ?></label>
                 <select name="balance_type" id="balance_type" class="form-control1" required="required">
-                  <option value="dr" @if($chart->balance_type == "dr") selected="selected" @endif>@lang('admin/accounting.type_dr')</option>
-                  <option value="cr" @if($chart->balance_type == "cr") selected="selected" @endif>@lang('admin/accounting.type_cr')</option>
+                  <option value="dr" <?php if($chart->balance_type == "dr"): ?> selected="selected" <?php endif; ?>><?php echo app('translator')->getFromJson('admin/accounting.type_dr'); ?></option>
+                  <option value="cr" <?php if($chart->balance_type == "cr"): ?> selected="selected" <?php endif; ?>><?php echo app('translator')->getFromJson('admin/accounting.type_cr'); ?></option>
                 </select>
               </div>
 
               <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6 form-group">
-                <label for="opening" class="input_label">@lang('admin/accounting.account_opening')*</label>
-                <input type="text" name="opening" id="opening" class="form-control1" data-bv-integer-message="The value is not an integer" placeholder="@lang('admin/accounting.account_opening')*" value="{{ $chart->opening_balance }}" />
+                <label for="opening" class="input_label"><?php echo app('translator')->getFromJson('admin/accounting.account_opening'); ?>*</label>
+                <input type="text" name="opening" id="opening" class="form-control1" data-bv-integer-message="The value is not an integer" placeholder="<?php echo app('translator')->getFromJson('admin/accounting.account_opening'); ?>*" value="<?php echo e($chart->opening_balance); ?>" />
               </div>
 
 
@@ -124,7 +105,7 @@
           </div>
 
 
-          {{-- Right Form Column --}}
+          
 
          
           
@@ -144,8 +125,8 @@
   </div>
 </div>
 
-@endsection
-@section('scripts')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('scripts'); ?>
 <script src="http://harvesthq.github.io/chosen/chosen.jquery.js"></script>
 <script type="text/javascript">
   $(function() {
@@ -214,4 +195,5 @@ $(document).ready(function() {
 
 </script>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

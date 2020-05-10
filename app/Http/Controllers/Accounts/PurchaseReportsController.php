@@ -9,6 +9,7 @@ use App\Http\Models\Accounts\PurchaseDetail;
 use App\Http\Models\Accounts\Vendors;
 use App\Http\Controllers\Controller;
 use App\Http\Models\Accounts\Trucks;
+use App\Http\Models\Accounts\Destination;
 use Illuminate\Http\Request;
 use App\Libraries\Customlib;
 use Carbon\Carbon;
@@ -64,17 +65,17 @@ class PurchaseReportsController extends Controller
             {
                 $query->where('vendor_id', '=', $data['customer_id']);
             }
-            elseif(isset($data['by_type']) && $data['by_type'] <> "")
+            if(isset($data['by_type']) && $data['by_type'] <> "")
             {
                 $query->where('paid_status', '=', $data['by_type']);
             }
 
-            elseif(isset($data['due_date']) && $data['due_date'] <> "")
-            {
-                $nice_due_date = Carbon::createFromFormat('m/d/Y', $data['due_date'])->toDateString();
-                $query->where('due_date', '=', $nice_due_date);
-            }
-            else
+            // elseif(isset($data['due_date']) && $data['due_date'] <> "")
+            // {
+            //     $nice_due_date = Carbon::createFromFormat('m/d/Y', $data['due_date'])->toDateString();
+            //     $query->where('due_date', '=', $nice_due_date);
+            // }
+            elseif(isset($data['to'])&& $data['from']<> "")
             {
                 $query->where('invoice_date', '>=', $nice_to_date);
                 $query->where('invoice_date', '<=', $nice_from_date);
@@ -84,7 +85,7 @@ class PurchaseReportsController extends Controller
 
             $sales = $query->get();
 
-            $tlt_amt = 0; $tlt_paid_amt = 0; $tlt_qty=0;
+            $tlt_amt = 0; $tlt_paid_amt = 0; $tlt_qty=0; $tlt_dis=0;
             $data['tlt'] = [];
             if(isset($sales))
             {
@@ -93,6 +94,8 @@ class PurchaseReportsController extends Controller
                     $details=PurchaseDetail::where('sale_id','=',$sale['id'])->get();
                     foreach($details as $detail)
                     {
+                        $dest=Destination::select('destination')->where('id',$detail->destination)->first();
+                        $tr=Trucks::select('name')->where('id',$detail->title)->first();
                     $data['sales'][] = [
                         'id' => $sale['id'],
                         'invoice_number' => $sale['invoice_number'],
@@ -102,19 +105,24 @@ class PurchaseReportsController extends Controller
                         'due_date' => $this->custom->dateformat($sale['due_date']),
                         'rate' =>$detail->unit_price,
                         'qty' => $detail->qty,
-                        'total' => number_format($sale['total'], 2),
-                        'paid' => number_format($sale->paid->sum('amount'), 2)
+                        'discount'=>$sale->discount,
+                        'truck' => $tr->name,
+                        'destination'=> $dest->destination,
+                        'total' => number_format($sale['total'], 0),
+                        'paid' => number_format($sale->paid->sum('amount'), 0)
                     ];
                     $tlt_qty= $tlt_qty + $detail->qty;
                     $tlt_amt = $tlt_amt + $sale['total'];
                     $tlt_paid_amt = $tlt_paid_amt + $sale->paid->sum('amount');
+                    $tlt_dis = $tlt_dis +$sale->discount;
                 }
                 }
             }
             $data['tlt'] = [
-                'tlt_amt' => number_format($tlt_amt, 2),
-                'tlt_paid_amt' => number_format($tlt_paid_amt, 2),
-                'tlt_qty' => number_format($tlt_qty, 2)
+                'tlt_amt' => number_format($tlt_amt, 0),
+                'tlt_paid_amt' => number_format($tlt_paid_amt, 0),
+                'tlt_qty' => number_format($tlt_qty, 0),
+                'tlt_dis' => number_format($tlt_dis, 1)
             ];
 
             $data['to_date'] = $this->custom->dateformat($nice_to_date);
@@ -203,8 +211,8 @@ class PurchaseReportsController extends Controller
                         
                     }
 
-                    $end = end($data['rows']);
-                    $data['total'] = $end['total'];
+                    // $end = end($data['rows']);
+                    // $data['total'] = $end['total'];
                 }
 
               

@@ -77,9 +77,9 @@
 
           
 
-          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+          {{-- <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
             <input type="text" name="due_date" id="due_date" class="filter-date-input datedropper placeholderchange" data-init-set="false" data-large-mode="true" placeholder="@lang('admin/reports.due_date_txt')" data-translate-mode="false" data-auto-lang="false" data-default-date="@if(isset($due_date) && $due_date <> ""){{date('m-d-Y', strtotime($due_date) )}}@else{{date('m-d-Y', time())}}@endif"  />
-           </div>
+           </div> --}}
 
 
         </div>
@@ -119,7 +119,7 @@
       
       <div id="products" class="row list-group">
 
-      <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+      <div class="col-lg-16 col-md-12 col-xs-12 col-sm-12">
         <div class="ac_chart">
           
           
@@ -129,7 +129,7 @@
               @if(isset($sales)  )
               
               <div class="col-sm-9">
-                <div class="reports-breads"><h2><b>@lang('admin/reports.sales_report_txt')</b> <span class="filter-txt-highligh">({{ $to_date }} - {{ $from_date }}) </span> @if(\Request::has('customer')) @lang('admin/reports.for_search_txt') <span class="filter-txt-highligh">({{ $sales[0]['customer_name']}})</span> @endif </h2></div>
+                <div class="reports-breads"><h2><b>@lang('admin/reports.sales_report_txt')</b> <span class="filter-txt-highligh">({{ $to_date }} - {{ $from_date }}) </span> @if(isset($sales) && $sales!= []) @lang('admin/reports.for_search_txt') <span class="filter-txt-highligh">({{ $sales[0]['customer_name']}})</span> @endif </h2></div>
               </div>
 
               <div class="col-sm-3 text-center pull-right hidden-print">
@@ -139,14 +139,17 @@
                
                 <tr>
                  
-                  <th width="150">@lang('admin/entries.invoice_number_txt')</th>
-                  <th width="">@lang('admin/entries.customer_label')</th>
-                  <th width="200" style="text-align: left;">@lang('admin/entries.invoice_date_label')</th>
-                  <th width="200" style="text-align: left;">@lang('admin/entries.invoice_due_date_label')</th>
-                  <th width="200" style="text-align: left;">@lang('admin/entries.account_qty_label')</th>
-                  <th width="200" style="text-align: left;">@lang('admin/entries.account_unit_price_label')</th>
-                  <th width="150" align="right" style="text-align: right;" width="100">@lang('admin/entries.tlt_rcv_txt')</th>
-                  <th width="150" align="right" style="text-align: right;" width="100" style="text-align: right;">@lang('admin/reports.tlt_rcv')</th>
+                  <th width="80">@lang('admin/entries.invoice_number_txt')</th>
+                  <th width="180">@lang('admin/entries.customer_label')</th>
+                  <th width="150" style="text-align: left; padding: 2px;">@lang('admin/entries.invoice_date_label')</th>
+                  <th width="150" style="text-align: left;">@lang('admin/entries.invoice_due_date_label')</th>
+                  <th width="120" style="text-align: left;">Truck</th>
+                  <th width="100" style="text-align: left;">Destination</th>
+                  <th width="120" style="text-align: left;">@lang('admin/entries.account_qty_label')</th>
+                  <th width="100" style="text-align: left;">@lang('admin/entries.account_unit_price_label')</th>
+                  <th width="150" align="right" style="text-align: right;" width="100">Shortage</th>
+                  <th width="170" align="right" style="text-align: right;" width="100">@lang('admin/entries.tlt_rcv_txt')</th>
+                  <th width="170" align="right" style="text-align: right;" width="100" style="text-align: right;">@lang('admin/reports.tlt_rcv')</th>
 
                 </tr>
        
@@ -157,8 +160,11 @@
                     <th><a href="{{ url('accounting/customers/view', $sale['customer_id']) }}"><b>{{ $sale['customer_name'] }}</b></a></th>
                     <td align="left">{{ $sale['invoice_date'] }}</td>
                     <td align="left">{{ $sale['due_date'] }}</td>
+                  <td align="left">{{$sale['truck'] }}</td>
+                  <td align="left">{{$sale['destination']}}</td>
                     <td align="left">{{ $sale['qty'] }}</td>
                     <td align="left">{{ $sale['rate'] }}</td>
+                  <td align="right">{{$sale['discount']}} {{ $currency }}</td>
                     <td align="right">{{ $sale['total'] }} {{ $currency }}</td>
                     <td align="right">{{ $sale['paid'] }} {{ $currency }}</td>
                   </tr>
@@ -170,8 +176,11 @@
                 <th></th>
                 <td align="right"><b></b></td>
                 <td align="right"><b></b></td>
+                <td align="right"><b></b></td>
+                <td align="right"><b></b></td>
                 <td align="left"><b>{{ $tlt['tlt_qty'] }} ltr</b></td>
                 <td align="right"><b></b></td>
+                <td align="right"><b>{{ $tlt['tlt_dis'] }} {{ $currency }}</b></td>
                 <td align="right"> <b>{{ $tlt['tlt_amt'] }} {{ $currency }}</b></td>
                 <td align="right"><b>{{ $tlt['tlt_paid_amt'] }} {{ $currency }}</b></td>
 

@@ -1,10 +1,9 @@
 <?php $__env->startSection('head'); ?>
 <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+<link href="<?php echo e(asset('assets/dropdown/css/normalize.css')); ?>" type="text/css" rel="stylesheet">
 
-<style type="text/css">
 
-@media  print{a[href]:after{content:none}}
-</style>
+<style>@media  print{a[href]:after{content:none}}</style>
 
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('breadcrumb'); ?>
@@ -12,9 +11,9 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <h1><?php echo app('translator')->getFromJson('admin/reports.purchse_report_txt'); ?> </h1>
+        <h1><?php echo app('translator')->getFromJson('admin/reports.sales_report_txt'); ?> </h1>
       </div>
-      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right"><a href="<?php echo e(url('/')); ?>"><?php echo app('translator')->getFromJson('admin/dashboard.dashboard-heading'); ?></a>  / <a href="#" class="active"><?php echo app('translator')->getFromJson('admin/reports.purchse_report_txt'); ?></a></div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right"><a href="<?php echo e(url('/')); ?>"><?php echo app('translator')->getFromJson('admin/dashboard.dashboard-heading'); ?></a>  / <a href="#" class="active"><?php echo app('translator')->getFromJson('admin/reports.sales_report_txt'); ?></a></div>
     </div>
   </div>
 </section>
@@ -27,7 +26,7 @@
     <div class="row">
 
 
-    <form action="<?php echo e(url('/reports/purchase')); ?>" method="post">
+    <form action="<?php echo e(url('/reports/sales')); ?>" method="POST">
         <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
         
       
@@ -47,10 +46,10 @@
            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 filter-dropdown">
             <!-- select option -->
             <select name="customer" id="customer" class="chosen form-control1">
-              <option value=""><?php echo app('translator')->getFromJson('admin/reports.select_by_vendors_option_txt'); ?></option>
+              <option value=""><?php echo app('translator')->getFromJson('admin/reports.select_by_customer_option_txt'); ?></option>
               <?php if(isset($customers)  ): ?>
                 <?php $__currentLoopData = $customers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $customer): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                  <?php if($customer->id == app('request')->input('customer')): ?>
+                  <?php if($customer->id == \Request::get('customer')): ?>
                     <option value="<?php echo e($customer->id); ?>" selected="selected"><?php echo e($customer->first_name); ?> <?php echo e($customer->last_name); ?></option>
                   <?php else: ?>
                     <option value="<?php echo e($customer->id); ?>"><?php echo e($customer->first_name); ?> <?php echo e($customer->last_name); ?></option>
@@ -64,15 +63,20 @@
 
            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 filter-dropdown">
             <!-- select option -->
-            
+            <select name="by_type" id="by_type" class="chosen form-control1">
+              <option value=""><?php echo app('translator')->getFromJson('admin/reports.select_by_type_option_txt'); ?></option>
+              <option value="" <?php if(app('request')->input('by_type') == 0): ?> selected <?php endif; ?> > <?php echo app('translator')->getFromJson('admin/common.select_all_txt'); ?> </option>
+              <option value="3" <?php if(app('request')->input('by_type') == 3): ?> selected <?php endif; ?>> <?php echo app('translator')->getFromJson('admin/reports.unpaid_option_txt'); ?> </option>
+              <option value="2" <?php if(app('request')->input('by_type') == 2): ?> selected <?php endif; ?>> <?php echo app('translator')->getFromJson('admin/reports.partial_paid_option_txt'); ?> </option>
+              <option value="1" <?php if(app('request')->input('by_type') == 1): ?> selected <?php endif; ?>> <?php echo app('translator')->getFromJson('admin/reports.paid_option_txt'); ?> </option>
+              
+            </select>
             <!-- select option -->
           </div>
 
           
 
-          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-            <input type="text" name="due_date" id="due_date" class="filter-date-input datedropper placeholderchange" data-init-set="false" data-large-mode="true" placeholder="<?php echo app('translator')->getFromJson('admin/reports.due_date_txt'); ?>" data-translate-mode="false" data-auto-lang="false" data-default-date="<?php if(isset($due_date) && $due_date <> ""): ?><?php echo e(date('m-d-Y', strtotime($due_date) )); ?><?php else: ?><?php echo e(date('m-d-Y', time())); ?><?php endif; ?>"  />
-           </div>
+          
 
 
         </div>
@@ -112,7 +116,7 @@
       
       <div id="products" class="row list-group">
 
-      <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+      <div class="col-lg-16 col-md-12 col-xs-12 col-sm-12">
         <div class="ac_chart">
           
           
@@ -122,36 +126,42 @@
               <?php if(isset($sales)  ): ?>
               
               <div class="col-sm-9">
-                <div class="reports-breads"><h2><b><?php echo app('translator')->getFromJson('admin/reports.purchse_report_txt'); ?></b> <span class="filter-txt-highligh">(<?php echo e($to_date); ?> - <?php echo e($from_date); ?>) </span> <?php echo app('translator')->getFromJson('admin/reports.for_search_txt'); ?> <span class="filter-txt-highligh">(<?php echo e($sales[0]['customer_name']); ?>)</span></h2></div>
+                <div class="reports-breads"><h2><b><?php echo app('translator')->getFromJson('admin/reports.sales_report_txt'); ?></b> <span class="filter-txt-highligh">(<?php echo e($to_date); ?> - <?php echo e($from_date); ?>) </span> <?php if(isset($sales) && $sales!= []): ?> <?php echo app('translator')->getFromJson('admin/reports.for_search_txt'); ?> <span class="filter-txt-highligh">(<?php echo e($sales[0]['customer_name']); ?>)</span> <?php endif; ?> </h2></div>
               </div>
 
               <div class="col-sm-3 text-center pull-right hidden-print">
                 <div class="col-sm-5 no-padding-left pull-right"><a href="javascript:void(0)" onclick="window.print();" class="btn-default-xs btn-print-bg btn-block"> <?php echo app('translator')->getFromJson('admin/reports.print_txt'); ?> &nbsp;&nbsp; <i class="fa fa-print" aria-hidden="true"></i></a></div>
-                <div class="col-sm-5 no-padding-left pull-right"><a href="<?php echo e(url("/reports/purchase/export/?type=purchaseReport&to={$to}&from={$from}&customer={$customer_id}&by_type={$by_type}&due_date={$due_date}")); ?>" class="btn-default-xs btn-excel-bg btn-block"> <?php echo app('translator')->getFromJson('admin/reports.export_txt'); ?> &nbsp;&nbsp; <i class="fa fa-file-excel-o" aria-hidden="true"></i></a></div>
+                <div class="col-sm-5 no-padding-left pull-right"><a href="<?php echo e(url("/reports/sales/export/?type=salesReport&to={$to}&from={$from}&customer={$customer_id}&by_type={$by_type}&due_date={$due_date}")); ?>" class="btn-default-xs btn-excel-bg btn-block"> <?php echo app('translator')->getFromJson('admin/reports.export_txt'); ?> &nbsp;&nbsp; <i class="fa fa-file-excel-o" aria-hidden="true"></i></a></div>
               </div>
                
                 <tr>
                  
-                  <th width="150"><?php echo app('translator')->getFromJson('admin/entries.invoice_number_txt'); ?></th>
-                  <th width=""><?php echo app('translator')->getFromJson('admin/entries.customer_label'); ?></th>
-                  <th width="200" style="text-align: left;"><?php echo app('translator')->getFromJson('admin/entries.invoice_date_label'); ?></th>
-                  <th width="200" style="text-align: left;"><?php echo app('translator')->getFromJson('admin/entries.invoice_due_date_label'); ?></th>
-                  <th width="200" style="text-align: left;"><?php echo app('translator')->getFromJson('admin/entries.account_qty_label'); ?></th>
-                  <th width="200" style="text-align: left;"><?php echo app('translator')->getFromJson('admin/entries.account_unit_price_label'); ?></th>
-                  <th width="150" align="right" style="text-align: right;" width="100"><?php echo app('translator')->getFromJson('admin/entries.tlt_pay_txt'); ?></th>
-                  <th width="150" align="right" style="text-align: right;" width="100" style="text-align: right;"><?php echo app('translator')->getFromJson('admin/reports.tlt_paid'); ?></th>
+                  <th width="80"><?php echo app('translator')->getFromJson('admin/entries.invoice_number_txt'); ?></th>
+                  <th width="180"><?php echo app('translator')->getFromJson('admin/entries.customer_label'); ?></th>
+                  <th width="150" style="text-align: left; padding: 2px;"><?php echo app('translator')->getFromJson('admin/entries.invoice_date_label'); ?></th>
+                  <th width="150" style="text-align: left;"><?php echo app('translator')->getFromJson('admin/entries.invoice_due_date_label'); ?></th>
+                  <th width="120" style="text-align: left;">Truck</th>
+                  <th width="100" style="text-align: left;">Destination</th>
+                  <th width="120" style="text-align: left;"><?php echo app('translator')->getFromJson('admin/entries.account_qty_label'); ?></th>
+                  <th width="100" style="text-align: left;"><?php echo app('translator')->getFromJson('admin/entries.account_unit_price_label'); ?></th>
+                  <th width="150" align="right" style="text-align: right;" width="100">Shortage</th>
+                  <th width="170" align="right" style="text-align: right;" width="100"><?php echo app('translator')->getFromJson('admin/entries.tlt_rcv_txt'); ?></th>
+                  <th width="170" align="right" style="text-align: right;" width="100" style="text-align: right;"><?php echo app('translator')->getFromJson('admin/reports.tlt_rcv'); ?></th>
 
                 </tr>
        
                 <?php $__currentLoopData = $sales; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sale): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                   <tr>
-                    <th><a href="<?php echo e(url('accounting/purchase/detail', $sale['id'])); ?>"><b><?php echo e($sale['invoice_number']); ?> </b></a></th>
-                    <th><a href="<?php echo e(url('accounting/vendors/view', $sale['customer_id'])); ?>"><b><?php echo e($sale['customer_name']); ?></b></a></th>
+                    <th><a href="<?php echo e(url('accounting/sales/detail', $sale['id'])); ?>"><b><?php echo e($sale['invoice_number']); ?> </b></a></th>
+                    <th><a href="<?php echo e(url('accounting/customers/view', $sale['customer_id'])); ?>"><b><?php echo e($sale['customer_name']); ?></b></a></th>
                     <td align="left"><?php echo e($sale['invoice_date']); ?></td>
                     <td align="left"><?php echo e($sale['due_date']); ?></td>
+                  <td align="left"><?php echo e($sale['truck']); ?></td>
+                  <td align="left"><?php echo e($sale['destination']); ?></td>
                     <td align="left"><?php echo e($sale['qty']); ?></td>
                     <td align="left"><?php echo e($sale['rate']); ?></td>
+                  <td align="right"><?php echo e($sale['discount']); ?> <?php echo e($currency); ?></td>
                     <td align="right"><?php echo e($sale['total']); ?> <?php echo e($currency); ?></td>
                     <td align="right"><?php echo e($sale['paid']); ?> <?php echo e($currency); ?></td>
                   </tr>
@@ -159,16 +169,19 @@
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                 <tr>
-                  <th><b>Total</b></th>
+                <th><b>Total</b></th>
                 <th></th>
+                <td align="right"><b></b></td>
+                <td align="right"><b></b></td>
                 <td align="right"><b></b></td>
                 <td align="right"><b></b></td>
                 <td align="left"><b><?php echo e($tlt['tlt_qty']); ?> ltr</b></td>
                 <td align="right"><b></b></td>
+                <td align="right"><b><?php echo e($tlt['tlt_dis']); ?> <?php echo e($currency); ?></b></td>
                 <td align="right"> <b><?php echo e($tlt['tlt_amt']); ?> <?php echo e($currency); ?></b></td>
                 <td align="right"><b><?php echo e($tlt['tlt_paid_amt']); ?> <?php echo e($currency); ?></b></td>
 
-                </tr>
+              </tr>
             
               <?php endif; ?>
             
@@ -177,8 +190,7 @@
         </div>
       </div>
 
-
-        
+        </div>
       </div>
       
     </div>
@@ -186,7 +198,7 @@
 </div>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('scripts'); ?>
-
+ 
 
 <script type="text/javascript">
     $('.datedropper').dateDropper();

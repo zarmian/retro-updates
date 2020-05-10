@@ -112,11 +112,11 @@
                         </td>
 
                         <td class="col-amount">
-                            <input type="text" value="" name="line_debit[]" id="line_debit[]" data-bv-callback="true" data-bv-callback-message="Wrong answer" data-bv-callback-callback="checkEqual" class="line_debit form-control1" placeholder="0.00" readonly="readonly" style=" background: #e0e0e0;" />
+                            <input type="text" value="" name="line_debit[]" id="line_debit[]" data-bv-callback="true" data-bv-callback-message="Wrong answer" data-bv-callback-callback="checkEqual" class="line_debit form-control1" placeholder="0.00"   />
                         </td>
 
                         <td class="col-amount">
-                          <input type="text" value="" name="line_credit[]" id="line_credit[]" data-bv-callback="true" data-bv-callback-message="Wrong answer" data-bv-callback-callback="checkEqual" class="line_credit form-control1" placeholder="0.00" />
+                          <input type="text" value="" name="line_credit[]" id="line_credit[]" data-bv-callback="true" data-bv-callback-message="Wrong answer" data-bv-callback-callback="checkEqual" class="line_credit form-control1" placeholder="0.00" readonly="readonly" style=" background: #e0e0e0;" />
                         </td>
 
                         <td class="col-action">
@@ -148,11 +148,11 @@
                         </td>
 
                         <td class="col-amount">
-                            <input type="text" value="" name="line_debit[]" id="line_debit[]" data-bv-callback="true" data-bv-callback-message="Wrong answer" data-bv-callback-callback="checkEqual" class="line_debit form-control1" placeholder="0.00" />
+                            <input type="text" value="" name="line_debit[]" id="line_debit[]" data-bv-callback="true" data-bv-callback-message="Wrong answer" data-bv-callback-callback="checkEqual" class="line_debit form-control1" placeholder="0.00" readonly="readonly" style=" background: #e0e0e0;" />
                         </td>
 
                         <td class="col-amount">
-                          <input type="text" value="" name="line_credit[]" id="line_credit[]" data-bv-callback="true" data-bv-callback-message="Wrong answer" data-bv-callback-callback="checkEqual" class="line_credit form-control1" placeholder="0.00" readonly="readonly" style=" background: #e0e0e0;" />
+                          <input type="text" value="" name="line_credit[]" id="line_credit[]" data-bv-callback="true" data-bv-callback-message="Wrong answer" data-bv-callback-callback="checkEqual" class="line_credit form-control1" placeholder="0.00"  />
                         </td>
 
                         <td class="col-action">

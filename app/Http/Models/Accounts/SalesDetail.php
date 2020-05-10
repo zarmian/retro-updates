@@ -20,8 +20,12 @@ class SalesDetail extends Model
     {
     	return $this->belongTo('App\Http\Models\Accounts\Sales', 'sale_id');
     }
-    public function trucks()
+    public function truck()
     {
-    	return $this->belongTo('App\Http\Models\Accounts\Trucks', 'truck');
+    	return $this->belongTo('App\Http\Models\Accounts\Trucks');
+    }
+    public function destination()
+    {
+    	return $this->belongTo('App\Http\Models\Accounts\Destination', 'destination');
     }
 }

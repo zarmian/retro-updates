@@ -8,6 +8,10 @@ use App\Http\Models\Accounts\AccountsSummery;
 use App\Http\Models\Accounts\AccountsChart;
 use App\Http\Models\Accounts\AccountsType;
 use App\Http\Models\Accounts\Journal;
+use App\Http\Models\Accounts\Vendors;
+use App\Http\Models\Accounts\Purchase;
+use App\Http\Models\Accounts\PurchaseLedger;
+use App\Http\Models\Accounts\Payment;
 use App\Http\Controllers\Controller;
 use App\Libraries\Customlib;
 use Illuminate\Http\Request;
@@ -32,6 +36,8 @@ class PaymentsSendController extends Controller
      */
     public function index()
     {
+        $date = date('d-m-Y');
+        dd($date);
         try {
             
             $data = [];
@@ -113,8 +119,7 @@ class PaymentsSendController extends Controller
             }
 
 
-            $bank_accounts = AccountsChart::where('type_id','=','38')
-            ->orWhere('type_id','=','37')
+            $bank_accounts = AccountsChart::where('type_id','=','22')
             ->get();
             if(isset($bank_accounts) && count($bank_accounts) > 0)
             {
@@ -136,7 +141,7 @@ class PaymentsSendController extends Controller
             ->where('type', '9')
             ->orderBy('code', 'DESC')
             ->first();
-            if(count($journal) > 0)
+            if(isset($journal) )
             {
                 $invoice_no = $this->getInteger($journal->code);
                 $code = str_pad($invoice_no + 1, 5, 0, STR_PAD_LEFT);
@@ -237,7 +242,181 @@ class PaymentsSendController extends Controller
                     }
 
                     AccountsSummeryDetail::insert($detail);
+                    //Auto Payment clear
+                    $code1=AccountsChart::Select('code')->where('id',$account_type[0])->first();
+                    // dd($code1);
+                    $qry2=Vendors::Select('id')->where('code',$code1->code)->first();
+                    $balance1=Payment::where('customer_id',$account_type[0])->first();
+                    $amount=$line_credit[0] + $balance1->balance;
+                    $customer_id =$qry2->id;
+
+                    $date = $nice_date;
+                    // $date=Carbon::createFromFormat('d/m/Y', $date1)->toDateString();
+
+                    $sales=$qry2->sales->where('paid_status','2');
+                    
+                    if(isset($sales))
+                    {
+                        
+                        
+                        {
+                        foreach($sales as $sale)
+                        {  $payment_number= $this->custom->getVoucherPaymentNumber();
+                           $sale1 = Purchase::findOrFail($sale->id);
+                           $tlt_paid = $sale1->paid->sum('amount');
+                           $tlt_amount = $sale1->sub_total - $sale1->discount;
+                           $remaining= $tlt_amount - $tlt_paid;
+                           if($amount > 0 )
+                           {
+                           if($amount > $remaining)
+                           {
+                               $pay_amount=$remaining;
+                               $amount= $amount-$remaining;
+                           }
+                           elseif($amount == $remaining )
+                           {
+                            $pay_amount=$remaining;
+                               $amount= $amount-$remaining;
+                           }
+                           elseif($amount < $remaining)
+                           {
+                            
+                            $pay_amount=$amount;
+                            $amount=0;
+                           }
+                           
+                            $ledger = new PurchaseLedger;
+                            $ledger->sale_id = $sale->id;
+                            $ledger->account_id = $account_type[1];
+                            $ledger->vendor_id = $customer_id;
+                            $ledger->payment_no = $payment_number;
+                            $ledger->date = $date;
+                            $ledger->references = $code;
+                            $ledger->amount = $pay_amount;
+                            $ledger->added_by = $create_by;
+                            $ledger->save();
+                           
+                           $u_sale = Purchase::findOrFail($sale1->id);
+
+                            $tlt_paid_sum = $u_sale->paid->sum('amount');
+                            $tlt_amount_sum = $u_sale->sub_total - $u_sale->discount;
+                            $is_total_paid = $tlt_amount_sum - $tlt_paid_sum;
+
+                            $partial_paid = $tlt_paid_sum*0.50;
+                            $half_payment = $tlt_amount_sum / 2;
+
+                            $is_partial = ($half_payment >= $partial_paid) ? 1 : 0;
+                            
+                            $status = 3;
+
+                           
+                            if($is_total_paid == 0){
+                                $status = 1;
+                            }elseif($is_partial == 1 && ($is_total_paid) <> 0){
+                                $status = 2;
+                            }elseif($tlt_paid_sum <=0){
+                                $status = 3;
+                            }
+
+                            $u_sale->paid_status = $status;
+                            $u_sale->save();
+                        }
+                            
+                        }
+                     
+                    }
+                        
+                    }
+                    $sales=$qry2->sales->where('paid_status','3');
+                    
+                    if(isset($sales))
+                    {
+                        
+                        {
+                        foreach($sales as $sale)
+                        {  $payment_number= $this->custom->getPaymentNumber();
+                           $sale1 = Purchase::findOrFail($sale->id);
+                           $tlt_paid = $sale1->paid->sum('amount');
+                           $tlt_amount = $sale1->sub_total - $sale1->discount;
+                           $remaining= $tlt_amount - $tlt_paid;
+                           if($amount> 0 )
+                           {
+                           if($amount > $remaining)
+                           {
+                               $pay_amount=$remaining;
+                               $amount= $amount-$remaining;
+                           }
+                           elseif($amount == $remaining )
+                           {
+                            $pay_amount=$remaining;
+                               $amount= $amount-$remaining;
+                           }
+                           elseif($amount < $remaining)
+                           {
+                            
+                            $pay_amount=$amount;
+                            $amount=0;
+                           }
+                           
+                            $ledger = new PurchaseLedger;
+                            $ledger->sale_id = $sale->id;
+                            $ledger->account_id = $account_type[1];
+                            $ledger->vendor_id = $customer_id;
+                            $ledger->payment_no = $payment_number;
+                            $ledger->date = $date;
+                            $ledger->references = $code;
+                            $ledger->amount = $pay_amount;
+                            $ledger->added_by = $create_by;
+                            $ledger->save();
+                           
+                           $u_sale = Purchase::findOrFail($sale1->id);
+
+                            $tlt_paid_sum = $u_sale->paid->sum('amount');
+                            $tlt_amount_sum = $u_sale->sub_total - $u_sale->discount;
+                            $is_total_paid = $tlt_amount_sum - $tlt_paid_sum;
+
+                            $partial_paid = $tlt_paid_sum*0.50;
+                            $half_payment = $tlt_amount_sum / 2;
+
+                            $is_partial = ($half_payment >= $partial_paid) ? 1 : 0;
+                            
+                            $status = 3;
+
+                           
+                            if($is_total_paid == 0){
+                                $status = 1;
+                            }elseif($is_partial == 1 && ($is_total_paid) <> 0){
+                                $status = 2;
+                            }elseif($tlt_paid_sum <=0){
+                                $status = 3;
+                            }
+
+                            $u_sale->paid_status = $status;
+                            $u_sale->save();
+                        }
+                            
+                        }
+                     }
+
+                        
+                    }
+                    $balance1=Payment::where('customer_id',$account_type[0])->first();
+                            if(isset($balance1))
+                            {
+                                
+                                $balance1->balance=$amount;
+                                $balance1->save();
+                            }
+                            else{
+                                $add= new Payment;
+                                $add->customer_id = $account_type[0];
+                                $add->balance = $amount;
+                                $add->save();
+                            }
+
                 }
+                
+                
 
 
                 $request->session()->flash('msg', 'Send Payment Voucher has been added sucssfully.');

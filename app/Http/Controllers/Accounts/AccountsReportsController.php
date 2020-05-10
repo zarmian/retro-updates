@@ -160,6 +160,14 @@ class AccountsReportsController extends Controller
                     }elseif($row->type==4){
                        $code_caption = __('admin/entries.ib_txt');
                        $text_caption = __('admin/entries.bank_transfer_txt');
+                    
+                    }elseif($row->type==8){
+                       $code_caption = __('PR');
+                       $text_caption = __('Payment Recieve');
+                    
+                    }elseif($row->type==9){
+                       $code_caption = __('PS');
+                       $text_caption = __('Payment Send');
                     }
                     
 
@@ -167,6 +175,7 @@ class AccountsReportsController extends Controller
                     if(isset($opening) && $opening == "cr")
                     {
                         $balance = ($prevBalance - $row['debit']) + $row['debit'];
+                        
                     }else{
                         $balance = ($prevBalance + $row['credit']) - $row['debit'];
                     }
@@ -270,7 +279,10 @@ class AccountsReportsController extends Controller
     protected function getStatmentDebit($summery_id = '')
     {
 
-        $row = AccountsSummeryDetail::select('account_id')->where('summery_id', $summery_id)->orderBy('id', 'ASC')->first();
+        $row = AccountsSummeryDetail::select('account_id')->where([
+            ['summery_id', $summery_id],
+            ['debit','0']])->first();
+            // dd($row);
         $account_name = $row->account->name;
         //$account = AccountsChart::select('name')->where()
         return $account_name;
@@ -279,7 +291,9 @@ class AccountsReportsController extends Controller
 
     protected function getStatmentCredit($summery_id = '')
     {
-        $row = AccountsSummeryDetail::select('account_id')->where('summery_id', $summery_id)->orderBy('id', 'DESC')->first();
+        $row = AccountsSummeryDetail::select('account_id')->where([
+            ['summery_id', $summery_id],
+            ['credit','0']])->first();
 
         $account_name = $row->account->name;
         return $account_name;
@@ -291,9 +305,9 @@ class AccountsReportsController extends Controller
         try {
 
             $data['banks'] = [];
-            $type_id = 37;
+            $type_id = 22;
             $banks = AccountsChart::select('id','code', 'name', 'opening_balance', 'balance_type')->whereTypeId($type_id)
-            ->orWhere('type_id',38)
+            ->orWhere('type_id',21)
             ->get();
             
             $data['tlt_balance_amt'] = 0;

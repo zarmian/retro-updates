@@ -79,27 +79,54 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Transactions<span class="caret"></span></a>        
               <ul class="dropdown-menu" role="menu">
+                <li class="dropdown-submenu"><a href="#">Sales</a>
+                  <ul class="dropdown-menu">
               <?php if(Auth::guard('auth')->user()->hasRole('SALES')): ?>
                 <li><a href="<?php echo e(url('accounting/sales/add')); ?>">New Sale</a></li>
                 <li><a href="<?php echo e(url('accounting/sales')); ?>">Sale Records</a></li>
               <?php endif; ?>
+                  </ul>
+                </li>
+                <li class="dropdown-submenu"><a href="#">Purchase</a>
+                  <ul class="dropdown-menu">
               <?php if(Auth::guard('auth')->user()->hasRole('PURCHASE')): ?>
                 <li><a href="<?php echo e(url('accounting/purchase/add')); ?>">New Purchase</a></li>
                 <li><a href="<?php echo e(url('accounting/purchase')); ?>">Purchase Record</a></li>
               <?php endif; ?>
+                  </ul>
+                </li>
 
+                <li class="dropdown-submenu"><a href="#">Payment Recieve</a>
+                  <ul class="dropdown-menu">
+              <?php if(Auth::guard('auth')->user()->hasRole('PURCHASE')): ?>
+                <li><a href="<?php echo e(url('accounting/payments/received/add')); ?>">Add Receive Voucher</a></li>
+                <li><a href="<?php echo e(url('accounting/payments/received')); ?>">Payment Receive Voucher</a></li>
+              <?php endif; ?>
+                  </ul>
+                </li>
 
-              
-
+                <li class="dropdown-submenu"><a href="#">Payment Send</a>
+                  <ul class="dropdown-menu">
+              <?php if(Auth::guard('auth')->user()->hasRole('PURCHASE')): ?>
+                <li><a href="<?php echo e(url('accounting/payments/send/add')); ?>">Add Send Voucher</a></li>
+                <li><a href="<?php echo e(url('accounting/payments/send')); ?>">Payment Send Voucher</a></li>
+              <?php endif; ?>
+                  </ul>
+                </li>
+                <li class="dropdown-submenu"><a href="#">Journal Transaction</a>
+                  <ul class="dropdown-menu">
               <?php if(Auth::guard('auth')->user()->hasRole('EXPENSES')): ?>
                 <li><a href="<?php echo e(url('accounting/journal/add')); ?>">New Journal Entry</a></li>
                 <li><a href="<?php echo e(url('accounting/journal')); ?>">Journal Record</a></li>
               <?php endif; ?>
-
+                  </ul></li>
+                  <li class="dropdown-submenu"><a href="#">Inter-Bank Transaction</a>
+                    <ul class="dropdown-menu">
               <?php if(Auth::guard('auth')->user()->hasRole('FINANCE')): ?>
                 <li><a href="<?php echo e(url('accounting/interbank/add')); ?>">Inter-Bank Trans</a></li>
                 <li><a href="<?php echo e(url('accounting/interbank')); ?>">Inter-Bank Trans Record</a></li>
               <?php endif; ?>
+                    </ul></li>
               </ul>                
             </li>
             <?php endif; ?>

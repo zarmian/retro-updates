@@ -954,13 +954,13 @@ class AccountsController extends Controller
             
             $this->validate($request, [
                 'name' => 'required',
-                'account_type' => 'required',
+                // 'account_type' => 'required',
                 'balance_type' => 'required',
             ]);
 
             
             $chart->name = $request->input('name');
-            $chart->type_id = $request->input('account_type');
+            // $chart->type_id = $request->input('account_type');
             $chart->opening_balance = $request->input('opening');
             $chart->balance_type = $request->input('balance_type');
             $chart->is_systemize = '0';

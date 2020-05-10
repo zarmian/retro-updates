@@ -65,22 +65,22 @@
 
            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 filter-dropdown">
             <!-- select option -->
-            {{-- <select name="by_type" id="by_type" class="chosen form-control1">
+            <select name="by_type" id="by_type" class="chosen form-control1">
               <option value="">@lang('admin/reports.select_by_type_option_txt')</option>
               <option value="" @if(app('request')->input('by_type') == 0) selected @endif > @lang('admin/common.select_all_txt') </option>
               <option value="3" @if(app('request')->input('by_type') == 3) selected @endif> @lang('admin/reports.unpaid_option_txt') </option>
               <option value="2" @if(app('request')->input('by_type') == 2) selected @endif> @lang('admin/reports.partial_paid_option_txt') </option>
               <option value="1" @if(app('request')->input('by_type') == 1) selected @endif> @lang('admin/reports.paid_option_txt') </option>
               
-            </select> --}}
+            </select>
             <!-- select option -->
           </div>
 
           
 
-          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+          {{-- <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
             <input type="text" name="due_date" id="due_date" class="filter-date-input datedropper placeholderchange" data-init-set="false" data-large-mode="true" placeholder="@lang('admin/reports.due_date_txt')" data-translate-mode="false" data-auto-lang="false" data-default-date="@if(isset($due_date) && $due_date <> ""){{date('m-d-Y', strtotime($due_date) )}}@else{{date('m-d-Y', time())}}@endif"  />
-           </div>
+           </div> --}}
 
 
         </div>

@@ -75,10 +75,11 @@
               <div class="col-sm-12 no-padding">
                 <ul class="clearfix">
                   
-                  <li>@lang('admin/entries.entry_no_txt'): <b> {{ $journal['code'] }} </b></li>
-                  <li style="width: 282px;">@lang('admin/entries.date_label'): <b>{{ $journal['date'] }}</b></li>
-                  <li style="width: 282px;">@lang('admin/entries.detail_txt'): <b>{{ $journal['description'] }}</b></li>
-                  <li>@lang('admin/entries.tlt_txt'): <b> {{ $journal['amount'] }} </b></li>
+                  <li style="width: 150px;">@lang('admin/entries.entry_no_txt'): <b> {{ $journal['code'] }} </b></li>
+                  <li style="width: 150px;">@lang('admin/entries.date_label'): <b>{{ $journal['date'] }}</b></li>
+                  <li style="width: 161px;">From: <b>{{ $journal['from'] }}</b></li>
+                  <li style="width: 161px;">To: <b>{{ $journal['to'] }}</b></li>
+                  <li style="text-align:right; width: 300px">@lang('admin/entries.tlt_txt'): <b> {{ $journal['amount'] }} </b></li>
                   <li>
                     
                   </li>

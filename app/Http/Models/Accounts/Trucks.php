@@ -17,9 +17,13 @@ class Trucks extends Model
     {
     	return $this->hasMany('App\Http\Models\Accounts\TruckDetail', 'truck_id');
     }
-    public function truck()
+    public function trucks()
     {
     	return $this->hasMany('App\Http\Models\Accounts\PurchaseDetail', 'title');
+    }
+    public function truck()
+    {
+    	return $this->hasMany('App\Http\Models\Accounts\SalesDetail', 'title');
     }
 
   
